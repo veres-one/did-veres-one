@@ -17,7 +17,9 @@
   },
   "homepage": "https://github.com/veres-one/did-veres-one",
   "dependencies": {
-    "ursa": "^0.9.4"
+    "jsonld": "^0.5.18",
+    "node-forge": "^0.7.1",
+    "semver": "5.5.0"
   },
   "engines": {
     "node": ">=8.9.0"
