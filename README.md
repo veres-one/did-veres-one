@@ -44,8 +44,12 @@ resolved Promise.
 Generate a new DID document.
 
 * options - a set of options used when generating the DID Document
-  * passphrase - the passphrase to use to encrypt the private keys.
-  * keyType - the type of keys to generate (default: 'rsa')
+  * didType - the type of DID to generate.
+      Options: 'nym' or 'uuid' (default: 'nym')
+  * keyType - the type of keys to generate.
+      Options: 'RsaSigningKey2018' (default: 'RsaSigningKey2018')
+  * passphrase - the passphrase to use to encrypt the private keys for
+      nym-based DIDs.
 
 An object containing the public DID Document and a DID Document containing
 the encrypted private keys.
