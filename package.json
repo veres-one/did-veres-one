@@ -1,0 +1,25 @@
+{
+  "name": "did-veres-one",
+  "version": "0.1.0-0",
+  "description": "A Decentralized Identifier utility library for Veres One",
+  "main": "lib",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/veres-one/did-veres-one.git"
+  },
+  "author": {
+    "name": "Digital Bazaar, Inc.",
+    "email": "support@digitalbazaar.com",
+    "url": "http://digitalbazaar.com"
+  },
+  "bugs": {
+    "url": "https://github.com/veres-one/did-veres-one/issues"
+  },
+  "homepage": "https://github.com/veres-one/did-veres-one",
+  "dependencies": {
+    "ursa": "^0.9.4"
+  },
+  "engines": {
+    "node": ">=8.9.0"
+  }
+}
