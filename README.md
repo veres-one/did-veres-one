@@ -49,7 +49,7 @@ Generate a new DID document.
   * keyType - the type of keys to generate.
       Options: 'RsaSigningKey2018' (default: 'RsaSigningKey2018')
   * passphrase - the passphrase to use to encrypt the private keys for
-      nym-based DIDs.
+      nym-based DIDs. Set to `null` if the private keys should not be encrypted.
 
 An object containing the public DID Document and a DID Document containing
 the encrypted private keys.
