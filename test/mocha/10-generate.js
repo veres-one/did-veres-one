@@ -4,7 +4,6 @@
 /* global should */
 'use strict';
 
-const bedrock = require('bedrock');
 const expect = global.chai.expect;
 
 describe('Veres One DIDs', () => {
@@ -14,7 +13,7 @@ describe('Veres One DIDs', () => {
     const nymOptions = {
       passphrase: 'foobar'
     };
-    let didDocument = await didv1.generate(nymOptions);
+    const didDocument = await didv1.generate(nymOptions);
 
     expect(didDocument.publicDidDocument.id).to.match(/^did\:v1\:nym\:.*/);
     expect(
@@ -29,7 +28,7 @@ describe('Veres One DIDs', () => {
     const nymOptions = {
       passphrase: null
     };
-    let didDocument = await didv1.generate(nymOptions);
+    const didDocument = await didv1.generate(nymOptions);
 
     expect(didDocument.publicDidDocument.id).to.match(/^did\:v1\:nym\:.*/);
     expect(
@@ -44,7 +43,7 @@ describe('Veres One DIDs', () => {
     const uuidOptions = {
       didType: 'uuid'
     };
-    let didDocument = await didv1.generate(uuidOptions);
+    const didDocument = await didv1.generate(uuidOptions);
 
     expect(didDocument.publicDidDocument.id).to.match(/^did\:v1\:uuid\:.*/);
   });
