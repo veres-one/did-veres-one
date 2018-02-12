@@ -57,6 +57,21 @@ Returns an object with:
 * privateDidDocument - the DID Document augmented with the encrypted private
     keys in PEM format.
 
+### Attach an ld-ocap grant proof to a capability DID Document
+
+Attach a Linked Data Object Capability Grant proof to a DID Document that is
+also a Linked Data Capability (Veres One DID Documents implicitly are). A
+capability only requires a grant proof if its `invocationTarget` is not
+self-referencing. The grant proof must be signed by a key referenced via
+the `invocationTarget`'s `grantCapability` relation.
+
+* options - a set of options used when attaching the ld-ocap grant proof
+  * operation - the operation to attach the grant proof to.
+  * creator - the ID of the public key proving grant authorization.
+  * privateKeyPem - the private key material used to sign the proof.
+
+Returns an operation object with an attached ld-ocap grant proof.
+
 ### Wrap a DID Document in a Web Ledger Operation for submission to Veres One
 
 Wrap a DID Document in a Web Ledger Operation. Once it is wrapped, it can
