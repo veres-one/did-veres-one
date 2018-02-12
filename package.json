@@ -18,6 +18,7 @@
   "homepage": "https://github.com/veres-one/did-veres-one",
   "dependencies": {
     "jsonld": "^0.5.18",
+    "jsonld-signatures": "digitalbazaar/jsonld-signatures#master",
     "node-forge": "^0.7.1",
     "semver": "5.5.0",
     "ursa": "^0.9.4",

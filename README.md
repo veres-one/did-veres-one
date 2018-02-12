@@ -39,7 +39,7 @@ The API documentation provided below is for the Promises-based API. The
 callback API works the same way where the callback provides the value for the
 resolved Promise.
 
-### Generating a DID Document
+### Generate a DID Document
 
 Generate a new DID document.
 
@@ -47,9 +47,44 @@ Generate a new DID document.
   * didType - the type of DID to generate.
       Options: 'nym' or 'uuid' (default: 'nym')
   * keyType - the type of keys to generate.
-      Options: 'RsaSigningKey2018' (default: 'RsaSigningKey2018')
+      Options: 'RsaSigningKey2018' (default: 'RsaSigningKey2018').
   * passphrase - the passphrase to use to encrypt the private keys for
       nym-based DIDs. Set to `null` if the private keys should not be encrypted.
 
-An object containing the public DID Document and a DID Document containing
-the encrypted private keys.
+Returns an object with:
+
+* publicDidDocument - the generated DID Document.
+* privateDidDocument - the DID Document augmented with the encrypted private
+    keys in PEM format.
+
+### Wrap a DID Document in a Web Ledger Operation for submission to Veres One
+
+Wrap a DID Document in a Web Ledger Operation. Once it is wrapped, it can
+have Linked Data Capability invocation proofs attached to it and it can then
+be submitted to Veres One to be stored on the ledger.
+
+* options - a set of options used when wrapping the DID Document
+  * didDocument - the DID Document to wrap.
+  * operationType - the type of operation to wrap with.
+      Options: 'create' will cause the operation type of `CreateWebLedgerRecord`
+        to be used (default: 'create').
+
+Returns an operation object ready to have proofs attached to it prior to
+submission to a Veres One Accelerator or the Veres One ledger.
+
+### Attach an ld-ocap invocation proof to an operation
+
+Attach a Linked Data Object Capability Invocation proof to an operation. Once
+the operation is submitted to Veres One, the ledger nodes will be able to
+use the invocation proof to authorize the operation.
+
+* options - a set of options used when attaching the ld-ocap invocation proof
+  * operation - the operation to attach the invocation proof to.
+  * capability - the ID of the capability that is being invoked (e.g. the
+      ID of the record in the operation for self-invoked capabilities).
+  * capabilityAction - the capability action being invoked.
+  * creator - the ID of the public key proving invocation authorization.
+  * privateKeyPem - the private key material used to sign the proof.
+
+Returns an operation object with an attached ld-ocap invocation proof, ready to
+be submitted to the Veres One ledger.

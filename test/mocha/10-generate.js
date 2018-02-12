@@ -6,7 +6,7 @@
 
 const expect = global.chai.expect;
 
-describe('Veres One DIDs', () => {
+describe('Veres One generate DIDs', () => {
   const didv1 = require('../../lib');
 
   it('should generate protected nym-based DID Document', async () => {

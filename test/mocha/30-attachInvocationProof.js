@@ -1,0 +1,57 @@
+/*
+ * Copyright (c) 2018 Veres One Project. All rights reserved.
+ */
+/* global should */
+'use strict';
+
+const expect = global.chai.expect;
+
+describe('Veres One attachInvocationProof', () => {
+  const didv1 = require('../../lib');
+
+  // FIXME: determine how to simplify/move this code out of test
+  const jsonld = didv1.use('jsonld');
+  const documentLoader = jsonld.documentLoader;
+  jsonld.documentLoader = async url => {
+    if(url === 'https://w3id.org/veres-one/v1') {
+      return {
+        contextUrl: null,
+        documentUrl: url,
+        document: require('../../lib/contexts/veres-one-v1')
+      }
+    }
+    return documentLoader(url);
+  };
+  const jsigs = require('jsonld-signatures');
+  jsigs.use('jsonld', jsonld);
+  didv1.use('jsonld-signatures', jsigs);
+
+  it('should attach an ld-ocap invocation proof to an operation', async () => {
+    const {publicDidDocument: didDocument, privateDidDocument} =
+      await didv1.generate({passphrase: null});
+
+    let operation = didv1.wrap({didDocument});
+    const creator = didDocument.invokeCapability[0].publicKey.id;
+    const privateKeyPem = privateDidDocument.invokeCapability[0].publicKey
+      .privateKeyPem;
+
+    operation = await didv1.attachInvocationProof({
+      operation,
+      capability: didDocument.id,
+      capabilityAction: operation.type,
+      creator,
+      privateKeyPem
+    });
+
+    expect(operation.type).to.equal('CreateWebLedgerRecord');
+    expect(operation.record.id).to.match(/^did\:v1\:nym\:.*/);
+    expect(operation.record.authentication[0].publicKey.publicKeyPem)
+      .to.have.string('-----BEGIN PUBLIC KEY-----');
+    expect(operation.proof).to.exist;
+    expect(operation.proof.capabilityAction).to.equal(operation.type);
+    expect(operation.proof.proofPurpose).to.equal('invokeCapability');
+    expect(operation.proof.creator).to.equal(creator);
+    expect(operation.proof.jws).to.exist;
+  }).timeout(30000);
+
+});
