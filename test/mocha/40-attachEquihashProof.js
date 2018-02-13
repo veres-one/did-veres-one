@@ -13,12 +13,12 @@ describe('Veres One attachEquihashProof', () => {
   const jsonld = didv1.use('jsonld');
   const documentLoader = jsonld.documentLoader;
   jsonld.documentLoader = async url => {
-    if(url === 'https://w3id.org/veres-one/v1') {
+    if(url in didv1.contexts) {
       return {
         contextUrl: null,
         documentUrl: url,
-        document: require('../../lib/contexts/veres-one-v1')
-      }
+        document: didv1.contexts[url]
+      };
     }
     return documentLoader(url);
   };
