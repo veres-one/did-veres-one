@@ -51,7 +51,7 @@ describe('Veres One attachEquihashProof', () => {
     operation = await didv1.attachEquihashProof({operation});
 
     expect(operation.type).to.equal('CreateWebLedgerRecord');
-    expect(operation.record.id).to.match(/^did\:v1\:nym\:.*/);
+    expect(operation.record.id).to.match(/^did\:v1\:test\:nym\:.*/);
     expect(operation.record.authentication[0].publicKey.publicKeyPem)
       .to.have.string('-----BEGIN PUBLIC KEY-----');
     expect(operation.proof).to.exist;

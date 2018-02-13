@@ -15,7 +15,8 @@ describe('Veres One generate DIDs', () => {
     };
     const didDocument = await didv1.generate(nymOptions);
 
-    expect(didDocument.publicDidDocument.id).to.match(/^did\:v1\:nym\:.*/);
+    expect(didDocument.publicDidDocument.id).to.match(
+      /^did\:v1\:test\:nym\:.*/);
     expect(
       didDocument.publicDidDocument.authentication[0].publicKey.publicKeyPem)
       .to.have.string('-----BEGIN PUBLIC KEY-----');
@@ -30,7 +31,8 @@ describe('Veres One generate DIDs', () => {
     };
     const didDocument = await didv1.generate(nymOptions);
 
-    expect(didDocument.publicDidDocument.id).to.match(/^did\:v1\:nym\:.*/);
+    expect(didDocument.publicDidDocument.id).to.match(
+      /^did\:v1\:test\:nym\:.*/);
     expect(
       didDocument.publicDidDocument.authentication[0].publicKey.publicKeyPem)
       .to.have.string('-----BEGIN PUBLIC KEY-----');
@@ -45,7 +47,8 @@ describe('Veres One generate DIDs', () => {
     };
     const didDocument = await didv1.generate(uuidOptions);
 
-    expect(didDocument.publicDidDocument.id).to.match(/^did\:v1\:uuid\:.*/);
+    expect(didDocument.publicDidDocument.id).to.match(
+      /^did\:v1\:test\:uuid\:.*/);
   });
 
 });

@@ -15,7 +15,7 @@ describe('Veres One wrap DIDs', () => {
 
     const operation = didv1.wrap({didDocument});
     expect(operation.type).to.equal('CreateWebLedgerRecord');
-    expect(operation.record.id).to.match(/^did\:v1\:nym\:.*/);
+    expect(operation.record.id).to.match(/^did\:v1\:test\:nym\:.*/);
     expect(operation.record.authentication[0].publicKey.publicKeyPem)
       .to.have.string('-----BEGIN PUBLIC KEY-----');
   }).timeout(30000);
@@ -25,7 +25,7 @@ describe('Veres One wrap DIDs', () => {
       {didType: 'uuid'});
     const operation = didv1.wrap({didDocument});
     expect(operation.type).to.equal('CreateWebLedgerRecord');
-    expect(operation.record.id).to.match(/^did\:v1\:uuid\:.*/);
+    expect(operation.record.id).to.match(/^did\:v1\:test\:uuid\:.*/);
   });
 
 });
