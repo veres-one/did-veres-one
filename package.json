@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/veres-one/did-veres-one",
   "dependencies": {
+    "bs58": "^4.0.1",
+    "ed25519": "0.0.4",
     "equihash-signature": "digitalbazaar/equihash-signature#master",
     "jsonld": "^0.5.18",
     "jsonld-signatures": "digitalbazaar/jsonld-signatures#master",
