@@ -47,7 +47,7 @@ Generate a new DID document.
   * didType - the type of DID to generate.
       Options: 'nym' or 'uuid' (default: 'nym')
   * keyType - the type of keys to generate.
-      Options: 'RsaSigningKey2018' (default: 'RsaSigningKey2018').
+      Options: 'RsaVerificationKey2018' (default: 'RsaVerificationKey2018').
   * passphrase - the passphrase to use to encrypt the private keys for
       nym-based DIDs. Set to `null` if the private keys should not be encrypted.
   * env - the environment to generate the DID in.
