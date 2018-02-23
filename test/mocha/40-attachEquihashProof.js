@@ -35,9 +35,9 @@ describe('Veres One attachEquihashProof', () => {
 
     // attach an capability invocation proof
     let operation = didv1.wrap({didDocument});
-    const creator = didDocument.invokeCapability[0].publicKey.id;
-    const privateKeyPem = privateDidDocument.invokeCapability[0].publicKey
-      .privateKeyPem;
+    const creator = didDocument.invokeCapability[0].publicKey[0].id;
+    const privateKeyPem = privateDidDocument.invokeCapability[0].publicKey[0]
+      .privateKey.privateKeyPem;
 
     operation = await didv1.attachInvocationProof({
       operation,
@@ -52,7 +52,7 @@ describe('Veres One attachEquihashProof', () => {
 
     expect(operation.type).to.equal('CreateWebLedgerRecord');
     expect(operation.record.id).to.match(/^did\:v1\:test\:nym\:.*/);
-    expect(operation.record.authentication[0].publicKey.publicKeyPem)
+    expect(operation.record.authentication[0].publicKey[0].publicKeyPem)
       .to.have.string('-----BEGIN PUBLIC KEY-----');
     expect(operation.proof).to.exist;
     // capability invocation proof

@@ -18,10 +18,11 @@ describe('Veres One generate DIDs', () => {
     expect(didDocument.publicDidDocument.id).to.match(
       /^did\:v1\:test\:nym\:.*/);
     expect(
-      didDocument.publicDidDocument.authentication[0].publicKey.publicKeyPem)
+      didDocument.publicDidDocument.authentication[0].publicKey[0].publicKeyPem)
       .to.have.string('-----BEGIN PUBLIC KEY-----');
     expect(
-      didDocument.privateDidDocument.authentication[0].publicKey.privateKeyPem)
+      didDocument.privateDidDocument.authentication[0].publicKey[0]
+        .privateKey.privateKeyPem)
       .to.have.string('-----BEGIN ENCRYPTED PRIVATE KEY-----');
   }).timeout(30000);
 
@@ -34,10 +35,11 @@ describe('Veres One generate DIDs', () => {
     expect(didDocument.publicDidDocument.id).to.match(
       /^did\:v1\:test\:nym\:.*/);
     expect(
-      didDocument.publicDidDocument.authentication[0].publicKey.publicKeyPem)
+      didDocument.publicDidDocument.authentication[0].publicKey[0].publicKeyPem)
       .to.have.string('-----BEGIN PUBLIC KEY-----');
     expect(
-      didDocument.privateDidDocument.authentication[0].publicKey.privateKeyPem)
+      didDocument.privateDidDocument.authentication[0].publicKey[0]
+        .privateKey.privateKeyPem)
       .to.have.string('-----BEGIN RSA PRIVATE KEY-----');
   }).timeout(30000);
 

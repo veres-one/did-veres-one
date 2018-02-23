@@ -30,9 +30,9 @@ describe('Veres One attachGrantProof', () => {
     let {publicDidDocument: didDocument, privateDidDocument} =
       await didv1.generate({passphrase: null});
 
-    const creator = didDocument.grantCapability[0].publicKey.id;
-    const privateKeyPem = privateDidDocument.grantCapability[0].publicKey
-      .privateKeyPem;
+    const creator = didDocument.grantCapability[0].publicKey[0].id;
+    const privateKeyPem = privateDidDocument.grantCapability[0].publicKey[0]
+      .privateKey.privateKeyPem;
 
     didDocument = await didv1.attachGrantProof({
       didDocument,
