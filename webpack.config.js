@@ -1,8 +1,10 @@
 module.exports = {
-  entry: './lib',
+  entry: {
+    'did-veres-one': './lib'
+  },
   output: {
-    filename: 'did-veres-one.min.js',
-    library: 'did-veres-one',
+    filename: '[name].min.js',
+    library: '[name]',
     libraryTarget: 'amd',
   }
 }
