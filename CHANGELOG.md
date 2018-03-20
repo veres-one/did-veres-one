@@ -1,5 +1,7 @@
 # did-veres-one ChangeLog
 
+## 0.1.2 - 2018-03-20
+
 ### Added
 - Build browser file with webpack.
 
