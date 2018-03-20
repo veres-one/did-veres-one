@@ -3,6 +3,12 @@
   "version": "0.1.2-0",
   "description": "A Decentralized Identifier utility library for Veres One",
   "main": "lib",
+  "files": [
+    "dist/*.js",
+    "dist/*.js.map",
+    "lib/*.js",
+    "lib/**/*.js"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/veres-one/did-veres-one.git"
@@ -23,11 +29,23 @@
     "jsonld": "^1.0.1",
     "jsonld-signatures": "^2.2.1",
     "node-forge": "^0.7.4",
-    "semver": "5.5.0",
     "ursa": "^0.9.4",
     "uuid": "3.2.1"
   },
+  "devDependencies": {
+    "webpack": "^4.1.1",
+    "webpack-cli": "^2.0.12"
+  },
   "engines": {
     "node": ">=8.9.0"
+  },
+  "browser": {
+    "bs58": false,
+    "chloride": false,
+    "ursa": false
+  },
+  "scripts": {
+    "prepublish": "npm run build",
+    "build": "webpack"
   }
 }
