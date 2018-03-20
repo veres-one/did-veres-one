@@ -1,5 +1,10 @@
 # did-veres-one ChangeLog
 
+## 0.1.1 - 2018-03-20
+
+### Added
+- Add in-browser ed25519 key generation.
+
 ## 0.1.0 - 2018-03-20
 
 ### Added
