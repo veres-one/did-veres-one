@@ -46,6 +46,6 @@
   },
   "scripts": {
     "prepublish": "npm run build",
-    "build": "webpack"
+    "build": "webpack -p"
   }
 }
