@@ -22,7 +22,7 @@
     "equihash-signature": "digitalbazaar/equihash-signature#master",
     "jsonld": "^1.0.1",
     "jsonld-signatures": "^2.2.1",
-    "node-forge": "^0.7.1",
+    "node-forge": "^0.7.4",
     "semver": "5.5.0",
     "ursa": "^0.9.4",
     "uuid": "3.2.1"
