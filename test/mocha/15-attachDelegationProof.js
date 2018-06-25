@@ -6,7 +6,7 @@
 
 const expect = global.chai.expect;
 
-describe('Veres One attachGrantProof', () => {
+describe('Veres One attachDelegationProof', () => {
   const didv1 = require('../../lib');
 
   // FIXME: determine how to simplify/move this code out of test
@@ -30,11 +30,11 @@ describe('Veres One attachGrantProof', () => {
     let {publicDidDocument: didDocument, privateDidDocument} =
       await didv1.generate({passphrase: null});
 
-    const creator = didDocument.grantCapability[0].publicKey[0].id;
-    const privateKeyPem = privateDidDocument.grantCapability[0].publicKey[0]
-      .privateKey.privateKeyPem;
+    const creator = didDocument.capabilityDelegation[0].publicKey[0].id;
+    const privateKeyPem = privateDidDocument.capabilityDelegation[0]
+      .publicKey[0].privateKey.privateKeyPem;
 
-    didDocument = await didv1.attachGrantProof({
+    didDocument = await didv1.attachDelegationProof({
       didDocument,
       creator,
       privateKeyPem
@@ -42,7 +42,7 @@ describe('Veres One attachGrantProof', () => {
 
     expect(didDocument.proof).to.exist;
     expect(didDocument.proof.type).to.equal('RsaSignature2018');
-    expect(didDocument.proof.proofPurpose).to.equal('grantCapability');
+    expect(didDocument.proof.proofPurpose).to.equal('capabilityDelegation');
     expect(didDocument.proof.creator).to.equal(creator);
     expect(didDocument.proof.jws).to.exist;
   }).timeout(30000);
