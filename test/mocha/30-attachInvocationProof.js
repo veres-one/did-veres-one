@@ -31,9 +31,9 @@ describe('Veres One attachInvocationProof', () => {
       await didv1.generate({passphrase: null});
 
     let operation = didv1.wrap({didDocument});
-    const creator = didDocument.invokeCapability[0].publicKey[0].id;
-    const privateKeyPem = privateDidDocument.invokeCapability[0].publicKey[0]
-      .privateKey.privateKeyPem;
+    const creator = didDocument.capabilityInvocation[0].publicKey[0].id;
+    const privateKeyPem = privateDidDocument.capabilityInvocation[0]
+      .publicKey[0].privateKey.privateKeyPem;
 
     operation = await didv1.attachInvocationProof({
       operation,
@@ -50,7 +50,7 @@ describe('Veres One attachInvocationProof', () => {
     expect(operation.proof).to.exist;
     expect(operation.proof.type).to.equal('RsaSignature2018');
     expect(operation.proof.capabilityAction).to.equal(operation.type);
-    expect(operation.proof.proofPurpose).to.equal('invokeCapability');
+    expect(operation.proof.proofPurpose).to.equal('capabilityInvocation');
     expect(operation.proof.creator).to.equal(creator);
     expect(operation.proof.jws).to.exist;
   }).timeout(30000);
