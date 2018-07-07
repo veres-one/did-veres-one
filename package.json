@@ -29,7 +29,7 @@
     "jsonld": "^1.0.1",
     "jsonld-signatures": "^2.2.1",
     "node-forge": "^0.7.4",
-    "ursa": "^0.9.4",
+    "ursa": "github:JoshKaufman/ursa#7083023efe0dd3802573c4cdbe8b4916708a5a51",
     "uuid": "3.2.1"
   },
   "devDependencies": {
