@@ -17,7 +17,7 @@ describe('Veres One generate DIDs', () => {
     const didDocument = await didv1.generate(nymOptions);
 
     expect(didDocument.publicDidDocument.id).to.match(
-      /^did\:v1\:test\:nym\:.*/);
+      /^did\:v1\:test\:nym\:z.*/);
     expect(
       didDocument.publicDidDocument.authentication[0].publicKey[0].publicKeyPem)
       .to.have.string('-----BEGIN PUBLIC KEY-----');
@@ -35,7 +35,7 @@ describe('Veres One generate DIDs', () => {
     const didDocument = await didv1.generate(nymOptions);
 
     expect(didDocument.publicDidDocument.id).to.match(
-      /^did\:v1\:test\:nym\:.*/);
+      /^did\:v1\:test\:nym\:z.*/);
     expect(
       didDocument.publicDidDocument.authentication[0].publicKey[0].publicKeyPem)
       .to.have.string('-----BEGIN PUBLIC KEY-----');
@@ -61,7 +61,10 @@ describe('Veres One generate DIDs', () => {
       .to.have.lengthOf.above(128);
     expect(didDocument.publicDidDocument.authentication[0].publicKey[0]
       .publicKeyBase58)
-      .to.have.lengthOf(44);
+      .to.have.lengthOf.above(43);
+    expect(didDocument.publicDidDocument.authentication[0].publicKey[0]
+      .publicKeyBase58)
+      .to.have.lengthOf.below(45);
   }).timeout(30000);
 
   it('should generate unprotected ed25519 nym-based DID Document', async () => {
@@ -77,7 +80,10 @@ describe('Veres One generate DIDs', () => {
       .to.have.string('nym:z');
     expect(didDocument.publicDidDocument.authentication[0].publicKey[0]
       .publicKeyBase58)
-      .to.have.lengthOf(44);
+      .to.have.lengthOf.above(43);
+    expect(didDocument.publicDidDocument.authentication[0].publicKey[0]
+      .publicKeyBase58)
+      .to.have.lengthOf.below(45);
   }).timeout(30000);
 
   it('should generate uuid-based DID Document', async () => {
