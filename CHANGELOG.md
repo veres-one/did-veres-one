@@ -1,5 +1,12 @@
 # did-veres-one ChangeLog
 
+## 2.0.0 - 2018-09-19
+
+### Added
+- Migrate to use multiformat for expression of cryptonym DIDs.
+- Update ocap terminology.
+
+
 ## 1.0.0 - 2018-09-19
 
 ### Added
