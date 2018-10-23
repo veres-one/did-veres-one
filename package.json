@@ -2,12 +2,9 @@
   "name": "did-veres-one",
   "version": "2.0.1-0",
   "description": "A Decentralized Identifier utility library for Veres One",
-  "main": "lib",
+  "main": "lib/index.js",
   "files": [
-    "dist/*.js",
-    "dist/*.js.map",
-    "lib/*.js",
-    "lib/**/*.js"
+    "lib/"
   ],
   "repository": {
     "type": "git",
@@ -22,30 +19,31 @@
     "url": "https://github.com/veres-one/did-veres-one/issues"
   },
   "homepage": "https://github.com/veres-one/did-veres-one",
+  "scripts": {
+    "mocha": "mocha ./tests/*.spec.js",
+    "test": "npm run mocha",
+    "preversion": "npm test",
+    "postversion": "git push --follow-tags"
+  },
   "dependencies": {
-    "bs58": "^4.0.1",
-    "chloride": "^2.2.8",
+    "crypto-ld": "github:digitalbazaar/crypto-ld",
+    "did-client-veres-one": "veres-one/did-client-veres-one#did-io-refactoring",
     "equihash-signature": "digitalbazaar/equihash-signature#master",
+    "fast-json-patch": "^2.0.6",
+    "flex-docstore": "0.0.1",
     "jsonld": "^1.0.1",
-    "jsonld-signatures": "^2.2.1",
-    "node-forge": "^0.7.4",
-    "ursa": "github:JoshKaufman/ursa#7083023efe0dd3802573c4cdbe8b4916708a5a51",
-    "uuid": "3.2.1"
+    "jsonld-signatures": "^2.3.0",
+    "veres-one-context": "^5.0.0"
   },
   "devDependencies": {
-    "webpack": "^4.1.1",
-    "webpack-cli": "^2.0.12"
+    "chai": "^4.1.2",
+    "dirty-chai": "^2.0.1",
+    "mocha": "^5.0.5",
+    "nock": "^10.0.0",
+    "sinon": "^7.0.0",
+    "sinon-chai": "^3.0.0"
   },
   "engines": {
-    "node": ">=8.9.0"
-  },
-  "browser": {
-    "bs58": false,
-    "chloride": false,
-    "ursa": false
-  },
-  "scripts": {
-    "prepublish": "npm run build",
-    "build": "webpack -p"
+    "node": ">=8.3.0"
   }
 }

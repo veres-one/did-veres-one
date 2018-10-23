@@ -1,5 +1,10 @@
 # did-veres-one ChangeLog
 
+## 3.0.0 - 2018-10-22
+
+### Changed
+- Extracted VeresOne specific code from `did-io` into this lib.
+
 ## 2.0.0 - 2018-09-19
 
 ### Added
