@@ -26,14 +26,16 @@
     "postversion": "git push --follow-tags"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "crypto-ld": "github:digitalbazaar/crypto-ld",
-    "did-client-veres-one": "veres-one/did-client-veres-one#did-io-refactoring",
     "equihash-signature": "digitalbazaar/equihash-signature#master",
     "fast-json-patch": "^2.0.6",
     "flex-docstore": "0.0.1",
-    "jsonld": "^1.0.1",
+    "http-signature": "^1.2.0",
+    "jsonld": "^1.1.0",
     "jsonld-signatures": "^2.3.0",
-    "veres-one-context": "^5.0.0"
+    "veres-one-context": "^5.0.0",
+    "web-ledger-client": "digitalbazaar/web-ledger-client#development"
   },
   "devDependencies": {
     "chai": "^4.1.2",
