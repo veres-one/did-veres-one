@@ -87,6 +87,74 @@ describe('VeresOneDidDoc', () => {
     });
   });
 
+  describe('validateDid', () => {
+    const exampleDoc = require('./dids/did-v1-test-nym-eddsa-example.json');
+    let didDoc;
+
+    beforeEach(() => {
+      didDoc = new VeresOneDidDoc({});
+    });
+
+    it('should throw on invalid/malformed DID', () => {
+      didDoc.id = '1234';
+      (() => didDoc.validateDid({env: 'test'}))
+        .should.throw(/^Invalid DID format/);
+
+      didDoc.id = 'did:v1:uuid:'; // empty specific id
+      (() => didDoc.validateDid())
+        .should.throw(/^Invalid DID format/);
+
+      didDoc.id = 'did:v1:uuid:123%abc'; // invalid character
+      (() => didDoc.validateDid())
+        .should.throw(/^Specific id contains invalid characters/);
+    });
+
+    it('should throw when test: not present in DID in test mode', () => {
+      didDoc.id = 'did:v1:test:uuid:1234';
+      (() => didDoc.validateDid({env: 'test'}))
+        .should.not.throw();
+
+      didDoc.id = 'did:v1:uuid:1234';
+      (() => didDoc.validateDid({env: 'test'}))
+        .should.throw(/^DID is invalid for test mode/);
+    });
+
+    it('should throw when test: is present in DID not in test mode', () => {
+      didDoc.id = 'did:v1:uuid:1234';
+      (() => didDoc.validateDid({env: 'live'})).should.not.throw();
+
+      didDoc.id = 'did:v1:test:uuid:1234';
+      (() => didDoc.validateDid({env: 'live'}))
+        .should.throw(/^Test DID is invalid for/);
+    });
+
+    it('should throw if key is not provided for verifying cryptonym', () => {
+      didDoc.id = 'did:v1:nym:z1234';
+      (() => didDoc.validateDid())
+        .should.throw(/Public key is required for cryptonym verification/);
+    });
+
+    it('should validate against the correct invoker key', async () => {
+      const didDoc = new VeresOneDidDoc({doc: exampleDoc});
+      const invokeKey = didDoc.doc.capabilityInvocation[0].publicKey[0];
+      const keyPair = await LDKeyPair.from(invokeKey);
+      await didDoc.validateDid({keyPair, env: 'test'});
+    });
+
+    it('should throw error if validating against incorrect key', async () => {
+      const didDoc = new VeresOneDidDoc({doc: exampleDoc});
+      const authKeyPair = await LDKeyPair.from(
+        didDoc.doc.authentication[0].publicKey[0]
+      );
+      try {
+        didDoc.validateDid({keyPair: authKeyPair, env: 'test'})
+      } catch(error) {
+        expect(error.message)
+          .to.equal('Invalid DID - fingerprint does not verify against key');
+      }
+    });
+  });
+
   describe('exportKeys', () => {
     it('should return an empty object when no keys are present', async () => {
       const didDoc = new VeresOneDidDoc();
@@ -111,7 +179,7 @@ describe('VeresOneDidDoc', () => {
   describe('importKeys', () => {
     const exampleDoc = require('./dids/did-v1-test-nym-eddsa-example.json');
     const exampleKeys = require('./dids/did-v1-test-nym-eddsa-example-keys.json');
-    const keyId = 'did:v1:test:nym:DfKCjXdt3cKzCsi4EGxhYcYvEa8k1Sz6wBH9MREs3y4r#authn-key-1';
+    const keyId = 'did:v1:test:nym:z279wbVAtyvuhWzM8CyMScPvS2G7RmkvGrBX5jf3MDmzmow3#authn-key-1';
 
     it('should import keys', async () => {
       const didDoc = new VeresOneDidDoc({doc: exampleDoc, injector});
@@ -130,7 +198,7 @@ describe('VeresOneDidDoc', () => {
   describe('addKey/removeKey', () => {
     const exampleDoc = require('./dids/did-v1-test-nym-eddsa-example.json');
     const exampleKeys = require('./dids/did-v1-test-nym-eddsa-example-keys.json');
-    const did = 'did:v1:test:nym:DfKCjXdt3cKzCsi4EGxhYcYvEa8k1Sz6wBH9MREs3y4r';
+    const did = 'did:v1:test:nym:z279wbVAtyvuhWzM8CyMScPvS2G7RmkvGrBX5jf3MDmzmow3';
     const keyId = `${did}#authn-key-1`;
     const didDoc = new VeresOneDidDoc({doc: exampleDoc, injector});
 

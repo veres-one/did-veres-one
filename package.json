@@ -27,7 +27,7 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
-    "crypto-ld": "github:digitalbazaar/crypto-ld",
+    "crypto-ld": "github:digitalbazaar/crypto-ld#rc-0.0.2",
     "equihash-signature": "digitalbazaar/equihash-signature#master",
     "fast-json-patch": "^2.0.6",
     "flex-docstore": "0.0.1",
