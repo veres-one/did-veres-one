@@ -87,6 +87,20 @@ describe('VeresOneDidDoc', () => {
     });
   });
 
+  describe('isCryptonym', () => {
+    it('should test for DID type', () => {
+      const didDoc = new VeresOneDidDoc({});
+
+      expect(didDoc.isCryptonym()).to.be.false(); // no did yet
+
+      didDoc.id = 'did:v1:nym:z1234';
+      expect(didDoc.isCryptonym()).to.be.true();
+
+      didDoc.id = 'did:v1:uuid:1234';
+      expect(didDoc.isCryptonym()).to.be.false();
+    });
+  });
+
   describe('validateDid', () => {
     const exampleDoc = require('./dids/did-v1-test-nym-eddsa-example.json');
     let didDoc;
