@@ -27,23 +27,23 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
-    "crypto-ld": "github:digitalbazaar/crypto-ld#rc-0.0.2",
+    "crypto-ld": "^1.0.0",
     "equihash-signature": "digitalbazaar/equihash-signature#master",
-    "fast-json-patch": "^2.0.6",
+    "fast-json-patch": "^2.0.7",
     "flex-docstore": "0.0.1",
     "http-signature": "^1.2.0",
     "jsonld": "^1.1.0",
-    "jsonld-signatures": "^2.3.0",
-    "veres-one-context": "^5.0.0",
+    "jsonld-signatures": "^2.3.1",
+    "veres-one-context": "^7.0.0",
     "web-ledger-client": "digitalbazaar/web-ledger-client#development"
   },
   "devDependencies": {
-    "chai": "^4.1.2",
+    "chai": "^4.2.0",
     "dirty-chai": "^2.0.1",
-    "mocha": "^5.0.5",
-    "nock": "^10.0.0",
-    "sinon": "^7.0.0",
-    "sinon-chai": "^3.0.0"
+    "mocha": "^5.2.0",
+    "nock": "^10.0.2",
+    "sinon": "^7.1.1",
+    "sinon-chai": "^3.2.0"
   },
   "engines": {
     "node": ">=8.3.0"
