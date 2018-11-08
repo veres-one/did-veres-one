@@ -35,7 +35,7 @@
     "jsonld": "^1.1.0",
     "jsonld-signatures": "^2.3.1",
     "veres-one-context": "^7.0.0",
-    "web-ledger-client": "digitalbazaar/web-ledger-client#development"
+    "web-ledger-client": "^1.0.0"
   },
   "devDependencies": {
     "chai": "^4.2.0",
