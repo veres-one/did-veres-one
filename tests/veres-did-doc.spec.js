@@ -96,21 +96,21 @@ describe('VeresOneDidDoc', () => {
     });
 
     it('should throw on invalid/malformed DID', async () => {
-      didDoc.id = '1234';
+      didDoc.doc.id = '1234';
       try {
         await didDoc.validateDid({env: 'test'});
       } catch(error) {
         error.message.should.match(/^Invalid DID format/);
       }
 
-      didDoc.id = 'did:v1:uuid:'; // empty specific id
+      didDoc.doc.id = 'did:v1:uuid:'; // empty specific id
       try {
         await didDoc.validateDid();
       } catch(error) {
         error.message.should.match(/^Invalid DID format/);
       }
 
-      didDoc.id = 'did:v1:uuid:123%abc'; // invalid character
+      didDoc.doc.id = 'did:v1:uuid:123%abc'; // invalid character
       try {
         await didDoc.validateDid();
       } catch(error) {
@@ -119,26 +119,26 @@ describe('VeresOneDidDoc', () => {
     });
 
     it.skip('should throw when test: not present in DID in test mode', () => {
-      didDoc.id = 'did:v1:test:uuid:1234';
+      didDoc.doc.id = 'did:v1:test:uuid:1234';
       (async () => await didDoc.validateDid({env: 'test'}))
         .should.not.throw();
 
-      didDoc.id = 'did:v1:uuid:1234';
+      didDoc.doc.id = 'did:v1:uuid:1234';
       (async () => await didDoc.validateDid({env: 'test'}))
         .should.throw(/^DID is invalid for test mode/);
     });
 
     it.skip('should throw when test: is present in DID not in test mode', async () => {
-      didDoc.id = 'did:v1:uuid:1234';
+      didDoc.doc.id = 'did:v1:uuid:1234';
       (async () => await didDoc.validateDid({env: 'live'})).should.not.throw();
 
-      didDoc.id = 'did:v1:test:uuid:1234';
+      didDoc.doc.id = 'did:v1:test:uuid:1234';
       (async () => await didDoc.validateDid({env: 'live'}))
         .should.throw(/^Test DID is invalid for/);
     });
 
     it.skip('should throw if key is not provided for verifying cryptonym', () => {
-      didDoc.id = 'did:v1:nym:z1234';
+      didDoc.doc.id = 'did:v1:nym:z1234';
       (async () => didDoc.validateDid())
         .should.throw(/Public key is required for cryptonym verification/);
     });
