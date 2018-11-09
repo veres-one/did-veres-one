@@ -6,7 +6,7 @@ chai.should();
 const {expect} = chai;
 const Store = require('flex-docstore');
 
-const VeresOne = require('../lib/veres-one');
+const VeresOne = require('../lib/VeresOne');
 
 const TEST_DID = 'did:v1:test:nym:2pfPix2tcwa7gNoMRxdcHbEyFGqaVBPNntCsDZexVeHX';
 const TEST_DID_RESULT = require('./dids/genesis.testnet.did.json');

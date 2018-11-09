@@ -1,6 +1,6 @@
 'use strict';
 
-const VeresOne = require('../lib/veres-one');
+const VeresOne = require('../lib/VeresOne');
 const Injector = require('../lib/Injector');
 const injector = new Injector();
 
