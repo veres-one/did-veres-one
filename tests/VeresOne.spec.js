@@ -255,10 +255,11 @@ describe('methods/veres-one', () => {
       });
 
       expect(didDocument.proof).to.exist();
-      expect(didDocument.proof.type).to.equal('RsaSignature2018');
-      expect(didDocument.proof.proofPurpose).to.equal('capabilityDelegation');
-      expect(didDocument.proof.creator).to.equal(creator);
-      expect(didDocument.proof.jws).to.exist();
+      const proof = didDocument.proof['@graph'];
+      expect(proof.type).to.equal('RsaSignature2018');
+      expect(proof.proofPurpose).to.equal('capabilityDelegation');
+      expect(proof.creator).to.equal(creator);
+      expect(proof.jws).to.exist();
     }).timeout(30000);
   });
 

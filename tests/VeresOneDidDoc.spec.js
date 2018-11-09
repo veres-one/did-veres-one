@@ -289,7 +289,7 @@ describe('VeresOneDidDoc', () => {
       const didDoc = new VeresOneDidDoc({keyType, injector});
 
       expect(JSON.stringify(didDoc))
-        .to.equal('{"@context":"https://w3id.org/veres-one/v1"}');
+        .to.equal('{"@context":["https://w3id.org/veres-one/v1","https://w3id.org/did/v1"]}');
     });
   });
 });
