@@ -254,8 +254,8 @@ describe('methods/veres-one', () => {
         privateKeyPem
       });
 
-      expect(didDocument.proof).to.exist();
-      const proof = didDocument.proof['@graph'];
+      const {proof} = didDocument;
+      expect(proof).to.exist();
       expect(proof.type).to.equal('RsaSignature2018');
       expect(proof.proofPurpose).to.equal('capabilityDelegation');
       expect(proof.creator).to.equal(creator);
