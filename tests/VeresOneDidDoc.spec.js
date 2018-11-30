@@ -175,13 +175,11 @@ describe('VeresOneDidDoc', () => {
       await didDoc.init({env: 'test', passphrase: null});
 
       const keys = await didDoc.exportKeys();
-
-      expect(keys[didDoc.id + '#authn-key-1'])
-        .to.have.property('privateKeyBase58');
-      expect(keys[didDoc.id + '#ocap-invoke-key-1'])
-        .to.have.property('privateKeyBase58');
-      expect(keys[didDoc.id + '#ocap-delegate-key-1'])
-        .to.have.property('privateKeyBase58');
+      console.log('key IDs', Object.keys(keys));
+      expect(Object.keys(keys).length).to.equal(3);
+      for(const k in keys) {
+        expect(keys[k]).to.have.property('privateKeyBase58');
+      }
     });
   });
 
