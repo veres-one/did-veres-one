@@ -164,6 +164,45 @@ describe('VeresOneDidDoc', () => {
     });
   });
 
+  describe('validateKeyIds', () => {
+    let didDoc;
+
+    before(async () => {
+      didDoc = new VeresOneDidDoc({injector});
+      await didDoc.init({env: 'test', passphrase: null});
+    });
+
+    it('should validate key IDs', async () => {
+      didDoc.validateKeyIds();
+    });
+
+    it('should throw on invalid/malformed key ID', async () => {
+      const firstKeyId = Object.keys(didDoc.keys)[0];
+      const keyPair = didDoc.keys[firstKeyId];
+
+      keyPair.id = '1234';
+      try {
+        await didDoc.validateKeyIds();
+      } catch(error) {
+        error.message.should.match(/^Invalid DID key ID/);
+      }
+
+      keyPair.id = `${didDoc.id}#1234`;
+      try {
+        await didDoc.validateKeyIds();
+      } catch(error) {
+        error.message.should.match(/^Invalid DID key ID/);
+      }
+
+      keyPair.id = `${didDoc.id}#z1234`;
+      try {
+        await didDoc.validateKeyIds();
+      } catch(error) {
+        error.message.should.match(/^Invalid DID key ID/);
+      }
+    });
+  });
+
   describe('exportKeys', () => {
     it('should return an empty object when no keys are present', async () => {
       const didDoc = new VeresOneDidDoc();
@@ -175,7 +214,6 @@ describe('VeresOneDidDoc', () => {
       await didDoc.init({env: 'test', passphrase: null});
 
       const keys = await didDoc.exportKeys();
-      console.log('key IDs', Object.keys(keys));
       expect(Object.keys(keys).length).to.equal(3);
       for(const k in keys) {
         expect(keys[k]).to.have.property('privateKeyBase58');
