@@ -37,7 +37,7 @@
     "ocapld": "github:digitalbazaar/ocapld.js#master",
     "veres-one-context": "^8.0.0",
     "web-ledger-client": "^1.0.0",
-    "web-ledger-context": "^3.0.0"
+    "web-ledger-context": "^4.0.0"
   },
   "devDependencies": {
     "chai": "^4.2.0",
