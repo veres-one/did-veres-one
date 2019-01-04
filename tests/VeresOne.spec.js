@@ -234,7 +234,7 @@ describe('methods/veres-one', () => {
     });
   });
 
-  describe('attachDelegationProof', () => {
+  describe.skip('attachDelegationProof', () => {
     it('should attach an ocap-ld delegation proof to an operation', async () => {
       let didDocument = await v1.generate({
         passphrase: null, keyType: 'RsaVerificationKey2018'

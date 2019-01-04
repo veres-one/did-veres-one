@@ -58,7 +58,7 @@ describe('VeresOneDidDoc', () => {
       await didDoc.init(env);
 
       const invokeKey = didDoc.doc.capabilityInvocation[0].publicKey[0];
-      expect(invokeKey.owner).to.equal(didDoc.id);
+      expect(invokeKey.controller).to.equal(didDoc.id);
       expect(invokeKey.type).to.equal(keyType);
     });
   });
@@ -265,7 +265,7 @@ describe('VeresOneDidDoc', () => {
       const key = await LDKeyPair.from(exampleKeys[keyId]);
       await didDoc.addKey({suiteId, key});
 
-      expect(authSuite.publicKey).to.eql([key.publicNode({owner: did})]);
+      expect(authSuite.publicKey).to.eql([key.publicNode({controller: did})]);
       expect(didDoc.keys[keyId]).to.eql(key);
     });
   });
