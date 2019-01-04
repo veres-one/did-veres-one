@@ -34,8 +34,8 @@
     "flex-docstore": "0.0.1",
     "http-signature": "^1.2.0",
     "jsonld": "^1.1.0",
-    "jsonld-signatures": "digitalbazaar/jsonld-signatures#master",
-    "ocapld": "github:digitalbazaar/ocapld.js#master",
+    "jsonld-signatures": "^3.0.0",
+    "ocapld": "^1.0.0",
     "veres-one-context": "^8.0.0",
     "web-ledger-client": "^1.0.0",
     "web-ledger-context": "^4.0.0"
