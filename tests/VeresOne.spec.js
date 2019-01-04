@@ -31,9 +31,7 @@ describe('methods/veres-one', () => {
       }
       return documentLoader(url);
     };
-    v1.injector.use('jsonld', jsonld);
     const jsigs = require('jsonld-signatures');
-    jsigs.use('jsonld', jsonld);
     v1.injector.use('jsonld-signatures', jsigs);
 
     v1.keyStore = Store.using('mock');
@@ -99,7 +97,7 @@ describe('methods/veres-one', () => {
       const didDocument = await v1.generate(nymOptions);
       expect(didDocument.id)
         .to.match(/^did\:v1\:test\:nym\:z.*/);
-      const authPublicKey = didDocument.doc.authentication[0].publicKey[0];
+      const authPublicKey = didDocument.doc.authentication[0];
       const publicKeyPem = authPublicKey.publicKeyPem;
       expect(publicKeyPem)
         .to.have.string('-----BEGIN PUBLIC KEY-----');
@@ -116,7 +114,7 @@ describe('methods/veres-one', () => {
 
       expect(didDocument.id)
         .to.match(/^did\:v1\:test\:nym\:z.*/);
-      const authPublicKey = didDocument.doc.authentication[0].publicKey[0];
+      const authPublicKey = didDocument.doc.authentication[0];
       const publicKeyBase58 = authPublicKey.publicKeyBase58;
       expect(publicKeyBase58).to.exist();
 
@@ -139,7 +137,7 @@ describe('methods/veres-one', () => {
       const didDocument = await v1.generate(nymOptions);
 
       expect(didDocument.id).to.match(/^did\:v1\:test\:nym\:.*/);
-      const authPublicKey = didDocument.doc.authentication[0].publicKey[0];
+      const authPublicKey = didDocument.doc.authentication[0];
       expect(authPublicKey.publicKeyPem)
         .to.have.string('-----BEGIN PUBLIC KEY-----');
       const keyPair = await didDocument.keys[authPublicKey.id].export();
@@ -154,7 +152,7 @@ describe('methods/veres-one', () => {
       const didDocument = await v1.generate(nymOptions);
 
       expect(didDocument.id).to.match(/^did\:v1\:test\:nym\:.*/);
-      const authPublicKey = didDocument.doc.authentication[0].publicKey[0];
+      const authPublicKey = didDocument.doc.authentication[0];
       expect(authPublicKey.publicKeyBase58).to.exist();
 
       const exportedKey = await didDocument.keys[authPublicKey.id].export();
@@ -182,7 +180,7 @@ describe('methods/veres-one', () => {
       expect(did).to.match(/^did\:v1\:test\:nym\:z.*/);
       const fingerprint = did.replace('did:v1:test:nym:z', '');
 
-      const invokePublicKey = didDocument.doc.capabilityInvocation[0].publicKey[0];
+      const invokePublicKey = didDocument.doc.capabilityInvocation[0];
 
       expect(invokePublicKey.id).to.have.string('nym:z');
 
@@ -206,7 +204,7 @@ describe('methods/veres-one', () => {
       expect(did).to.match(/^did\:v1\:test\:nym\:z.*/);
       const fingerprint = did.replace('did:v1:test:nym:z', '');
 
-      const invokePublicKey = didDocument.doc.capabilityInvocation[0].publicKey[0];
+      const invokePublicKey = didDocument.doc.capabilityInvocation[0];
       const invokeKey = didDocument.keys[invokePublicKey.id];
 
       expect(invokePublicKey.id).to.have.string('nym:z');
@@ -242,7 +240,7 @@ describe('methods/veres-one', () => {
         passphrase: null, keyType: 'RsaVerificationKey2018'
       });
 
-      const delegationPublicKey = didDocument.doc.capabilityDelegation[0].publicKey[0];
+      const delegationPublicKey = didDocument.doc.capabilityDelegation[0];
       const creator = delegationPublicKey.id;
       const {privateKeyPem} = await didDocument.keys[delegationPublicKey.id].export();
 
@@ -268,7 +266,7 @@ describe('methods/veres-one', () => {
       });
 
       let operation = v1.client.wrap({didDocument: didDocument.doc});
-      const invokePublicKey = didDocument.doc.capabilityInvocation[0].publicKey[0];
+      const invokePublicKey = didDocument.doc.capabilityInvocation[0];
       const creator = invokePublicKey.id;
 
       const {privateKeyPem} = await didDocument.keys[invokePublicKey.id].export();
@@ -283,7 +281,7 @@ describe('methods/veres-one', () => {
 
       expect(operation.type).to.equal('CreateWebLedgerRecord');
       expect(operation.record.id).to.match(/^did\:v1\:test\:nym\:.*/);
-      expect(operation.record.authentication[0].publicKey[0].publicKeyPem)
+      expect(operation.record.authentication[0].publicKeyPem)
         .to.have.string('-----BEGIN PUBLIC KEY-----');
       expect(operation.proof).to.exist();
       expect(operation.proof.type).to.equal('RsaSignature2018');
@@ -303,7 +301,7 @@ describe('methods/veres-one', () => {
 
       // attach an capability invocation proof
       let operation = v1.client.wrap({didDocument: didDocument.doc});
-      const invokePublicKey = didDocument.doc.capabilityInvocation[0].publicKey[0];
+      const invokePublicKey = didDocument.doc.capabilityInvocation[0];
       const creator = invokePublicKey.id;
       const {privateKeyPem} = await didDocument.keys[invokePublicKey.id].export();
 
@@ -320,7 +318,7 @@ describe('methods/veres-one', () => {
 
       expect(operation.type).to.equal('CreateWebLedgerRecord');
       expect(operation.record.id).to.match(/^did\:v1\:test\:nym\:.*/);
-      expect(operation.record.authentication[0].publicKey[0].publicKeyPem)
+      expect(operation.record.authentication[0].publicKeyPem)
         .to.have.string('-----BEGIN PUBLIC KEY-----');
       expect(operation.proof).to.exist();
       // capability invocation proof

@@ -4,41 +4,26 @@
     "id": "did:v1:test:nym:2pfPix2tcwa7gNoMRxdcHbEyFGqaVBPNntCsDZexVeHX",
     "authentication": [
       {
-        "type": "Ed25519SignatureAuthentication2018",
-        "publicKey": [
-          {
-            "id": "did:v1:test:nym:2pfPix2tcwa7gNoMRxdcHbEyFGqaVBPNntCsDZexVeHX#authn-key-1",
-            "type": "Ed25519VerificationKey2018",
-            "owner": "did:v1:test:nym:2pfPix2tcwa7gNoMRxdcHbEyFGqaVBPNntCsDZexVeHX",
-            "publicKeyBase58": "2pfPix2tcwa7gNoMRxdcHbEyFGqaVBPNntCsDZexVeHX"
-          }
-        ]
+        "id": "did:v1:test:nym:2pfPix2tcwa7gNoMRxdcHbEyFGqaVBPNntCsDZexVeHX#authn-1",
+        "type": "Ed25519VerificationKey2018",
+        "controller": "did:v1:test:nym:2pfPix2tcwa7gNoMRxdcHbEyFGqaVBPNntCsDZexVeHX",
+        "publicKeyBase58": "2pfPix2tcwa7gNoMRxdcHbEyFGqaVBPNntCsDZexVeHX"
       }
     ],
     "capabilityDelegation": [
       {
-        "type": "Ed25519SignatureCapabilityAuthorization2018",
-        "publicKey": [
-          {
-            "id": "did:v1:test:nym:2pfPix2tcwa7gNoMRxdcHbEyFGqaVBPNntCsDZexVeHX#ocap-delegate-key-1",
-            "type": "Ed25519VerificationKey2018",
-            "owner": "did:v1:test:nym:2pfPix2tcwa7gNoMRxdcHbEyFGqaVBPNntCsDZexVeHX",
-            "publicKeyBase58": "83aqLqcwejjiQs33e5pdTty9B4beao8hzu7oNsv14Peo"
-          }
-        ]
+        "id": "did:v1:test:nym:2pfPix2tcwa7gNoMRxdcHbEyFGqaVBPNntCsDZexVeHX#delegate-1",
+        "type": "Ed25519VerificationKey2018",
+        "controller": "did:v1:test:nym:2pfPix2tcwa7gNoMRxdcHbEyFGqaVBPNntCsDZexVeHX",
+        "publicKeyBase58": "83aqLqcwejjiQs33e5pdTty9B4beao8hzu7oNsv14Peo"
       }
     ],
     "capabilityInvocation": [
       {
-        "type": "Ed25519SignatureCapabilityAuthorization2018",
-        "publicKey": [
-          {
-            "id": "did:v1:test:nym:2pfPix2tcwa7gNoMRxdcHbEyFGqaVBPNntCsDZexVeHX#ocap-invoke-key-1",
-            "type": "Ed25519VerificationKey2018",
-            "owner": "did:v1:test:nym:2pfPix2tcwa7gNoMRxdcHbEyFGqaVBPNntCsDZexVeHX",
-            "publicKeyBase58": "EsnJk4JFMJcL6guK9bhRkQNspB3bCQaGZZ3NYeTn5rcG"
-          }
-        ]
+        "id": "did:v1:test:nym:2pfPix2tcwa7gNoMRxdcHbEyFGqaVBPNntCsDZexVeHX#invoke-1",
+        "type": "Ed25519VerificationKey2018",
+        "controller": "did:v1:test:nym:2pfPix2tcwa7gNoMRxdcHbEyFGqaVBPNntCsDZexVeHX",
+        "publicKeyBase58": "EsnJk4JFMJcL6guK9bhRkQNspB3bCQaGZZ3NYeTn5rcG"
       }
     ]
   },
