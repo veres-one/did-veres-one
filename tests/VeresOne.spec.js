@@ -34,8 +34,6 @@ describe('methods/veres-one', () => {
     v1.injector.use('jsonld', jsonld);
     const jsigs = require('jsonld-signatures');
     jsigs.use('jsonld', jsonld);
-    const eproofs = require('equihash-signature');
-    eproofs.install(jsigs);
     v1.injector.use('jsonld-signatures', jsigs);
 
     v1.keyStore = Store.using('mock');

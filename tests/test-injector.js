@@ -20,9 +20,6 @@ jsonld.documentLoader = async url => {
 };
 injector.use('jsonld', jsonld);
 const jsigs = require('jsonld-signatures');
-jsigs.use('jsonld', jsonld);
-const eproofs = require('equihash-signature');
-eproofs.install(jsigs);
 injector.use('jsonld-signatures', jsigs);
 
 injector.env = {nodejs: true};
