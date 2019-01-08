@@ -259,7 +259,7 @@ describe('methods/veres-one', () => {
     }).timeout(30000);
   });
 
-  describe('attachInvocationProof', () => {
+  describe.skip('attachInvocationProof', () => {
     it('should attach an ld-ocap invocation proof to an operation', async () => {
       const didDocument = await v1.generate({
         passphrase: null, keyType: 'RsaVerificationKey2018'
@@ -292,7 +292,7 @@ describe('methods/veres-one', () => {
     }).timeout(30000);
   });
 
-  describe('attachEquihashProof', () => {
+  describe.skip('attachEquihashProof', () => {
     it('should attach an equihash proof to an operation', async () => {
       // generate a DID Document
       const didDocument = await v1.generate({

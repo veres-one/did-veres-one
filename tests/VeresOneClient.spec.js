@@ -43,7 +43,7 @@ describe('web ledger client', () => {
         expect(result.meta.sequence).to.equal(0);
       });
 
-      it('should fetch just a key object from a did: with hash', async () => {
+      it.only('should fetch just a key object from a did: with hash', async () => {
         nock('https://genesis.testnet.veres.one')
           .get(`/ledger-agents`)
           .reply(200, LEDGER_AGENTS_DOC);
@@ -53,11 +53,11 @@ describe('web ledger client', () => {
             '/query?id=' + TEST_DID)
           .reply(200, TEST_DID_RESULT);
 
-        const testKeyId = TEST_DID + '#authn-key-1';
+        const testKeyId = TEST_DID + '#authn-1';
 
         const expectedDoc = {
           "@context": ["https://w3id.org/did/v1", "https://w3id.org/veres-one/v1"],
-          "id": "did:v1:test:nym:2pfPix2tcwa7gNoMRxdcHbEyFGqaVBPNntCsDZexVeHX#authn-key-1",
+          "id": "did:v1:test:nym:2pfPix2tcwa7gNoMRxdcHbEyFGqaVBPNntCsDZexVeHX#authn-1",
           "type": "Ed25519VerificationKey2018",
           "owner": "did:v1:test:nym:2pfPix2tcwa7gNoMRxdcHbEyFGqaVBPNntCsDZexVeHX",
           "publicKeyBase58": "2pfPix2tcwa7gNoMRxdcHbEyFGqaVBPNntCsDZexVeHX"
@@ -69,7 +69,7 @@ describe('web ledger client', () => {
       });
     });
 
-    describe('sendToAccelerator', () => {
+    describe.skip('sendToAccelerator', () => {
       it('should send an operation to an accelerator service', async () => {
         nock('https://genesis.testnet.veres.one')
           .post(`/accelerator/proofs`)
