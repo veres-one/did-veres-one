@@ -57,7 +57,7 @@ describe('VeresOneDidDoc', () => {
     it('should generate an invoke key', async () => {
       await didDoc.init(env);
 
-      const invokeKey = didDoc.doc.capabilityInvocation[0].publicKey[0];
+      const invokeKey = didDoc.doc.capabilityInvocation[0];
       expect(invokeKey.controller).to.equal(didDoc.id);
       expect(invokeKey.type).to.equal(keyType);
     });
@@ -224,7 +224,7 @@ describe('VeresOneDidDoc', () => {
   describe('importKeys', () => {
     const exampleDoc = require('./dids/did-v1-test-nym-eddsa-example.json');
     const exampleKeys = require('./dids/did-v1-test-nym-eddsa-example-keys.json');
-    const keyId = 'did:v1:test:nym:z279wbVAtyvuhWzM8CyMScPvS2G7RmkvGrBX5jf3MDmzmow3#authn-key-1';
+    const keyId = 'did:v1:test:nym:z279wbVAtyvuhWzM8CyMScPvS2G7RmkvGrBX5jf3MDmzmow3#authn-1';
 
     it('should import keys', async () => {
       const didDoc = new VeresOneDidDoc({doc: exampleDoc, injector});
@@ -244,28 +244,28 @@ describe('VeresOneDidDoc', () => {
     const exampleDoc = require('./dids/did-v1-test-nym-eddsa-example.json');
     const exampleKeys = require('./dids/did-v1-test-nym-eddsa-example-keys.json');
     const did = 'did:v1:test:nym:z279wbVAtyvuhWzM8CyMScPvS2G7RmkvGrBX5jf3MDmzmow3';
-    const keyId = `${did}#authn-key-1`;
+    const keyId = `${did}#authn-1`;
     const didDoc = new VeresOneDidDoc({doc: exampleDoc, injector});
 
     it('should add/remove a public key node from the DID Doc', async () => {
       await didDoc.importKeys(exampleKeys);
 
-      const authSuite = didDoc.doc[constants.SUITES.authentication][0];
-      const authKey = authSuite.publicKey[0];
+      const authSuites = didDoc.doc[constants.SUITES.authentication];
+      const authKey = authSuites[0];
 
       didDoc.removeKey(authKey);
 
       // Check to make sure key is removed
-      expect(authSuite.publicKey).to.eql([]);
+      expect(didDoc.doc[constants.SUITES.authentication]).to.eql([]);
       expect(didDoc.keys[keyId]).to.not.exist();
 
       // Now re-add the key
-      const suiteId = `${did}#auth-suite-1`;
+      const suiteId = constants.SUITES.authentication;
 
       const key = await LDKeyPair.from(exampleKeys[keyId]);
       await didDoc.addKey({suiteId, key});
 
-      expect(authSuite.publicKey).to.eql([key.publicNode({controller: did})]);
+      expect(authSuites).to.eql([key.publicNode({controller: did})]);
       expect(didDoc.keys[keyId]).to.eql(key);
     });
   });
@@ -284,7 +284,7 @@ describe('VeresOneDidDoc', () => {
       didDoc.addService({
         name: 'testAgent',
         type: 'AgentService',
-        endpoint: 'https://example.com',
+        serviceEndpoint: 'https://example.com',
         description: 'test description' // this is a custom property
       });
       expect(didDoc.hasService({name: 'testAgent'})).to.be.true();
@@ -297,7 +297,7 @@ describe('VeresOneDidDoc', () => {
       const serviceOptions = {
         name: 'testAgent',
         type: 'AgentService',
-        endpoint: 'https://example.com',
+        serviceEndpoint: 'https://example.com',
         description: 'test description' // this is a custom property
       };
 
@@ -309,7 +309,7 @@ describe('VeresOneDidDoc', () => {
 
     it('should remove a service from the did doc', () => {
       didDoc.addService({
-        name: 'testService', type: 'Test', endpoint: 'https://example.com'
+        name: 'testService', type: 'Test', serviceEndpoint: 'https://example.com'
       });
       expect(didDoc.hasService({name: 'testService'})).to.be.true();
 
@@ -325,7 +325,7 @@ describe('VeresOneDidDoc', () => {
       const didDoc = new VeresOneDidDoc({keyType, injector});
 
       expect(JSON.stringify(didDoc))
-        .to.equal('{"@context":["https://w3id.org/did/v1","https://w3id.org/veres-one/v1"]}');
+        .to.equal('{"@context":["https://w3id.org/did/v0.11","https://w3id.org/veres-one/v1"]}');
     });
   });
 });

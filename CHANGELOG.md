@@ -1,5 +1,11 @@
 # did-veres-one ChangeLog
 
+## 4.0.0 - 2019-01-08
+
+### Changed
+- **BREAKING** Using the new flatter `Ed25519VerificationKey2018` type suites.
+- **BREAKING** Removed injector usage, removed related `v1.use()` notation.
+
 ## 3.0.0 - 2018-10-22
 
 ### Changed
