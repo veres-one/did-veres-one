@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/veres-one/did-veres-one",
   "scripts": {
-    "mocha": "mocha ./tests/*.spec.js",
+    "mocha": "mocha ./tests/*.spec.js --opts ./tests/mocha.opts",
     "test": "npm run mocha",
     "preversion": "npm test",
     "postversion": "git push --follow-tags"

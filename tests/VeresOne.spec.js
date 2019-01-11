@@ -106,7 +106,7 @@ describe('methods/veres-one', () => {
       // check the corresponding private key
       expect(keyPair.privateKeyPem)
         .to.have.string('-----BEGIN ENCRYPTED PRIVATE KEY-----');
-    }).timeout(30000);
+    });
 
     it('should generate protected EDD nym-based DID Document', async () => {
       const nymOptions = {passphrase: 'foobar'};
@@ -127,7 +127,7 @@ describe('methods/veres-one', () => {
       // check that keys have been saved in key store
       const savedKeys = await v1.keyStore.get(didDocument.id);
       expect(Object.keys(savedKeys).length).to.equal(3);
-    }).timeout(30000);
+    });
 
     it('should generate unprotected RSA nym-based DID Document', async () => {
       const nymOptions = {
@@ -143,9 +143,9 @@ describe('methods/veres-one', () => {
       const keyPair = await didDocument.keys[authPublicKey.id].export();
       // check the corresponding private key
       expect(keyPair.privateKeyPem)
-        .to.have.string('-----BEGIN RSA PRIVATE KEY-----');
+        .to.match(/^-----BEGIN (:?RSA)?PRIVATE KEY-----/);
 
-    }).timeout(30000);
+    });
 
     it('should generate unprotected EDD nym-based DID Document', async () => {
       const nymOptions = {passphrase: null};
@@ -157,7 +157,7 @@ describe('methods/veres-one', () => {
 
       const exportedKey = await didDocument.keys[authPublicKey.id].export();
       expect(exportedKey.privateKeyBase58).to.exist();
-    }).timeout(30000);
+    });
 
     it('should generate uuid-based DID Document', async () => {
       const uuidOptions = {
@@ -191,7 +191,7 @@ describe('methods/veres-one', () => {
         .to.have.lengthOf.above(128);
 
       expect(invokeKey.verifyFingerprint(fingerprint)).to.be.true();
-    }).timeout(30000);
+    });
 
     it('should generate unprotected ed25519 nym-based DID Doc', async () => {
       const nymOptions = {
@@ -210,7 +210,7 @@ describe('methods/veres-one', () => {
       expect(invokePublicKey.id).to.have.string('nym:z');
 
       expect(invokeKey.verifyFingerprint(fingerprint)).to.be.true();
-    }).timeout(30000);
+    });
   });
 
   describe.skip('register', () => {
@@ -256,7 +256,7 @@ describe('methods/veres-one', () => {
       expect(proof.proofPurpose).to.equal('capabilityDelegation');
       expect(proof.creator).to.equal(creator);
       expect(proof.jws).to.exist();
-    }).timeout(30000);
+    });
   });
 
   describe.skip('attachInvocationProof', () => {
@@ -289,7 +289,7 @@ describe('methods/veres-one', () => {
       expect(operation.proof.proofPurpose).to.equal('capabilityInvocation');
       expect(operation.proof.creator).to.equal(creator);
       expect(operation.proof.jws).to.exist();
-    }).timeout(30000);
+    });
   });
 
   describe.skip('attachEquihashProof', () => {
@@ -336,6 +336,6 @@ describe('methods/veres-one', () => {
       expect(operation.proof[1].equihashParameterK).to.exist();
       expect(operation.proof[1].nonce).to.exist();
       expect(operation.proof[1].proofValue).to.exist();
-    }).timeout(30000);
+    });
   });
 });
