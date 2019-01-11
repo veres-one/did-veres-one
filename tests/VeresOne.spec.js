@@ -17,22 +17,6 @@ describe('methods/veres-one', () => {
 
   beforeEach(() => {
     v1 = new VeresOne();
-    // FIXME: determine how to simplify/move this code out of test
-    const jsonld = v1.injector.use('jsonld');
-    const documentLoader = jsonld.documentLoader;
-
-    jsonld.documentLoader = async url => {
-      if(url in VeresOne.contexts) {
-        return {
-          contextUrl: null,
-          documentUrl: url,
-          document: VeresOne.contexts[url]
-        };
-      }
-      return documentLoader(url);
-    };
-    const jsigs = require('jsonld-signatures');
-    v1.injector.use('jsonld-signatures', jsigs);
 
     v1.keyStore = Store.using('mock');
     v1.didStore = Store.using('mock');

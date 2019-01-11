@@ -9,7 +9,6 @@ const tls = require('tls');
 tls.DEFAULT_ECDH_CURVE = 'auto';
 
 const {VeresOneClient} = require('../lib/index');
-const injector = require('./test-injector');
 
 const TEST_HOSTNAME = 'genesis.testnet.veres.one';
 const TEST_DID = 'did:v1:test:nym:2pfPix2tcwa7gNoMRxdcHbEyFGqaVBPNntCsDZexVeHX';
@@ -22,7 +21,7 @@ describe('web ledger client', () => {
 
   beforeEach(() => {
     client = new VeresOneClient({
-      injector, mode: 'test', hostname: TEST_HOSTNAME
+      mode: 'test', hostname: TEST_HOSTNAME
     });
   });
 
