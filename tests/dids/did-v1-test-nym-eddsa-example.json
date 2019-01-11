@@ -1,46 +1,28 @@
 {
-  "@context": ["https://w3id.org/did/v1", "https://w3id.org/veres-one/v1"],
+  "@context": ["https://w3id.org/did/v0.11", "https://w3id.org/veres-one/v1"],
   "id": "did:v1:test:nym:z279wbVAtyvuhWzM8CyMScPvS2G7RmkvGrBX5jf3MDmzmow3",
   "authentication": [
     {
-      "id": "did:v1:test:nym:z279wbVAtyvuhWzM8CyMScPvS2G7RmkvGrBX5jf3MDmzmow3#auth-suite-1",
-      "type": "Ed25519SignatureCapabilityAuthorization2018",
-      "publicKey": [
-        {
-          "id": "did:v1:test:nym:z279wbVAtyvuhWzM8CyMScPvS2G7RmkvGrBX5jf3MDmzmow3#authn-key-1",
-          "type": "Ed25519VerificationKey2018",
-          "owner": "did:v1:test:nym:z279wbVAtyvuhWzM8CyMScPvS2G7RmkvGrBX5jf3MDmzmow3",
-          "publicKeyBase58": "4PKSV6Q4ags8ceqNBuP9xhgJht6rzSXaCJnA1Uxsv54M"
-        }
-      ]
+      "id": "did:v1:test:nym:z279wbVAtyvuhWzM8CyMScPvS2G7RmkvGrBX5jf3MDmzmow3#authn-1",
+      "type": "Ed25519VerificationKey2018",
+      "controller": "did:v1:test:nym:z279wbVAtyvuhWzM8CyMScPvS2G7RmkvGrBX5jf3MDmzmow3",
+      "publicKeyBase58": "4PKSV6Q4ags8ceqNBuP9xhgJht6rzSXaCJnA1Uxsv54M"
     }
   ],
   "capabilityDelegation": [
     {
-      "id": "did:v1:test:nym:z279wbVAtyvuhWzM8CyMScPvS2G7RmkvGrBX5jf3MDmzmow3#delegate-suite-1",
-      "type": "Ed25519SignatureCapabilityAuthorization2018",
-      "publicKey": [
-        {
-          "id": "did:v1:test:nym:z279wbVAtyvuhWzM8CyMScPvS2G7RmkvGrBX5jf3MDmzmow3#ocap-delegate-key-1",
-          "type": "Ed25519VerificationKey2018",
-          "owner": "did:v1:test:nym:z279wbVAtyvuhWzM8CyMScPvS2G7RmkvGrBX5jf3MDmzmow3",
-          "publicKeyBase58": "9hW8DYWJZzAdBDTTFFpo2zfXBC3fY4oDizQ46RZkTJkc"
-        }
-      ]
+      "id": "did:v1:test:nym:z279wbVAtyvuhWzM8CyMScPvS2G7RmkvGrBX5jf3MDmzmow3#delegate-1",
+      "type": "Ed25519VerificationKey2018",
+      "controller": "did:v1:test:nym:z279wbVAtyvuhWzM8CyMScPvS2G7RmkvGrBX5jf3MDmzmow3",
+      "publicKeyBase58": "9hW8DYWJZzAdBDTTFFpo2zfXBC3fY4oDizQ46RZkTJkc"
     }
   ],
   "capabilityInvocation": [
     {
-      "id": "did:v1:test:nym:z279wbVAtyvuhWzM8CyMScPvS2G7RmkvGrBX5jf3MDmzmow3#invoke-suite-1",
-      "type": "Ed25519SignatureCapabilityAuthorization2018",
-      "publicKey": [
-        {
-          "id": "did:v1:test:nym:z279wbVAtyvuhWzM8CyMScPvS2G7RmkvGrBX5jf3MDmzmow3#ocap-invoke-key-1",
-          "type": "Ed25519VerificationKey2018",
-          "owner": "did:v1:test:nym:z279wbVAtyvuhWzM8CyMScPvS2G7RmkvGrBX5jf3MDmzmow3",
-          "publicKeyBase58": "EsP4zycDtPDT2K6YDnu2LS1hWFsyZDyLXrH6xkGkaW5s"
-        }
-      ]
+      "id": "did:v1:test:nym:z279wbVAtyvuhWzM8CyMScPvS2G7RmkvGrBX5jf3MDmzmow3#invoke-1",
+      "type": "Ed25519VerificationKey2018",
+      "controller": "did:v1:test:nym:z279wbVAtyvuhWzM8CyMScPvS2G7RmkvGrBX5jf3MDmzmow3",
+      "publicKeyBase58": "EsP4zycDtPDT2K6YDnu2LS1hWFsyZDyLXrH6xkGkaW5s"
     }
   ]
 }

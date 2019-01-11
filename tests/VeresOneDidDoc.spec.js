@@ -8,8 +8,6 @@ const {expect} = chai;
 const {LDKeyPair} = require('crypto-ld');
 const constants = require('../lib/constants');
 
-const injector = require('./test-injector');
-
 const {VeresOneDidDoc} = require('../lib/index');
 
 describe('VeresOneDidDoc', () => {
@@ -35,7 +33,7 @@ describe('VeresOneDidDoc', () => {
     const env = 'dev';
 
     beforeEach(() => {
-      didDoc = new VeresOneDidDoc({keyType, injector});
+      didDoc = new VeresOneDidDoc({keyType});
     });
 
     it('should init the did id', async () => {
@@ -57,8 +55,8 @@ describe('VeresOneDidDoc', () => {
     it('should generate an invoke key', async () => {
       await didDoc.init(env);
 
-      const invokeKey = didDoc.doc.capabilityInvocation[0].publicKey[0];
-      expect(invokeKey.owner).to.equal(didDoc.id);
+      const invokeKey = didDoc.doc.capabilityInvocation[0];
+      expect(invokeKey.controller).to.equal(didDoc.id);
       expect(invokeKey.type).to.equal(keyType);
     });
   });
@@ -68,16 +66,16 @@ describe('VeresOneDidDoc', () => {
 
     it('should generate a uuid type did', async () => {
       const didType = 'uuid';
-      const didDoc = new VeresOneDidDoc({keyType, didType, injector});
+      const didDoc = new VeresOneDidDoc({keyType, didType});
       const did = didDoc.generateId({didType, env: 'dev'});
 
       expect(did).to.match(/^did:v1:test:uuid:.*/);
     });
 
     it('should generate a nym type did', async () => {
-      const didDoc = new VeresOneDidDoc({keyType, didType: 'nym', injector});
+      const didDoc = new VeresOneDidDoc({keyType, didType: 'nym'});
       const keyOptions = {
-        type: keyType, injector: didDoc.injector, passphrase: null
+        type: keyType, passphrase: null
       };
 
       const keyPair = await LDKeyPair.generate(keyOptions);
@@ -168,7 +166,7 @@ describe('VeresOneDidDoc', () => {
     let didDoc;
 
     before(async () => {
-      didDoc = new VeresOneDidDoc({injector});
+      didDoc = new VeresOneDidDoc();
       await didDoc.init({env: 'test', passphrase: null});
     });
 
@@ -210,7 +208,7 @@ describe('VeresOneDidDoc', () => {
     });
 
     it('should return a hashmap of keys by key id', async () => {
-      const didDoc = new VeresOneDidDoc({injector});
+      const didDoc = new VeresOneDidDoc();
       await didDoc.init({env: 'test', passphrase: null});
 
       const keys = await didDoc.exportKeys();
@@ -224,10 +222,10 @@ describe('VeresOneDidDoc', () => {
   describe('importKeys', () => {
     const exampleDoc = require('./dids/did-v1-test-nym-eddsa-example.json');
     const exampleKeys = require('./dids/did-v1-test-nym-eddsa-example-keys.json');
-    const keyId = 'did:v1:test:nym:z279wbVAtyvuhWzM8CyMScPvS2G7RmkvGrBX5jf3MDmzmow3#authn-key-1';
+    const keyId = 'did:v1:test:nym:z279wbVAtyvuhWzM8CyMScPvS2G7RmkvGrBX5jf3MDmzmow3#authn-1';
 
     it('should import keys', async () => {
-      const didDoc = new VeresOneDidDoc({doc: exampleDoc, injector});
+      const didDoc = new VeresOneDidDoc({doc: exampleDoc});
 
       expect(didDoc.keys).to.eql({}); // no keys
 
@@ -244,28 +242,28 @@ describe('VeresOneDidDoc', () => {
     const exampleDoc = require('./dids/did-v1-test-nym-eddsa-example.json');
     const exampleKeys = require('./dids/did-v1-test-nym-eddsa-example-keys.json');
     const did = 'did:v1:test:nym:z279wbVAtyvuhWzM8CyMScPvS2G7RmkvGrBX5jf3MDmzmow3';
-    const keyId = `${did}#authn-key-1`;
-    const didDoc = new VeresOneDidDoc({doc: exampleDoc, injector});
+    const keyId = `${did}#authn-1`;
+    const didDoc = new VeresOneDidDoc({doc: exampleDoc});
 
     it('should add/remove a public key node from the DID Doc', async () => {
       await didDoc.importKeys(exampleKeys);
 
-      const authSuite = didDoc.doc[constants.SUITES.authentication][0];
-      const authKey = authSuite.publicKey[0];
+      const authSuites = didDoc.doc[constants.SUITES.authentication];
+      const authKey = authSuites[0];
 
       didDoc.removeKey(authKey);
 
       // Check to make sure key is removed
-      expect(authSuite.publicKey).to.eql([]);
+      expect(didDoc.doc[constants.SUITES.authentication]).to.eql([]);
       expect(didDoc.keys[keyId]).to.not.exist();
 
       // Now re-add the key
-      const suiteId = `${did}#auth-suite-1`;
+      const suiteId = constants.SUITES.authentication;
 
       const key = await LDKeyPair.from(exampleKeys[keyId]);
       await didDoc.addKey({suiteId, key});
 
-      expect(authSuite.publicKey).to.eql([key.publicNode({owner: did})]);
+      expect(authSuites).to.eql([key.publicNode({controller: did})]);
       expect(didDoc.keys[keyId]).to.eql(key);
     });
   });
@@ -276,7 +274,7 @@ describe('VeresOneDidDoc', () => {
 
     beforeEach(() => {
       const doc = JSON.parse(JSON.stringify(exampleDoc)); // clone
-      didDoc = new VeresOneDidDoc({doc, injector});
+      didDoc = new VeresOneDidDoc({doc});
     });
 
     it('should add a service to the did doc', () => {
@@ -284,7 +282,7 @@ describe('VeresOneDidDoc', () => {
       didDoc.addService({
         name: 'testAgent',
         type: 'AgentService',
-        endpoint: 'https://example.com',
+        serviceEndpoint: 'https://example.com',
         description: 'test description' // this is a custom property
       });
       expect(didDoc.hasService({name: 'testAgent'})).to.be.true();
@@ -297,7 +295,7 @@ describe('VeresOneDidDoc', () => {
       const serviceOptions = {
         name: 'testAgent',
         type: 'AgentService',
-        endpoint: 'https://example.com',
+        serviceEndpoint: 'https://example.com',
         description: 'test description' // this is a custom property
       };
 
@@ -309,7 +307,7 @@ describe('VeresOneDidDoc', () => {
 
     it('should remove a service from the did doc', () => {
       didDoc.addService({
-        name: 'testService', type: 'Test', endpoint: 'https://example.com'
+        name: 'testService', type: 'Test', serviceEndpoint: 'https://example.com'
       });
       expect(didDoc.hasService({name: 'testService'})).to.be.true();
 
@@ -322,10 +320,10 @@ describe('VeresOneDidDoc', () => {
   describe('toJSON', () => {
     const keyType = 'Ed25519VerificationKey2018';
     it('should only serialize the document, no other properties', () => {
-      const didDoc = new VeresOneDidDoc({keyType, injector});
+      const didDoc = new VeresOneDidDoc({keyType});
 
       expect(JSON.stringify(didDoc))
-        .to.equal('{"@context":["https://w3id.org/did/v1","https://w3id.org/veres-one/v1"]}');
+        .to.equal('{"@context":["https://w3id.org/did/v0.11","https://w3id.org/veres-one/v1"]}');
     });
   });
 });
