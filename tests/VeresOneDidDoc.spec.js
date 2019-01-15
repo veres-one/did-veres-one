@@ -30,7 +30,7 @@ describe('VeresOneDidDoc', () => {
   describe('init', () => {
     let didDoc;
     const keyType = 'Ed25519VerificationKey2018';
-    const env = 'dev';
+    const mode = 'dev';
 
     beforeEach(() => {
       didDoc = new VeresOneDidDoc({keyType});
@@ -39,13 +39,13 @@ describe('VeresOneDidDoc', () => {
     it('should init the did id', async () => {
       sinon.spy(didDoc, 'generateId');
 
-      await didDoc.init({env});
+      await didDoc.init({mode});
 
       expect(didDoc.generateId).to.have.been.called();
     });
 
     it('should init the authn/authz suites', async () => {
-      await didDoc.init(env);
+      await didDoc.init(mode);
 
       expect(didDoc.doc.authentication.length).to.equal(1);
       expect(didDoc.doc.capabilityDelegation.length).to.equal(1);
@@ -53,7 +53,7 @@ describe('VeresOneDidDoc', () => {
     });
 
     it('should generate an invoke key', async () => {
-      await didDoc.init(env);
+      await didDoc.init(mode);
 
       const invokeKey = didDoc.doc.capabilityInvocation[0];
       expect(invokeKey.controller).to.equal(didDoc.id);
@@ -67,7 +67,7 @@ describe('VeresOneDidDoc', () => {
     it('should generate a uuid type did', async () => {
       const didType = 'uuid';
       const didDoc = new VeresOneDidDoc({keyType, didType});
-      const did = didDoc.generateId({didType, env: 'dev'});
+      const did = didDoc.generateId({didType, mode: 'test'});
 
       expect(did).to.match(/^did:v1:test:uuid:.*/);
     });
@@ -79,7 +79,7 @@ describe('VeresOneDidDoc', () => {
       };
 
       const keyPair = await LDKeyPair.generate(keyOptions);
-      const did = didDoc.generateId({keyPair, env: 'dev'});
+      const did = didDoc.generateId({keyPair, mode: 'test'});
 
       expect(did).to.match(/^did:v1:test:nym:.*/);
     });
@@ -96,7 +96,7 @@ describe('VeresOneDidDoc', () => {
     it('should throw on invalid/malformed DID', async () => {
       didDoc.doc.id = '1234';
       try {
-        await didDoc.validateDid({env: 'test'});
+        await didDoc.validateDid({mode: 'test'});
       } catch(error) {
         error.message.should.match(/^Invalid DID format/);
       }
@@ -118,11 +118,11 @@ describe('VeresOneDidDoc', () => {
 
     it.skip('should throw when test: not present in DID in test mode', () => {
       didDoc.doc.id = 'did:v1:test:uuid:1234';
-      (async () => await didDoc.validateDid({env: 'test'}))
+      (async () => await didDoc.validateDid({mode: 'test'}))
         .should.not.throw();
 
       didDoc.doc.id = 'did:v1:uuid:1234';
-      (async () => await didDoc.validateDid({env: 'test'}))
+      (async () => await didDoc.validateDid({mode: 'test'}))
         .should.throw(/^DID is invalid for test mode/);
     });
 
@@ -145,7 +145,7 @@ describe('VeresOneDidDoc', () => {
       const didDoc = new VeresOneDidDoc({doc: exampleDoc});
       const invokeKey = didDoc.doc.capabilityInvocation[0].publicKey[0];
       const keyPair = await LDKeyPair.from(invokeKey);
-      await didDoc.validateDid({keyPair, env: 'test'});
+      await didDoc.validateDid({keyPair, mode: 'test'});
     });
 
     it.skip('should throw error if validating against incorrect key', async () => {
@@ -154,7 +154,7 @@ describe('VeresOneDidDoc', () => {
         didDoc.doc.authentication[0].publicKey[0]
       );
       try {
-        didDoc.validateDid({keyPair: authKeyPair, env: 'test'})
+        didDoc.validateDid({keyPair: authKeyPair, mode: 'test'})
       } catch(error) {
         expect(error.message)
           .to.equal('Invalid DID - fingerprint does not verify against key');
@@ -167,7 +167,7 @@ describe('VeresOneDidDoc', () => {
 
     before(async () => {
       didDoc = new VeresOneDidDoc();
-      await didDoc.init({env: 'test', passphrase: null});
+      await didDoc.init({mode: 'test', passphrase: null});
     });
 
     it('should validate key IDs', async () => {
@@ -209,7 +209,7 @@ describe('VeresOneDidDoc', () => {
 
     it('should return a hashmap of keys by key id', async () => {
       const didDoc = new VeresOneDidDoc();
-      await didDoc.init({env: 'test', passphrase: null});
+      await didDoc.init({mode: 'test', passphrase: null});
 
       const keys = await didDoc.exportKeys();
       expect(Object.keys(keys).length).to.equal(3);
