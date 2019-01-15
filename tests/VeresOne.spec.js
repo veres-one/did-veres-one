@@ -16,7 +16,7 @@ describe('methods/veres-one', () => {
   let v1;
 
   beforeEach(() => {
-    v1 = new VeresOne();
+    v1 = new VeresOne({mode: 'test'});
 
     v1.keyStore = Store.using('mock');
     v1.didStore = Store.using('mock');
@@ -73,6 +73,13 @@ describe('methods/veres-one', () => {
   });
 
   describe('generate', () => {
+    it('should generate a non-test DID in dev mode', async () => {
+      v1.mode = 'dev';
+      const didDocument = await v1.generate();
+      expect(didDocument.id)
+        .to.match(/^did\:v1\:nym\:z.*/);
+    });
+
     it('should generate protected RSA nym-based DID Document', async () => {
       const nymOptions = {
         passphrase: 'foobar',
@@ -127,7 +134,7 @@ describe('methods/veres-one', () => {
       const keyPair = await didDocument.keys[authPublicKey.id].export();
       // check the corresponding private key
       expect(keyPair.privateKeyPem)
-        .to.match(/^-----BEGIN (:?RSA)?PRIVATE KEY-----/);
+        .to.match(/^-----BEGIN (:?RSA )?PRIVATE KEY-----/);
 
     });
 

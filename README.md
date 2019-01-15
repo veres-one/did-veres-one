@@ -50,7 +50,7 @@ Generate a new DID document.
       Options: 'RsaVerificationKey2018' (default: 'RsaVerificationKey2018').
   * passphrase - the passphrase to use to encrypt the private keys for
       nym-based DIDs. Set to `null` if the private keys should not be encrypted.
-  * env - the environment to generate the DID in.
+  * mode - the mode/environment to generate the DID in.
       Options: 'dev', 'test', 'live' (default: 'dev').
 
 Returns an object with:
@@ -114,7 +114,7 @@ authorize the operation.
 
 * options - a set of options used when attaching the proof of work
   * operation - the operation to attach the proof to.
-  * env - the environment to generate the proof in.
+  * mode - the mode/environment to generate the proof in.
       Options: 'dev', 'test', 'live' (default: 'dev').
 
 Returns an operation object with an attached Equihash proof of work, ready to
