@@ -1,14 +1,11 @@
 # did-veres-one ChangeLog
 
-## 4.0.0 - 2019-01-08
+## 3.0.0 - TBD
 
 ### Changed
-- **BREAKING** Using the new flatter `Ed25519VerificationKey2018` type suites.
-- **BREAKING** Removed injector usage, removed related `v1.use()` notation.
-
-## 3.0.0 - 2018-10-22
-
-### Changed
+- **BREAKING**: Replace "cryptographic suites" with flat verification methods
+  like Ed25519VerificationKey2018.
+- **BREAKING**: Removed injector usage, removed related `v1.use()` notation.
 - Extracted VeresOne specific code from `did-io` into this lib.
 
 ## 2.0.0 - 2018-09-19
