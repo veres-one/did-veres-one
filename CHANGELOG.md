@@ -1,6 +1,6 @@
 # did-veres-one ChangeLog
 
-## 3.0.0 - TBD
+## 3.0.0 - 2019-01-17
 
 ### Changed
 - **BREAKING**: Replace "cryptographic suites" with flat verification methods
