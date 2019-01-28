@@ -235,14 +235,15 @@ describe('methods/veres-one', () => {
   });
 
   describe.skip('attachDelegationProof', () => {
-    it('should attach an ocap-ld delegation proof to an operation', async () => {
+    it('should attach ocap-ld delegation proof to an operation', async () => {
       let didDocument = await v1.generate({
         passphrase: null, keyType: 'RsaVerificationKey2018'
       });
 
       const delegationPublicKey = didDocument.doc.capabilityDelegation[0];
       const creator = delegationPublicKey.id;
-      const {privateKeyPem} = await didDocument.keys[delegationPublicKey.id].export();
+      const {privateKeyPem} = await didDocument.keys[delegationPublicKey.id]
+        .export();
 
       didDocument = await v1.attachDelegationProof({
         didDocument,
@@ -260,7 +261,7 @@ describe('methods/veres-one', () => {
   });
 
   describe.skip('attachInvocationProof', () => {
-    it('should attach an ld-ocap invocation proof to an operation', async () => {
+    it('should attach ld-ocap invocation proof to an operation', async () => {
       const didDocument = await v1.generate({
         passphrase: null, keyType: 'RsaVerificationKey2018'
       });
@@ -269,7 +270,8 @@ describe('methods/veres-one', () => {
       const invokePublicKey = didDocument.doc.capabilityInvocation[0];
       const creator = invokePublicKey.id;
 
-      const {privateKeyPem} = await didDocument.keys[invokePublicKey.id].export();
+      const {privateKeyPem} = await didDocument.keys[invokePublicKey.id]
+        .export();
 
       operation = await v1.attachInvocationProof({
         operation,
@@ -303,7 +305,8 @@ describe('methods/veres-one', () => {
       let operation = v1.client.wrap({didDocument: didDocument.doc});
       const invokePublicKey = didDocument.doc.capabilityInvocation[0];
       const creator = invokePublicKey.id;
-      const {privateKeyPem} = await didDocument.keys[invokePublicKey.id].export();
+      const {privateKeyPem} = await didDocument.keys[invokePublicKey.id]
+        .export();
 
       operation = await v1.attachInvocationProof({
         operation,

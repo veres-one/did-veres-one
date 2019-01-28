@@ -126,20 +126,24 @@ describe('VeresOneDidDoc', () => {
         .should.throw(/^DID is invalid for test mode/);
     });
 
-    it.skip('should throw when test: is present in DID not in test mode', async () => {
-      didDoc.doc.id = 'did:v1:uuid:1234';
-      (async () => await didDoc.validateDid({env: 'live'})).should.not.throw();
+    it.skip(
+      'should throw when test: is present in DID not in test mode',
+      async () => {
+        didDoc.doc.id = 'did:v1:uuid:1234';
+        (async () => await didDoc.validateDid({env: 'live'}))
+          .should.not.throw();
+        didDoc.doc.id = 'did:v1:test:uuid:1234';
+        (async () => await didDoc.validateDid({env: 'live'}))
+          .should.throw(/^Test DID is invalid for/);
+      });
 
-      didDoc.doc.id = 'did:v1:test:uuid:1234';
-      (async () => await didDoc.validateDid({env: 'live'}))
-        .should.throw(/^Test DID is invalid for/);
-    });
-
-    it.skip('should throw if key is not provided for verifying cryptonym', () => {
-      didDoc.doc.id = 'did:v1:nym:z1234';
-      (async () => didDoc.validateDid())
-        .should.throw(/Public key is required for cryptonym verification/);
-    });
+    it.skip(
+      'should throw if key is not provided for verifying cryptonym',
+      () => {
+        didDoc.doc.id = 'did:v1:nym:z1234';
+        (async () => didDoc.validateDid())
+          .should.throw(/Public key is required for cryptonym verification/);
+      });
 
     it.skip('should validate against the correct invoker key', async () => {
       const didDoc = new VeresOneDidDoc({doc: exampleDoc});
@@ -148,13 +152,13 @@ describe('VeresOneDidDoc', () => {
       await didDoc.validateDid({keyPair, mode: 'test'});
     });
 
-    it.skip('should throw error if validating against incorrect key', async () => {
+    it.skip('throws error if validating against incorrect key', async () => {
       const didDoc = new VeresOneDidDoc({doc: exampleDoc});
       const authKeyPair = await LDKeyPair.from(
         didDoc.doc.authentication[0].publicKey[0]
       );
       try {
-        didDoc.validateDid({keyPair: authKeyPair, mode: 'test'})
+        didDoc.validateDid({keyPair: authKeyPair, mode: 'test'});
       } catch(error) {
         expect(error.message)
           .to.equal('Invalid DID - fingerprint does not verify against key');
@@ -223,8 +227,10 @@ describe('VeresOneDidDoc', () => {
 
   describe('importKeys', () => {
     const exampleDoc = require('./dids/did-v1-test-nym-eddsa-example.json');
-    const exampleKeys = require('./dids/did-v1-test-nym-eddsa-example-keys.json');
-    const keyId = 'did:v1:test:nym:z279wbVAtyvuhWzM8CyMScPvS2G7RmkvGrBX5jf3MDmzmow3#authn-1';
+    const exampleKeys = require(
+      './dids/did-v1-test-nym-eddsa-example-keys.json');
+    const keyId = 'did:v1:test:nym:' +
+      'z279wbVAtyvuhWzM8CyMScPvS2G7RmkvGrBX5jf3MDmzmow3#authn-1';
 
     it('should import keys', async () => {
       const didDoc = new VeresOneDidDoc({doc: exampleDoc});
@@ -242,8 +248,10 @@ describe('VeresOneDidDoc', () => {
 
   describe('addKey/removeKey', () => {
     const exampleDoc = require('./dids/did-v1-test-nym-eddsa-example.json');
-    const exampleKeys = require('./dids/did-v1-test-nym-eddsa-example-keys.json');
-    const did = 'did:v1:test:nym:z279wbVAtyvuhWzM8CyMScPvS2G7RmkvGrBX5jf3MDmzmow3';
+    const exampleKeys = require(
+      './dids/did-v1-test-nym-eddsa-example-keys.json');
+    const did = 'did:v1:test:nym:' +
+      'z279wbVAtyvuhWzM8CyMScPvS2G7RmkvGrBX5jf3MDmzmow3';
     const keyId = `${did}#authn-1`;
     const didDoc = new VeresOneDidDoc({doc: exampleDoc});
 
@@ -309,7 +317,8 @@ describe('VeresOneDidDoc', () => {
 
     it('should remove a service from the did doc', () => {
       didDoc.addService({
-        name: 'testService', type: 'Test', serviceEndpoint: 'https://example.com'
+        name: 'testService', type: 'Test',
+        serviceEndpoint: 'https://example.com'
       });
       expect(didDoc.hasService({name: 'testService'})).to.be.true();
 
@@ -325,7 +334,8 @@ describe('VeresOneDidDoc', () => {
       const didDoc = new VeresOneDidDoc({keyType});
 
       expect(JSON.stringify(didDoc))
-        .to.equal('{"@context":["https://w3id.org/did/v0.11","https://w3id.org/veres-one/v1"]}');
+        .to.equal('{"@context":["https://w3id.org/did/v0.11",' +
+          '"https://w3id.org/veres-one/v1"]}');
     });
   });
 });
