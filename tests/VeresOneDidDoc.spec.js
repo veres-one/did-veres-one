@@ -189,14 +189,16 @@ describe('VeresOneDidDoc', () => {
       try {
         await didDoc.validateKeyIds();
       } catch(error) {
-        error.message.should.match(/^Invalid DID key ID/);
+        error.message.should.equal(
+          '`fingerprint` must be a multibase encoded string.');
       }
 
       keyPair.id = `${didDoc.id}#z1234`;
       try {
         await didDoc.validateKeyIds();
       } catch(error) {
-        error.message.should.match(/^Invalid DID key ID/);
+        error.message.should.equal(
+          'The fingerprint does not match the public key.');
       }
     });
   });

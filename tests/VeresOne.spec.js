@@ -169,7 +169,7 @@ describe('methods/veres-one', () => {
       const did = didDocument.id;
 
       expect(did).to.match(/^did\:v1\:test\:nym\:z.*/);
-      const fingerprint = did.replace('did:v1:test:nym:z', '');
+      const fingerprint = did.replace('did:v1:test:nym:', '');
 
       const invokePublicKey = didDocument.doc.capabilityInvocation[0];
 
@@ -180,8 +180,12 @@ describe('methods/veres-one', () => {
 
       expect(exportedKey.privateKeyJwe.ciphertext)
         .to.have.lengthOf.above(128);
-
-      expect(invokeKey.verifyFingerprint(fingerprint)).to.be.true();
+      const result = invokeKey.verifyFingerprint(fingerprint);
+      expect(result).to.exist;
+      result.should.be.an('object');
+      expect(result.valid).to.exist;
+      result.valid.should.be.a('boolean');
+      result.valid.should.be.true();
     });
 
     it('should generate unprotected ed25519 nym-based DID Doc', async () => {
@@ -193,14 +197,19 @@ describe('methods/veres-one', () => {
       const did = didDocument.id;
 
       expect(did).to.match(/^did\:v1\:test\:nym\:z.*/);
-      const fingerprint = did.replace('did:v1:test:nym:z', '');
+      const fingerprint = did.replace('did:v1:test:nym:', '');
 
       const invokePublicKey = didDocument.doc.capabilityInvocation[0];
       const invokeKey = didDocument.keys[invokePublicKey.id];
 
       expect(invokePublicKey.id).to.have.string('nym:z');
 
-      expect(invokeKey.verifyFingerprint(fingerprint)).to.be.true();
+      const result = invokeKey.verifyFingerprint(fingerprint);
+      expect(result).to.exist;
+      result.should.be.an('object');
+      expect(result.valid).to.exist;
+      result.valid.should.be.a('boolean');
+      result.valid.should.be.true();
     });
   });
 

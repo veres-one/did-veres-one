@@ -27,7 +27,7 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
-    "crypto-ld": "^2.0.0",
+    "crypto-ld": "digitalbazaar/crypto-ld#fixFingerprint",
     "did-context": "^1.0.0",
     "fast-json-patch": "^2.0.7",
     "flex-docstore": "0.0.1",
