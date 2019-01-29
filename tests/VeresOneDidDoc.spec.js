@@ -1,6 +1,5 @@
 const sinon = require('sinon');
 const chai = require('chai');
-chai.use(require('dirty-chai'));
 chai.use(require('sinon-chai'));
 chai.should();
 const {expect} = chai;
@@ -41,7 +40,7 @@ describe('VeresOneDidDoc', () => {
 
       await didDoc.init({mode});
 
-      expect(didDoc.generateId).to.have.been.called();
+      expect(didDoc.generateId).to.have.been.called;
     });
 
     it('should init the authn/authz suites', async () => {
@@ -90,30 +89,29 @@ describe('VeresOneDidDoc', () => {
     let didDoc;
 
     beforeEach(() => {
-      didDoc = new VeresOneDidDoc({});
+      didDoc = new VeresOneDidDoc();
     });
 
     it('should throw on invalid/malformed DID', async () => {
       didDoc.doc.id = '1234';
-      try {
-        await didDoc.validateDid({mode: 'test'});
-      } catch(error) {
-        error.message.should.match(/^Invalid DID format/);
-      }
+      let result = await didDoc.validateDid({mode: 'test'});
+      result.should.be.an('object');
+      expect(result.valid).to.exist;
+      result.valid.should.be.a('boolean');
+      result.valid.should.be.false;
+      expect(result.error).to.exist;
+      result.error.message.should.match(/^Invalid DID format/);
 
       didDoc.doc.id = 'did:v1:uuid:'; // empty specific id
-      try {
-        await didDoc.validateDid();
-      } catch(error) {
-        error.message.should.match(/^Invalid DID format/);
-      }
+      result = await didDoc.validateDid();
+      result.valid.should.be.false;
+      result.error.message.should.match(/^Invalid DID format/);
 
       didDoc.doc.id = 'did:v1:uuid:123%abc'; // invalid character
-      try {
-        await didDoc.validateDid();
-      } catch(error) {
-        error.message.should.match(/^Specific id contains invalid characters/);
-      }
+      result = await didDoc.validateDid();
+      result.valid.should.be.false;
+      result.error.message.should.match(
+        /^Specific id contains invalid characters/);
     });
 
     it.skip('should throw when test: not present in DID in test mode', () => {
@@ -175,35 +173,34 @@ describe('VeresOneDidDoc', () => {
     });
 
     it('should validate key IDs', async () => {
-      didDoc.validateKeyIds();
+      const result = await didDoc.validateKeyIds();
+      expect(result).to.exist;
+      result.should.be.an('object');
+      expect(result.valid).to.exist;
+      result.valid.should.be.a('boolean');
+      result.valid.should.be.true;
+      expect(result.error).not.to.exist;
     });
 
-    it('should throw on invalid/malformed key ID', async () => {
-      const firstKeyId = Object.keys(didDoc.keys)[0];
-      const keyPair = didDoc.keys[firstKeyId];
-
+    it('should reject invalid/malformed key ID', async () => {
+      // mutate a keyId
+      const keyPair = didDoc.suiteKeyNode({suiteId: 'capabilityInvocation'});
       keyPair.id = '1234';
-      try {
-        await didDoc.validateKeyIds();
-      } catch(error) {
-        error.message.should.match(/^Invalid DID key ID/);
-      }
+      let result = await didDoc.validateKeyIds();
+      result.valid.should.be.false;
+      result.error.message.should.match(/^Invalid DID key ID/);
 
       keyPair.id = `${didDoc.id}#1234`;
-      try {
-        await didDoc.validateKeyIds();
-      } catch(error) {
-        error.message.should.equal(
-          '`fingerprint` must be a multibase encoded string.');
-      }
+      result = await didDoc.validateKeyIds();
+      result.valid.should.be.false;
+      result.error.message.should.equal(
+        '`fingerprint` must be a multibase encoded string.');
 
       keyPair.id = `${didDoc.id}#z1234`;
-      try {
-        await didDoc.validateKeyIds();
-      } catch(error) {
-        error.message.should.equal(
-          'The fingerprint does not match the public key.');
-      }
+      result = await didDoc.validateKeyIds();
+      result.valid.should.be.false;
+      result.error.message.should.equal(
+        'The fingerprint does not match the public key.');
     });
   });
 
@@ -240,7 +237,7 @@ describe('VeresOneDidDoc', () => {
       await didDoc.importKeys(exampleKeys);
 
       const authKey = didDoc.keys[keyId];
-      expect(authKey).to.exist();
+      expect(authKey).to.exist;
 
       expect(authKey.id).to.equal(keyId);
     });
@@ -265,7 +262,7 @@ describe('VeresOneDidDoc', () => {
 
       // Check to make sure key is removed
       expect(didDoc.doc[constants.SUITES.authentication]).to.eql([]);
-      expect(didDoc.keys[keyId]).to.not.exist();
+      expect(didDoc.keys[keyId]).to.not.exist;
 
       // Now re-add the key
       const suiteId = constants.SUITES.authentication;
@@ -288,14 +285,14 @@ describe('VeresOneDidDoc', () => {
     });
 
     it('should add a service to the did doc', () => {
-      expect(didDoc.hasService({name: 'testAgent'})).to.be.false();
+      expect(didDoc.hasService({name: 'testAgent'})).to.be.false;
       didDoc.addService({
         name: 'testAgent',
         type: 'AgentService',
         serviceEndpoint: 'https://example.com',
         description: 'test description' // this is a custom property
       });
-      expect(didDoc.hasService({name: 'testAgent'})).to.be.true();
+      expect(didDoc.hasService({name: 'testAgent'})).to.be.true;
 
       expect(didDoc.findService({name: 'testAgent'}).description)
         .to.equal('test description');
@@ -320,11 +317,11 @@ describe('VeresOneDidDoc', () => {
         name: 'testService', type: 'Test',
         serviceEndpoint: 'https://example.com'
       });
-      expect(didDoc.hasService({name: 'testService'})).to.be.true();
+      expect(didDoc.hasService({name: 'testService'})).to.be.true;
 
       didDoc.removeService({name: 'testService'});
 
-      expect(didDoc.hasService({name: 'testService'})).to.be.false();
+      expect(didDoc.hasService({name: 'testService'})).to.be.false;
     });
   });
 

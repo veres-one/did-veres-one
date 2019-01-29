@@ -1,6 +1,5 @@
 const nock = require('nock');
 const chai = require('chai');
-chai.use(require('dirty-chai'));
 chai.should();
 
 const {expect} = chai;
@@ -107,7 +106,7 @@ describe('methods/veres-one', () => {
         .to.match(/^did\:v1\:test\:nym\:z.*/);
       const authPublicKey = didDocument.doc.authentication[0];
       const publicKeyBase58 = authPublicKey.publicKeyBase58;
-      expect(publicKeyBase58).to.exist();
+      expect(publicKeyBase58).to.exist;
 
       const exportedKey = await didDocument.keys[authPublicKey.id].export();
 
@@ -144,10 +143,10 @@ describe('methods/veres-one', () => {
 
       expect(didDocument.id).to.match(/^did\:v1\:test\:nym\:.*/);
       const authPublicKey = didDocument.doc.authentication[0];
-      expect(authPublicKey.publicKeyBase58).to.exist();
+      expect(authPublicKey.publicKeyBase58).to.exist;
 
       const exportedKey = await didDocument.keys[authPublicKey.id].export();
-      expect(exportedKey.privateKeyBase58).to.exist();
+      expect(exportedKey.privateKeyBase58).to.exist;
     });
 
     it('should generate uuid-based DID Document', async () => {
@@ -185,7 +184,7 @@ describe('methods/veres-one', () => {
       result.should.be.an('object');
       expect(result.valid).to.exist;
       result.valid.should.be.a('boolean');
-      result.valid.should.be.true();
+      result.valid.should.be.true;
     });
 
     it('should generate unprotected ed25519 nym-based DID Doc', async () => {
@@ -209,7 +208,7 @@ describe('methods/veres-one', () => {
       result.should.be.an('object');
       expect(result.valid).to.exist;
       result.valid.should.be.a('boolean');
-      result.valid.should.be.true();
+      result.valid.should.be.true;
     });
   });
 
@@ -252,11 +251,11 @@ describe('methods/veres-one', () => {
       });
 
       const {proof} = didDocument;
-      expect(proof).to.exist();
+      expect(proof).to.exist;
       expect(proof.type).to.equal('RsaSignature2018');
       expect(proof.proofPurpose).to.equal('capabilityDelegation');
       expect(proof.creator).to.equal(creator);
-      expect(proof.jws).to.exist();
+      expect(proof.jws).to.exist;
     });
   });
 
@@ -285,12 +284,12 @@ describe('methods/veres-one', () => {
       expect(operation.record.id).to.match(/^did\:v1\:test\:nym\:.*/);
       expect(operation.record.authentication[0].publicKeyPem)
         .to.have.string('-----BEGIN PUBLIC KEY-----');
-      expect(operation.proof).to.exist();
+      expect(operation.proof).to.exist;
       expect(operation.proof.type).to.equal('RsaSignature2018');
       expect(operation.proof.capabilityAction).to.equal(operation.type);
       expect(operation.proof.proofPurpose).to.equal('capabilityInvocation');
       expect(operation.proof.creator).to.equal(creator);
-      expect(operation.proof.jws).to.exist();
+      expect(operation.proof.jws).to.exist;
     });
   });
 
@@ -323,22 +322,22 @@ describe('methods/veres-one', () => {
       expect(operation.record.id).to.match(/^did\:v1\:test\:nym\:.*/);
       expect(operation.record.authentication[0].publicKeyPem)
         .to.have.string('-----BEGIN PUBLIC KEY-----');
-      expect(operation.proof).to.exist();
+      expect(operation.proof).to.exist;
       // capability invocation proof
-      expect(operation.proof).to.exist();
-      expect(operation.proof[0]).to.exist();
+      expect(operation.proof).to.exist;
+      expect(operation.proof[0]).to.exist;
       expect(operation.proof[0].type).to.equal('RsaSignature2018');
       expect(operation.proof[0].capabilityAction).to.equal(operation.type);
       expect(operation.proof[0].proofPurpose).to.equal('capabilityInvocation');
       expect(operation.proof[0].creator).to.equal(creator);
-      expect(operation.proof[0].jws).to.exist();
+      expect(operation.proof[0].jws).to.exist;
       // equihash proof
-      expect(operation.proof[1]).to.exist();
+      expect(operation.proof[1]).to.exist;
       expect(operation.proof[1].type).to.equal('EquihashProof2018');
-      expect(operation.proof[1].equihashParameterN).to.exist();
-      expect(operation.proof[1].equihashParameterK).to.exist();
-      expect(operation.proof[1].nonce).to.exist();
-      expect(operation.proof[1].proofValue).to.exist();
+      expect(operation.proof[1].equihashParameterN).to.exist;
+      expect(operation.proof[1].equihashParameterK).to.exist;
+      expect(operation.proof[1].nonce).to.exist;
+      expect(operation.proof[1].proofValue).to.exist;
     });
   });
 });
