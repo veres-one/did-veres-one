@@ -1,6 +1,6 @@
 {
   "name": "did-veres-one",
-  "version": "4.0.0",
+  "version": "4.0.1-0",
   "description": "A Decentralized Identifier utility library for Veres One",
   "main": "lib/index.js",
   "files": [
