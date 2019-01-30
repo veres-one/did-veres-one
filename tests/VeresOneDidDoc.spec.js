@@ -164,7 +164,7 @@ describe('VeresOneDidDoc', () => {
     });
   });
 
-  describe('validateKeyIds', () => {
+  describe('validateMethodIds', () => {
     let didDoc;
 
     before(async () => {
@@ -172,8 +172,8 @@ describe('VeresOneDidDoc', () => {
       await didDoc.init({mode: 'test', passphrase: null});
     });
 
-    it('should validate key IDs', async () => {
-      const result = await didDoc.validateKeyIds();
+    it('should validate method IDs', async () => {
+      const result = await didDoc.validateMethodIds();
       expect(result).to.exist;
       result.should.be.an('object');
       expect(result.valid).to.exist;
@@ -182,23 +182,23 @@ describe('VeresOneDidDoc', () => {
       expect(result.error).not.to.exist;
     });
 
-    it('should reject invalid/malformed key ID', async () => {
-      // mutate a keyId
-      const keyPair = didDoc.proofPurposeKey(
+    it('should reject invalid/malformed method ID', async () => {
+      // mutate a methodId
+      const keyPair = didDoc.getVerificationMethod(
         {proofPurpose: 'capabilityInvocation'});
       keyPair.id = '1234';
-      let result = await didDoc.validateKeyIds();
+      let result = await didDoc.validateMethodIds();
       result.valid.should.be.false;
       result.error.message.should.match(/^Invalid DID key ID/);
 
       keyPair.id = `${didDoc.id}#1234`;
-      result = await didDoc.validateKeyIds();
+      result = await didDoc.validateMethodIds();
       result.valid.should.be.false;
       result.error.message.should.equal(
         '`fingerprint` must be a multibase encoded string.');
 
       keyPair.id = `${didDoc.id}#z1234`;
-      result = await didDoc.validateKeyIds();
+      result = await didDoc.validateMethodIds();
       result.valid.should.be.false;
       result.error.message.should.equal(
         'The fingerprint does not match the public key.');
