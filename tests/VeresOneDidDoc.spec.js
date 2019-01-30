@@ -43,7 +43,7 @@ describe('VeresOneDidDoc', () => {
       expect(didDoc.generateId).to.have.been.called;
     });
 
-    it('should init the authn/authz suites', async () => {
+    it('should init the authn/authz keys', async () => {
       await didDoc.init(mode);
 
       expect(didDoc.doc.authentication.length).to.equal(1);
@@ -184,7 +184,8 @@ describe('VeresOneDidDoc', () => {
 
     it('should reject invalid/malformed key ID', async () => {
       // mutate a keyId
-      const keyPair = didDoc.suiteKeyNode({suiteId: 'capabilityInvocation'});
+      const keyPair = didDoc.proofPurposeKey(
+        {proofPurpose: 'capabilityInvocation'});
       keyPair.id = '1234';
       let result = await didDoc.validateKeyIds();
       result.valid.should.be.false;
@@ -255,22 +256,22 @@ describe('VeresOneDidDoc', () => {
     it('should add/remove a public key node from the DID Doc', async () => {
       await didDoc.importKeys(exampleKeys);
 
-      const authSuites = didDoc.doc[constants.SUITES.authentication];
-      const authKey = authSuites[0];
+      const authKeys = didDoc.doc[constants.PROOF_PURPOSES.authentication];
+      const authKey = authKeys[0];
 
       didDoc.removeKey(authKey);
 
       // Check to make sure key is removed
-      expect(didDoc.doc[constants.SUITES.authentication]).to.eql([]);
+      expect(didDoc.doc[constants.PROOF_PURPOSES.authentication]).to.eql([]);
       expect(didDoc.keys[keyId]).to.not.exist;
 
       // Now re-add the key
-      const suiteId = constants.SUITES.authentication;
+      const proofPurpose = constants.PROOF_PURPOSES.authentication;
 
       const key = await LDKeyPair.from(exampleKeys[keyId]);
-      await didDoc.addKey({suiteId, key});
+      await didDoc.addKey({proofPurpose, key});
 
-      expect(authSuites).to.eql([key.publicNode({controller: did})]);
+      expect(authKeys).to.eql([key.publicNode({controller: did})]);
       expect(didDoc.keys[keyId]).to.eql(key);
     });
   });
