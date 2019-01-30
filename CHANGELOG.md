@@ -6,9 +6,14 @@
 - **BREAKING**: Use crypto-ld@3. crypto-ld@3 produces key fingerprints that
   have a different encoding from crypto-ld@2.
 - **BREAKING**: Remove unnecessary `generateKeyObject` API.
-- **BREAKING**: `validateCryptonymDid` and `validateKeyIds` APIs now conform
+- **BREAKING**: `validateKeyIds` has been renamed to `validateMethodIds`.
+- **BREAKING**: `validateCryptonymDid` and `validateMethodIds` APIs now conform
   to validator convention and return `{valid: <boolean>, error: <Error>}`
   instead of throwing.
+- **BREAKING**: `suiteForId` API has been renamed to
+  `getAllVerificationMethods`.
+- **BREAKING**: `suiteKeyNode` API has been renamed to `getVerificationMethod`
+  with a new method signature.  
 
 ## 3.0.0 - 2019-01-17
 
