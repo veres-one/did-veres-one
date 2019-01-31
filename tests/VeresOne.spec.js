@@ -76,7 +76,7 @@ describe('methods/veres-one', () => {
       v1.mode = 'dev';
       const didDocument = await v1.generate();
       expect(didDocument.id)
-        .to.match(/^did\:v1\:nym\:z.*/);
+        .to.match(/^did:v1:nym:z.*/);
     });
 
     it('should generate protected RSA nym-based DID Document', async () => {
@@ -86,7 +86,7 @@ describe('methods/veres-one', () => {
       };
       const didDocument = await v1.generate(nymOptions);
       expect(didDocument.id)
-        .to.match(/^did\:v1\:test\:nym\:z.*/);
+        .to.match(/^did:v1:test:nym:z.*/);
       const authPublicKey = didDocument.doc.authentication[0];
       const publicKeyPem = authPublicKey.publicKeyPem;
       expect(publicKeyPem)
@@ -103,7 +103,7 @@ describe('methods/veres-one', () => {
       const didDocument = await v1.generate(nymOptions);
 
       expect(didDocument.id)
-        .to.match(/^did\:v1\:test\:nym\:z.*/);
+        .to.match(/^did:v1:test:nym:z.*/);
       const authPublicKey = didDocument.doc.authentication[0];
       const publicKeyBase58 = authPublicKey.publicKeyBase58;
       expect(publicKeyBase58).to.exist;
@@ -126,7 +126,7 @@ describe('methods/veres-one', () => {
       };
       const didDocument = await v1.generate(nymOptions);
 
-      expect(didDocument.id).to.match(/^did\:v1\:test\:nym\:.*/);
+      expect(didDocument.id).to.match(/^did:v1:test:nym:.*/);
       const authPublicKey = didDocument.doc.authentication[0];
       expect(authPublicKey.publicKeyPem)
         .to.have.string('-----BEGIN PUBLIC KEY-----');
@@ -141,7 +141,7 @@ describe('methods/veres-one', () => {
       const nymOptions = {passphrase: null};
       const didDocument = await v1.generate(nymOptions);
 
-      expect(didDocument.id).to.match(/^did\:v1\:test\:nym\:.*/);
+      expect(didDocument.id).to.match(/^did:v1:test:nym:.*/);
       const authPublicKey = didDocument.doc.authentication[0];
       expect(authPublicKey.publicKeyBase58).to.exist;
 
@@ -156,7 +156,7 @@ describe('methods/veres-one', () => {
       };
       const didDocument = await v1.generate(uuidOptions);
 
-      expect(didDocument.id).to.match(/^did\:v1\:test\:uuid\:.*/);
+      expect(didDocument.id).to.match(/^did:v1:test:uuid:.*/);
     });
 
     it('should generate protected ed25519 nym-based DID Doc', async () => {
@@ -167,7 +167,7 @@ describe('methods/veres-one', () => {
       const didDocument = await v1.generate(nymOptions);
       const did = didDocument.id;
 
-      expect(did).to.match(/^did\:v1\:test\:nym\:z.*/);
+      expect(did).to.match(/^did:v1:test:nym:z.*/);
       const fingerprint = did.replace('did:v1:test:nym:', '');
 
       const invokePublicKey = didDocument.doc.capabilityInvocation[0];
@@ -195,7 +195,7 @@ describe('methods/veres-one', () => {
       const didDocument = await v1.generate(nymOptions);
       const did = didDocument.id;
 
-      expect(did).to.match(/^did\:v1\:test\:nym\:z.*/);
+      expect(did).to.match(/^did:v1:test:nym:z.*/);
       const fingerprint = did.replace('did:v1:test:nym:', '');
 
       const invokePublicKey = didDocument.doc.capabilityInvocation[0];
@@ -214,14 +214,14 @@ describe('methods/veres-one', () => {
 
   describe.skip('register', () => {
     it('should send a doc to ledger for registration', async () => {
-      const didDocument = await v1.generate({
-        passphrase: null //, keyType: 'RsaVerificationKey2018'
-      });
-      const result = await v1.register({
-        didDocument,
-        authDoc: didDocument,
-        accelerator: 'genesis.testnet.veres.one'
-      });
+      // const didDocument = await v1.generate({
+      //   passphrase: null //, keyType: 'RsaVerificationKey2018'
+      // });
+      // const result = await v1.register({
+      //   didDocument,
+      //   authDoc: didDocument,
+      //   accelerator: 'genesis.testnet.veres.one'
+      // });
 
       // const result = await v1.get({
       //   did: 'did:v1:test:nym:CS69oXskYadUi2MPjSvQguhUgeaxzdA4ZSQRzniNf1t5',
@@ -229,7 +229,7 @@ describe('methods/veres-one', () => {
       // });
       // console.log(result);
 
-      console.log(JSON.stringify(await result.text(), null, 2));
+      // console.log(JSON.stringify(await result.text(), null, 2));
     });
   });
 
@@ -281,7 +281,7 @@ describe('methods/veres-one', () => {
       });
 
       expect(operation.type).to.equal('CreateWebLedgerRecord');
-      expect(operation.record.id).to.match(/^did\:v1\:test\:nym\:.*/);
+      expect(operation.record.id).to.match(/^did:v1:test:nym:.*/);
       expect(operation.record.authentication[0].publicKeyPem)
         .to.have.string('-----BEGIN PUBLIC KEY-----');
       expect(operation.proof).to.exist;
@@ -319,7 +319,7 @@ describe('methods/veres-one', () => {
       operation = await v1.attachEquihashProof({operation});
 
       expect(operation.type).to.equal('CreateWebLedgerRecord');
-      expect(operation.record.id).to.match(/^did\:v1\:test\:nym\:.*/);
+      expect(operation.record.id).to.match(/^did:v1:test:nym:.*/);
       expect(operation.record.authentication[0].publicKeyPem)
         .to.have.string('-----BEGIN PUBLIC KEY-----');
       expect(operation.proof).to.exist;
