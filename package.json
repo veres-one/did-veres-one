@@ -37,7 +37,7 @@
     "jsonld-signatures": "^3.0.0",
     "ocapld": "^1.0.0",
     "veres-one-context": "^8.0.0",
-    "web-ledger-client": "^1.0.0",
+    "web-ledger-client": "digitalbazaar/web-ledger-client#dev",
     "web-ledger-context": "^4.0.0"
   },
   "devDependencies": {

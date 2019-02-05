@@ -31,9 +31,10 @@ describe('web ledger client', () => {
           .get(`/ledger-agents`)
           .reply(200, LEDGER_AGENTS_DOC);
 
-        nock('https://genesis.testnet.veres.one')
-          .post('/ledger-agents/72fdcd6a-5861-4307-ba3d-cbb72509533c' +
-               '/query?id=' + TEST_DID)
+        const {ledgerAgent: [{service: {ledgerQueryService}}]} =
+          LEDGER_AGENTS_DOC;
+        nock(ledgerQueryService)
+          .post('/?id=' + encodeURIComponent(TEST_DID))
           .reply(200, TEST_DID_RESULT);
 
         const result = await client.get({did: TEST_DID});
@@ -46,9 +47,10 @@ describe('web ledger client', () => {
           .get(`/ledger-agents`)
           .reply(200, LEDGER_AGENTS_DOC);
 
-        nock('https://genesis.testnet.veres.one')
-          .post('/ledger-agents/72fdcd6a-5861-4307-ba3d-cbb72509533c' +
-            '/query?id=' + TEST_DID)
+        const {ledgerAgent: [{service: {ledgerQueryService}}]} =
+          LEDGER_AGENTS_DOC;
+        nock(ledgerQueryService)
+          .post('/?id=' + encodeURIComponent(TEST_DID))
           .reply(200, TEST_DID_RESULT);
 
         const testKeyId = TEST_DID + '#authn-1';
