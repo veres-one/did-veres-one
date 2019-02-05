@@ -27,10 +27,10 @@ describe('methods/veres-one', () => {
       nock('https://genesis.testnet.veres.one')
         .get(`/ledger-agents`)
         .reply(200, LEDGER_AGENTS_DOC);
-
-      nock('https://genesis.testnet.veres.one')
-        .post('/ledger-agents/72fdcd6a-5861-4307-ba3d-cbb72509533c' +
-          '/query?id=' + TEST_DID)
+      const {ledgerAgent: [{service: {ledgerQueryService}}]} =
+        LEDGER_AGENTS_DOC;
+      nock(ledgerQueryService)
+        .post('/?id=' + encodeURIComponent(TEST_DID))
         .reply(200, TEST_DID_RESULT);
 
       const didDoc = await v1.get({did: TEST_DID});
@@ -43,31 +43,37 @@ describe('methods/veres-one', () => {
       nock('https://genesis.testnet.veres.one')
         .get(`/ledger-agents`)
         .reply(200, LEDGER_AGENTS_DOC);
-
-      nock('https://genesis.testnet.veres.one')
-        .post('/ledger-agents/72fdcd6a-5861-4307-ba3d-cbb72509533c' +
-          '/query?id=' + TEST_DID)
-        .reply(404, {});
+      const {ledgerAgent: [{service: {ledgerQueryService}}]} =
+        LEDGER_AGENTS_DOC;
+      nock(ledgerQueryService)
+        .post('/?id=' + encodeURIComponent(TEST_DID))
+        .reply(404);
 
       const didDoc = await v1.get({did: TEST_DID});
       expect(didDoc.id).to.equal(TEST_DID);
     });
 
-    it('should throw a 404 if DID not found on ledger or locally', done => {
+    it('should throw a 404 if DID not found on ledger or locally', async () => {
       nock('https://genesis.testnet.veres.one')
         .get(`/ledger-agents`)
         .reply(200, LEDGER_AGENTS_DOC);
 
-      nock('https://genesis.testnet.veres.one')
-        .post('/ledger-agents/72fdcd6a-5861-4307-ba3d-cbb72509533c' +
-          '/query?id=' + TEST_DID)
-        .reply(404, {});
+      const {ledgerAgent: [{service: {ledgerQueryService}}]} =
+        LEDGER_AGENTS_DOC;
+      nock(ledgerQueryService)
+        .post('/?id=' + encodeURIComponent(TEST_DID))
+        .reply(404);
 
-      v1.get({did: TEST_DID})
-        .catch(error => {
-          expect(error.response.status).to.equal(404);
-          done();
-        });
+      let error;
+      let result;
+      try {
+        result = await v1.get({did: TEST_DID});
+      } catch(e) {
+        error = e;
+      }
+      expect(result).not.to.exist;
+      expect(error).to.exist;
+      error.name.should.equal('NotFoundError');
     });
   });
 
