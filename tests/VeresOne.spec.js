@@ -5,17 +5,20 @@ chai.should();
 const {expect} = chai;
 const Store = require('flex-docstore');
 
-const VeresOne = require('../lib/VeresOne');
+const {VeresOne} = require('..');
 
 const TEST_DID = 'did:v1:test:nym:2pfPix2tcwa7gNoMRxdcHbEyFGqaVBPNntCsDZexVeHX';
 const TEST_DID_RESULT = require('./dids/genesis.testnet.did.json');
 const LEDGER_AGENTS_DOC = require('./dids/ledger-agents.json');
+const LEDGER_AGENT_STATUS = require('./dids/ledger-agent-status.json');
+const TICKET_SERVICE_PROOF = require('./dids/ticket-service-proof.json');
 
 describe('methods/veres-one', () => {
   let v1;
 
   beforeEach(() => {
     v1 = new VeresOne({mode: 'test'});
+    // v1 = new VeresOne({hostname: 'genesis.veres.one.localhost:42443'});
 
     v1.keyStore = Store.using('mock');
     v1.didStore = Store.using('mock');
@@ -33,6 +36,8 @@ describe('methods/veres-one', () => {
         .post('/?id=' + encodeURIComponent(TEST_DID))
         .reply(200, TEST_DID_RESULT);
 
+      _nockLedgerAgentStatus();
+
       const didDoc = await v1.get({did: TEST_DID});
       expect(didDoc.id).to.equal(TEST_DID);
     });
@@ -48,6 +53,8 @@ describe('methods/veres-one', () => {
       nock(ledgerQueryService)
         .post('/?id=' + encodeURIComponent(TEST_DID))
         .reply(404);
+
+      _nockLedgerAgentStatus();
 
       const didDoc = await v1.get({did: TEST_DID});
       expect(didDoc.id).to.equal(TEST_DID);
@@ -218,24 +225,26 @@ describe('methods/veres-one', () => {
     });
   });
 
-  describe.skip('register', () => {
+  describe('register', () => {
     it('should send a doc to ledger for registration', async () => {
-      // const didDocument = await v1.generate({
-      //   passphrase: null //, keyType: 'RsaVerificationKey2018'
-      // });
-      // const result = await v1.register({
-      //   didDocument,
-      //   authDoc: didDocument,
-      //   accelerator: 'genesis.testnet.veres.one'
-      // });
+      nock('https://genesis.testnet.veres.one')
+        .get(`/ledger-agents`)
+        .reply(200, LEDGER_AGENTS_DOC);
 
-      // const result = await v1.get({
-      //   did: 'did:v1:test:nym:CS69oXskYadUi2MPjSvQguhUgeaxzdA4ZSQRzniNf1t5',
-      //   mode: 'test'
-      // });
-      // console.log(result);
+      _nockLedgerAgentStatus();
+      _nockTicketService();
+      _nockOperationService();
 
-      // console.log(JSON.stringify(await result.text(), null, 2));
+      const didDocument = await v1.generate();
+      let error;
+      let result;
+      try {
+        result = await v1.register({didDocument});
+      } catch(e) {
+        error = e;
+      }
+      expect(error).not.to.exist;
+      expect(result).to.exist;
     });
   });
 
@@ -347,3 +356,34 @@ describe('methods/veres-one', () => {
     });
   });
 });
+
+function _nockLedgerAgentStatus() {
+  const {ledgerAgent: [{service: {ledgerAgentStatusService}}]} =
+    LEDGER_AGENTS_DOC;
+  nock(ledgerAgentStatusService)
+    .get('/')
+    .times(2)
+    .reply(200, LEDGER_AGENT_STATUS);
+}
+
+function _nockTicketService() {
+  const {service: {'urn:veresone:ticket-service': {id: ticketService}}} =
+    LEDGER_AGENT_STATUS;
+  nock(ticketService)
+    .post('')
+    .reply(200, (uri, requestBody) => {
+      const reply = JSON.parse(requestBody);
+      reply.proof = TICKET_SERVICE_PROOF;
+      return reply;
+    });
+}
+
+function _nockOperationService() {
+  const {ledgerAgent: [{service: {ledgerOperationService}}]} =
+    LEDGER_AGENTS_DOC;
+  nock(ledgerOperationService)
+    .post('/')
+    .reply(200, (uri, requestBody) => {
+      return requestBody.record;
+    });
+}

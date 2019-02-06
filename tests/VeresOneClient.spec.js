@@ -13,6 +13,7 @@ const TEST_HOSTNAME = 'genesis.testnet.veres.one';
 const TEST_DID = 'did:v1:test:nym:2pfPix2tcwa7gNoMRxdcHbEyFGqaVBPNntCsDZexVeHX';
 const TEST_DID_RESULT = require('./dids/genesis.testnet.did.json');
 const LEDGER_AGENTS_DOC = require('./dids/ledger-agents.json');
+const LEDGER_AGENT_STATUS = require('./dids/ledger-agent-status.json');
 const ACCELERATOR_RESPONSE = require('./dids/accelerator-response.json');
 
 describe('web ledger client', () => {
@@ -37,6 +38,8 @@ describe('web ledger client', () => {
           .post('/?id=' + encodeURIComponent(TEST_DID))
           .reply(200, TEST_DID_RESULT);
 
+        _nockLedgerAgentStatus();
+
         const result = await client.get({did: TEST_DID});
         expect(result.doc.id).to.equal(TEST_DID);
         expect(result.meta.sequence).to.equal(0);
@@ -52,6 +55,8 @@ describe('web ledger client', () => {
         nock(ledgerQueryService)
           .post('/?id=' + encodeURIComponent(TEST_DID))
           .reply(200, TEST_DID_RESULT);
+
+        _nockLedgerAgentStatus();
 
         const testKeyId = TEST_DID + '#authn-1';
 
@@ -100,3 +105,12 @@ describe('web ledger client', () => {
     });
   });
 });
+
+function _nockLedgerAgentStatus() {
+  const {ledgerAgent: [{service: {ledgerAgentStatusService}}]} =
+    LEDGER_AGENTS_DOC;
+  nock(ledgerAgentStatusService)
+    .get('/')
+    .times(2)
+    .reply(200, LEDGER_AGENT_STATUS);
+}
