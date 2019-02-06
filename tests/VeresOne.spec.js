@@ -370,9 +370,9 @@ function _nockTicketService() {
   const {service: {'urn:veresone:ticket-service': {id: ticketService}}} =
     LEDGER_AGENT_STATUS;
   nock(ticketService)
-    .post('')
+    .post('/')
     .reply(200, (uri, requestBody) => {
-      const reply = JSON.parse(requestBody);
+      const reply = JSON.parse(JSON.stringify(requestBody));
       reply.proof = TICKET_SERVICE_PROOF;
       return reply;
     });
