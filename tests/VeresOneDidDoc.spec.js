@@ -286,25 +286,20 @@ describe('VeresOneDidDoc', () => {
     });
 
     it('should add a service to the did doc', () => {
-      expect(didDoc.hasService({name: 'testAgent'})).to.be.false;
+      expect(didDoc.hasService({fragment: 'testAgent'})).to.be.false;
       didDoc.addService({
-        name: 'testAgent',
-        type: 'AgentService',
-        serviceEndpoint: 'https://example.com',
-        description: 'test description' // this is a custom property
+        endpoint: 'https://example.com',
+        fragment: 'testAgent',
+        type: 'urn:AgentService',
       });
-      expect(didDoc.hasService({name: 'testAgent'})).to.be.true;
-
-      expect(didDoc.findService({name: 'testAgent'}).description)
-        .to.equal('test description');
+      expect(didDoc.hasService({fragment: 'testAgent'})).to.be.true;
     });
 
     it('should throw when adding a service that already exists', () => {
       const serviceOptions = {
-        name: 'testAgent',
-        type: 'AgentService',
-        serviceEndpoint: 'https://example.com',
-        description: 'test description' // this is a custom property
+        endpoint: 'https://example.com',
+        fragment: 'testAgent',
+        type: 'urn:AgentService',
       };
 
       didDoc.addService(serviceOptions);
@@ -315,14 +310,15 @@ describe('VeresOneDidDoc', () => {
 
     it('should remove a service from the did doc', () => {
       didDoc.addService({
-        name: 'testService', type: 'Test',
-        serviceEndpoint: 'https://example.com'
+        endpoint: 'https://example.com',
+        fragment: 'testService',
+        type: 'urn:Test',
       });
-      expect(didDoc.hasService({name: 'testService'})).to.be.true;
+      expect(didDoc.hasService({fragment: 'testService'})).to.be.true;
 
-      didDoc.removeService({name: 'testService'});
+      didDoc.removeService({fragment: 'testService'});
 
-      expect(didDoc.hasService({name: 'testService'})).to.be.false;
+      expect(didDoc.hasService({fragment: 'testService'})).to.be.false;
     });
   });
 
