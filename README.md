@@ -105,17 +105,3 @@ use the invocation proof to authorize the operation.
 
 Returns an operation object with an attached ocap-ld invocation proof, ready to
 be submitted to the Veres One ledger.
-
-### Attach an Equihash proof of work to an operation
-
-Attach an Equihash proof of work to an operation. Once the operation is
-submitted to Veres One, the ledger nodes will be able to use the proof to
-authorize the operation.
-
-* options - a set of options used when attaching the proof of work
-  * operation - the operation to attach the proof to.
-  * mode - the mode/environment to generate the proof in.
-      Options: 'dev', 'test', 'live' (default: 'dev').
-
-Returns an operation object with an attached Equihash proof of work, ready to
-be submitted to the Veres One ledger.
