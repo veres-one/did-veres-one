@@ -1,3 +1,8 @@
+/*!
+ * Copyright (c) 2018-2019 Veres One Project. All rights reserved.
+ */
+'use strict';
+
 const sinon = require('sinon');
 const chai = require('chai');
 chai.use(require('sinon-chai'));
