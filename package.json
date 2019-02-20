@@ -23,7 +23,8 @@
     "mocha": "mocha ./tests/*.spec.js --opts ./tests/mocha.opts",
     "test": "npm run mocha",
     "preversion": "npm test",
-    "postversion": "git push --follow-tags"
+    "postversion": "git push --follow-tags",
+    "lint": "eslint lib tests"
   },
   "dependencies": {
     "apisauce": "^1.0.2",
@@ -42,7 +43,8 @@
   },
   "devDependencies": {
     "chai": "^4.2.0",
-    "eslint-config-digitalbazaar": "^1.0.0",
+    "eslint": "^5.14.1",
+    "eslint-config-digitalbazaar": "^1.6.0",
     "mocha": "^5.2.0",
     "nock": "^10.0.2",
     "sinon": "^7.1.1",
