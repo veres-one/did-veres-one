@@ -60,6 +60,7 @@ describe('web ledger client', () => {
 
         const testKeyId = TEST_DID + '#authn-1';
 
+        /* eslint-disable quotes, quote-props */
         const expectedDoc = {
           "@context": [
             "https://w3id.org/did/v0.11", "https://w3id.org/veres-one/v1"
@@ -71,6 +72,7 @@ describe('web ledger client', () => {
             "nym:2pfPix2tcwa7gNoMRxdcHbEyFGqaVBPNntCsDZexVeHX",
           "publicKeyBase58": "2pfPix2tcwa7gNoMRxdcHbEyFGqaVBPNntCsDZexVeHX"
         };
+        /* eslint-enable quote, quote-props */
 
         const result = await client.get({did: testKeyId});
 
@@ -84,6 +86,7 @@ describe('web ledger client', () => {
           .post(`/accelerator/proofs`)
           .reply(200, ACCELERATOR_RESPONSE);
 
+        /* eslint-disable quotes, quote-props */
         const operation = {
           "@context": "https://w3id.org/veres-one/v1",
           "type": "CreateWebLedgerRecord",
@@ -92,6 +95,7 @@ describe('web ledger client', () => {
             "id": "did:v1:test:uuid:ad33d59b630f44d49bdfb8266d4a243e"
           }
         };
+        /* eslint-enable quote, quote-props */
 
         const result = await client.sendToAccelerator({
           operation,
