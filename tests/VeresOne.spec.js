@@ -48,7 +48,8 @@ describe('methods/veres-one', () => {
     });
 
     it('should fetch a pairwise DID from local DID storage', async () => {
-      await v1.didStore.put(TEST_DID, TEST_DID_RESULT.record);
+      await v1.didStore.put(
+        TEST_DID, {doc: TEST_DID_RESULT.record, meta: TEST_DID_RESULT.meta});
 
       nock('https://genesis.testnet.veres.one')
         .get(`/ledger-agents`)
