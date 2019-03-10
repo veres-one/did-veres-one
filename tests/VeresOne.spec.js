@@ -264,7 +264,6 @@ describe('methods/veres-one', () => {
       const creator = delegationPublicKey.id;
       const {privateKeyPem} = await didDocument.keys[delegationPublicKey.id]
         .export();
-
       didDocument = await v1.attachDelegationProof({
         didDocument,
         creator,
