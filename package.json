@@ -3,6 +3,7 @@
   "version": "6.0.1-0",
   "description": "A Decentralized Identifier utility library for Veres One",
   "main": "lib/index.js",
+  "browser": "lib/browser.js",
   "files": [
     "lib/"
   ],
@@ -38,7 +39,7 @@
     "jsonld-signatures": "^4.0.0",
     "ocapld": "^1.1.0",
     "veres-one-context": "^8.0.0",
-    "web-ledger-client": "^2.0.0",
+    "web-ledger-client": "digitalbazaar/web-ledger-client#fix-browser-support",
     "web-ledger-context": "^4.0.0"
   },
   "devDependencies": {
