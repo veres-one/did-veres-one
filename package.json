@@ -40,7 +40,7 @@
     "ocapld": "^1.1.0",
     "uuid-random": "^1.0.7",
     "veres-one-context": "^8.0.0",
-    "web-ledger-client": "digitalbazaar/web-ledger-client#fix-browser-support",
+    "web-ledger-client": "^3.0.0",
     "web-ledger-context": "^4.0.0"
   },
   "devDependencies": {
