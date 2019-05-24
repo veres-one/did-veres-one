@@ -25,6 +25,8 @@ const veresDriver = v1.driver(options);
 * options - a set of options used when generating the DID Document
   * didType - the type of DID to generate.
       Options: 'nym' or 'uuid' (default: 'nym')
+  * `invokeKey` - optionally pass in a Capability Invocation key, otherwise
+    it will be generated.
   * keyType - the type of keys to generate.
       Options: 'RsaVerificationKey2018' (default: 'RsaVerificationKey2018').
   * hostname - ledger node hostname override
@@ -70,11 +72,6 @@ veresDriver
   })
   .catch(console.error);
 ```
-
-Note: This also saves the generated private/public key pairs, a local copy of
-the document, as well as any metadata, in the local (typically on-disk) store.
-See [Setting Up Storage](#setting-up-storage) for more detail.
-
 
 #### Registering a (newly generated) DID Document
 
