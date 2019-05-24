@@ -32,7 +32,6 @@
     "crypto-ld": "^3.4.1",
     "did-context": "digitalbazaar/did-spec#browser-support",
     "fast-json-patch": "^2.0.7",
-    "flex-docstore": "0.0.1",
     "http-signature-header": "^1.2.0",
     "json-ld-patch-context": "^3.0.0",
     "jsonld": "^1.1.0",
