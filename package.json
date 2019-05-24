@@ -46,7 +46,6 @@
     "chai": "^4.2.0",
     "eslint": "^5.14.1",
     "eslint-config-digitalbazaar": "^1.6.0",
-    "flex-docstore": "0.0.1",
     "mocha": "^5.2.0",
     "nock": "^10.0.2",
     "sinon": "^7.1.1",
