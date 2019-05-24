@@ -8,7 +8,6 @@ const chai = require('chai');
 chai.should();
 
 const {expect} = chai;
-const Store = require('flex-docstore');
 
 const {VeresOne} = require('..');
 
@@ -24,10 +23,6 @@ describe('methods/veres-one', () => {
   beforeEach(() => {
     v1 = new VeresOne({mode: 'test'});
     // v1 = new VeresOne({hostname: 'genesis.veres.one.localhost:42443'});
-
-    v1.keyStore = Store.using('mock');
-    v1.didStore = Store.using('mock');
-    v1.metaStore = Store.using('mock');
   });
 
   describe('get', () => {
@@ -108,15 +103,13 @@ describe('methods/veres-one', () => {
       const publicKeyBase58 = authPublicKey.publicKeyBase58;
       expect(publicKeyBase58).to.exist;
 
-      const exportedKey = await didDocument.keys[authPublicKey.id].export();
+      const keys = await didDocument.exportKeys();
+
+      const exportedKey = keys[authPublicKey.id];
 
       // check the corresponding private key
       expect(exportedKey.privateKeyJwe.unprotected.alg)
         .to.equal('PBES2-A128GCMKW');
-
-      // check that keys have been saved in key store
-      const savedKeys = await v1.keyStore.get(didDocument.id);
-      expect(Object.keys(savedKeys).length).to.equal(3);
     });
 
     it('should generate unprotected RSA nym-based DID Document', async () => {
