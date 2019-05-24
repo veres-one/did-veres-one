@@ -3,6 +3,7 @@
 ## 4.0.0 - TBD
 
 ### Changed
+- **BREAKING**: Uses `v1.driver(options)` API instead of `v1.veres()`
 - **BREAKING**: Use crypto-ld@3. crypto-ld@3 produces key fingerprints that
   have a different encoding from crypto-ld@2.
 - **BREAKING**: Remove unnecessary `generateKeyObject` API.
