@@ -47,26 +47,7 @@ describe('methods/veres-one', () => {
       expect(didDoc.id).to.equal(TEST_DID);
     });
 
-    it('should fetch a pairwise DID from local DID storage', async () => {
-      await v1.didStore.put(
-        TEST_DID, {doc: TEST_DID_RESULT.record, meta: TEST_DID_RESULT.meta});
-
-      nock('https://genesis.bee.veres.one')
-        .get(`/ledger-agents`)
-        .reply(200, LEDGER_AGENTS_DOC);
-      const {ledgerAgent: [{service: {ledgerQueryService}}]} =
-        LEDGER_AGENTS_DOC;
-      nock(ledgerQueryService)
-        .post('/?id=' + encodeURIComponent(TEST_DID))
-        .reply(404);
-
-      _nockLedgerAgentStatus();
-
-      const didDoc = await v1.get({did: TEST_DID});
-      expect(didDoc.id).to.equal(TEST_DID);
-    });
-
-    it('should throw a 404 if DID not found on ledger or locally', async () => {
+    it('should throw a 404 if DID not found on ledger', async () => {
       nock('https://genesis.bee.veres.one')
         .get(`/ledger-agents`)
         .reply(200, LEDGER_AGENTS_DOC);
