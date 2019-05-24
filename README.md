@@ -4,34 +4,40 @@ This library provides support classes for creating and processing
 Decentralized Identifiers for Veres One. This library enables a developer to:
 
 * Create a Veres One DID
-* Perform Veres One key rotation
 * Generate Veres One cryptographic proofs
-
-## The Promises API
-
-  * api.generate(options)
-
-## The Callback API (node.js)
-
-  * api.generate(options, (err, didDocument))
-
-## Quick Examples
 
 ```
 npm install did-veres-one
 ```
 
 ```js
-const didv1 = require('did-veres-one');
-const options = {};
+const v1 = require('did-veres-one');
 
-// generate the DID document
-const didDocument = await didv1.generate();
+// See Configuration below for list of options
+const options = {mode: 'dev', httpsAgent, hostname: 'localhost:12345'};
+const veresDriver = v1.driver(options);
+
+// this can now be used with did-io, or directly
 ```
 
 ## Configuration
 
-For documentation on configuration, see [config.js](./lib/config.js).
+* options - a set of options used when generating the DID Document
+  * didType - the type of DID to generate.
+      Options: 'nym' or 'uuid' (default: 'nym')
+  * keyType - the type of keys to generate.
+      Options: 'RsaVerificationKey2018' (default: 'RsaVerificationKey2018').
+  * hostname - ledger node hostname override
+  * passphrase - the passphrase to use to encrypt the private keys for
+      nym-based DIDs. Set to `null` if the private keys should not be encrypted.
+  * mode - the mode/environment to generate the DID in.
+      Options: 'dev', 'test', 'live' (default: 'dev').
+
+If you do not specify a particular ledger hostname, one will be determined
+based on the `mode` parameter (either 'test', 'dev' or 'live').
+
+If you want to connect to a specific hostname (for testing a particular node,
+for example), you can specify the override directly:
 
 ## API Documentation
 
@@ -41,23 +47,63 @@ resolved Promise.
 
 ### Generate a DID Document
 
-Generate a new DID document.
+#### Generating and Registering a Veres One DID Document
 
-* options - a set of options used when generating the DID Document
-  * didType - the type of DID to generate.
-      Options: 'nym' or 'uuid' (default: 'nym')
-  * keyType - the type of keys to generate.
-      Options: 'RsaVerificationKey2018' (default: 'RsaVerificationKey2018').
-  * passphrase - the passphrase to use to encrypt the private keys for
-      nym-based DIDs. Set to `null` if the private keys should not be encrypted.
-  * mode - the mode/environment to generate the DID in.
-      Options: 'dev', 'test', 'live' (default: 'dev').
+```js
+// Generate a new DID Document, store the private keys locally
+veresDriver
+  .generate({didType: 'nym', keyType: 'Ed25519VerificationKey2018'}) // default
+  .then(didDocument => {
+    // A new didDocument is generated. Log it to console
+    console.log('Generated:', JSON.stringify(didDocument, null, 2));
+    return didDocument;
+  })
 
-Returns an object with:
+  // Now register the newly generated DID Document
+  // Use Equihash Proof of Work by default (see below)
+  .then(didDocument => veresDriver.register({ didDocument }))
 
-* publicDidDocument - the generated DID Document.
-* privateDidDocument - the DID Document augmented with the encrypted private
-    keys in PEM format.
+  // Log the results
+  .then(registrationResult => {
+    // Log the result of registering the didDoc to the VeresOne Test ledger
+    console.log('Registered!', JSON.stringify(registrationResult, null, 2));
+  })
+  .catch(console.error);
+```
+
+Note: This also saves the generated private/public key pairs, a local copy of
+the document, as well as any metadata, in the local (typically on-disk) store.
+See [Setting Up Storage](#setting-up-storage) for more detail.
+
+
+#### Registering a (newly generated) DID Document
+
+To register a DID Document using an Equihash proof of work:
+
+```js
+veresDriver.register({ didDocument }).then().catch();
+```
+
+To register using an Accelerator:
+
+```js
+const accelerator = 'genesis.testnet.veres.one';
+const authDoc = didDocumentFromAccelerator; // obtained previously
+
+veresDriver.register({ didDocument, accelerator, authDoc })
+  .then(result => console.log(JSON.stringify(await result.text(), null, 2)))
+  .catch(console.error);
+```
+
+#### `get()` - Retrieving a Veres One DID Document
+
+```js
+const did = 'did:v1:test:nym:ApvL3PKAzQvFnRVqyZKhSYD2i8XcsLG1Dy4FrSdEKAdR';
+
+veresDriver.get({ did })
+  .then(didDoc => { console.log(JSON.stringify(didDoc, null, 2)); })
+  .catch(console.error);
+```
 
 ### Attach an ocap-ld delegation proof to a capability DID Document
 
