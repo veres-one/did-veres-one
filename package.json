@@ -30,7 +30,7 @@
     "apisauce": "^1.0.2",
     "base64url-universal": "^1.0.0",
     "crypto-ld": "^3.4.1",
-    "did-context": "^1.0.0",
+    "did-context": "digitalbazaar/did-spec#browser-support",
     "fast-json-patch": "^2.0.7",
     "flex-docstore": "0.0.1",
     "http-signature-header": "^1.2.0",
