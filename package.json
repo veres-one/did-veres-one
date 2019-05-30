@@ -39,7 +39,7 @@
     "jsonld-signatures": "^4.0.0",
     "ocapld": "^1.1.0",
     "uuid-random": "^1.0.7",
-    "veres-one-context": "^8.0.0",
+    "veres-one-context": "^9.0.0",
     "web-ledger-client": "^3.0.0",
     "web-ledger-context": "^5.0.0"
   },
