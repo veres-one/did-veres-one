@@ -16,8 +16,6 @@ const v1 = require('did-veres-one');
 // See Configuration below for list of options
 const options = {mode: 'dev', httpsAgent, hostname: 'localhost:12345'};
 const veresDriver = v1.driver(options);
-
-// this can now be used with did-io, or directly
 ```
 
 ## Configuration
@@ -62,7 +60,6 @@ veresDriver
   })
 
   // Now register the newly generated DID Document
-  // Use Equihash Proof of Work by default (see below)
   .then(didDocument => veresDriver.register({ didDocument }))
 
   // Log the results
