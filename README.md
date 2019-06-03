@@ -50,7 +50,7 @@ resolved Promise.
 #### Generating and Registering a Veres One DID Document
 
 ```js
-// Generate a new DID Document, store the private keys locally
+// Generate a new DID Document
 veresDriver
   .generate({didType: 'nym', keyType: 'Ed25519VerificationKey2018'}) // default
   .then(didDocument => {
@@ -85,7 +85,8 @@ const accelerator = 'genesis.testnet.veres.one';
 const authDoc = didDocumentFromAccelerator; // obtained previously
 
 veresDriver.register({ didDocument, accelerator, authDoc })
-  .then(result => console.log(JSON.stringify(await result.text(), null, 2)))
+  .then(result => result.text())
+  .then(text => console.log(JSON.stringify(text, null, 2)))
   .catch(console.error);
 ```
 
