@@ -1,6 +1,6 @@
 # did-veres-one ChangeLog
 
-## 4.0.0 - TBD
+## 4.0.0 - 2019-01-30
 
 ### Changed
 - **BREAKING**: Use crypto-ld@3. crypto-ld@3 produces key fingerprints that
