@@ -1,6 +1,6 @@
 # did-veres-one ChangeLog
 
-## 5.0.0 - TBD
+## 5.0.0 - 2019-06-19
 
 This release is being made in support of Node.js command line tooling. A
 browser compatible 6.0 release will be made soon.
