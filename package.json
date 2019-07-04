@@ -36,7 +36,7 @@
     "json-ld-patch-context": "^2.0.0",
     "jsonld": "^1.1.0",
     "jsonld-signatures": "digitalbazaar/jsonld-signatures#node-12",
-    "ocapld": "^1.1.0",
+    "ocapld": "digitalbazaar/ocapld.js#node-12",
     "veres-one-context": "^8.0.0",
     "web-ledger-client": "^2.0.0",
     "web-ledger-context": "^4.0.0"
