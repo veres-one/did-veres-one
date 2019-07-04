@@ -35,7 +35,7 @@
     "http-signature": "^1.2.0",
     "json-ld-patch-context": "^2.0.0",
     "jsonld": "^1.1.0",
-    "jsonld-signatures": "^4.0.0",
+    "jsonld-signatures": "digitalbazaar/jsonld-signatures#node-12",
     "ocapld": "^1.1.0",
     "veres-one-context": "^8.0.0",
     "web-ledger-client": "^2.0.0",
