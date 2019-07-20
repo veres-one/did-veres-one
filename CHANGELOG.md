@@ -1,6 +1,6 @@
 # did-veres-one ChangeLog
 
-## 6.0.0 - TBD
+## 6.0.0 - 2019-07-20
 
 ### Changed
 - **BREAKING**: Default test hostname to `genesis.bee.veres.one`.
