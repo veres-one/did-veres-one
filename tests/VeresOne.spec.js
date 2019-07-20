@@ -13,7 +13,7 @@ const Store = require('flex-docstore');
 const {VeresOne} = require('..');
 
 const TEST_DID = 'did:v1:test:nym:2pfPix2tcwa7gNoMRxdcHbEyFGqaVBPNntCsDZexVeHX';
-const TEST_DID_RESULT = require('./dids/genesis.testnet.did.json');
+const TEST_DID_RESULT = require('./dids/genesis.bee.did.json');
 const LEDGER_AGENTS_DOC = require('./dids/ledger-agents.json');
 const LEDGER_AGENT_STATUS = require('./dids/ledger-agent-status.json');
 const TICKET_SERVICE_PROOF = require('./dids/ticket-service-proof.json');
@@ -32,7 +32,7 @@ describe('methods/veres-one', () => {
 
   describe('get', () => {
     it('should fetch a DID Doc from a ledger', async () => {
-      nock('https://genesis.testnet.veres.one')
+      nock('https://genesis.bee.veres.one')
         .get(`/ledger-agents`)
         .reply(200, LEDGER_AGENTS_DOC);
       const {ledgerAgent: [{service: {ledgerQueryService}}]} =
@@ -51,7 +51,7 @@ describe('methods/veres-one', () => {
       await v1.didStore.put(
         TEST_DID, {doc: TEST_DID_RESULT.record, meta: TEST_DID_RESULT.meta});
 
-      nock('https://genesis.testnet.veres.one')
+      nock('https://genesis.bee.veres.one')
         .get(`/ledger-agents`)
         .reply(200, LEDGER_AGENTS_DOC);
       const {ledgerAgent: [{service: {ledgerQueryService}}]} =
@@ -67,7 +67,7 @@ describe('methods/veres-one', () => {
     });
 
     it('should throw a 404 if DID not found on ledger or locally', async () => {
-      nock('https://genesis.testnet.veres.one')
+      nock('https://genesis.bee.veres.one')
         .get(`/ledger-agents`)
         .reply(200, LEDGER_AGENTS_DOC);
 
@@ -233,7 +233,7 @@ describe('methods/veres-one', () => {
 
   describe('register', () => {
     it('should send a doc to ledger for registration', async () => {
-      nock('https://genesis.testnet.veres.one')
+      nock('https://genesis.bee.veres.one')
         .get(`/ledger-agents`)
         .reply(200, LEDGER_AGENTS_DOC);
 
