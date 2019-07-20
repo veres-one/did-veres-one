@@ -1,9 +1,14 @@
 # did-veres-one ChangeLog
 
+## 6.0.0 - TBD
+
+### Changed
+- **BREAKING**: Default test hostname to `genesis.bee.veres.one`.
+
 ## 5.0.0 - 2019-06-19
 
 This release is being made in support of Node.js command line tooling. A
-browser compatible 6.0 release will be made soon.
+browser compatible release will be made soon.
 
 ### Changed
 - **BREAKING**: Numerous breaking API changes. See in-line jsdocs for changes.
