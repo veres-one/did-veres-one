@@ -27,8 +27,7 @@ const veresDriver = v1.driver(options);
   * `invokeKey` - optionally pass in a Capability Invocation key, otherwise
     it will be generated.
   * keyType - the type of keys to generate.
-      Options: 'Ed25519VerificationKey2018' (default) or
-      'RsaVerificationKey2018'
+      Options: 'Ed25519VerificationKey2018' (default)
   * hostname - ledger node hostname override
   * passphrase - the passphrase to use to encrypt the private keys for
       nym-based DIDs. Set to `null` if the private keys should not be encrypted.
