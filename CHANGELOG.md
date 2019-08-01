@@ -1,6 +1,6 @@
 # did-veres-one ChangeLog
 
-## 7.0.0 - 2019-08-01
+## 7.0.0 - TBD
 
 ### Changed
 - **BREAKING**: Uses `v1.driver(options)` API instead of `v1.veres()`.
