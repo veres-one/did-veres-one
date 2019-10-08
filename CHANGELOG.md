@@ -1,5 +1,10 @@
 # did-veres-one ChangeLog
 
+## 7.1.0 - 2019-10-08
+
+### Changed
+- Update to dependencies with support for Node 12 native Ed25519 crypto.
+
 ## 7.0.0 - 2019-08-01
 
 ### Changed
