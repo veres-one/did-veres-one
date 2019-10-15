@@ -1,11 +1,12 @@
 # did-veres-one ChangeLog
 
-## 8.0.0 - TBD
+## 8.0.0 - 2019-10-15
 
 ### Changed
 - **BREAKING**: Change `capabilityAction` values in invocation proofs.
   - `RegisterDid` is now `create`.
   - `UpdateDidDocument` is now `update`.
+- **BREAKING**: Removed all APIs and tests related to Equihash.  
 
 ## 7.1.0 - 2019-10-08
 
