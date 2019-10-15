@@ -287,54 +287,6 @@ describe('methods/veres-one', () => {
       expect(operation.proof.jws).to.exist;
     });
   });
-
-  describe.skip('attachEquihashProof', () => {
-    it('should attach an equihash proof to an operation', async () => {
-      // generate a DID Document
-      const didDocument = await v1.generate({
-        passphrase: null, keyType: 'RsaVerificationKey2018'
-      });
-
-      // attach an capability invocation proof
-      let operation = v1.client.wrap({didDocument: didDocument.doc});
-      const invokePublicKey = didDocument.doc.capabilityInvocation[0];
-      const creator = invokePublicKey.id;
-      const {privateKeyPem} = await didDocument.keys[invokePublicKey.id]
-        .export();
-
-      operation = await v1.attachInvocationProof({
-        operation,
-        capability: didDocument.id,
-        capabilityAction: operation.type,
-        creator,
-        privateKeyPem
-      });
-
-      // attach an equihash proof
-      operation = await v1.attachEquihashProof({operation});
-
-      expect(operation.type).to.equal('CreateWebLedgerRecord');
-      expect(operation.record.id).to.match(/^did:v1:test:nym:.*/);
-      expect(operation.record.authentication[0].publicKeyPem)
-        .to.have.string('-----BEGIN PUBLIC KEY-----');
-      expect(operation.proof).to.exist;
-      // capability invocation proof
-      expect(operation.proof).to.exist;
-      expect(operation.proof[0]).to.exist;
-      expect(operation.proof[0].type).to.equal('RsaSignature2018');
-      expect(operation.proof[0].capabilityAction).to.equal(operation.type);
-      expect(operation.proof[0].proofPurpose).to.equal('capabilityInvocation');
-      expect(operation.proof[0].creator).to.equal(creator);
-      expect(operation.proof[0].jws).to.exist;
-      // equihash proof
-      expect(operation.proof[1]).to.exist;
-      expect(operation.proof[1].type).to.equal('EquihashProof2018');
-      expect(operation.proof[1].equihashParameterN).to.exist;
-      expect(operation.proof[1].equihashParameterK).to.exist;
-      expect(operation.proof[1].nonce).to.exist;
-      expect(operation.proof[1].proofValue).to.exist;
-    });
-  });
 });
 
 function _nockLedgerAgentStatus() {
