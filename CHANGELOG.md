@@ -1,5 +1,12 @@
 # did-veres-one ChangeLog
 
+## 8.0.0 - TBD
+
+### Changed
+- **BREAKING**: Change `capabilityAction` values in invocation proofs.
+  - `RegisterDid` is now `create`.
+  - `UpdateDidDocument` is now `update`.
+
 ## 7.1.0 - 2019-10-08
 
 ### Changed
