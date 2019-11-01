@@ -16,5 +16,11 @@
     "type": "Ed25519VerificationKey2018",
     "publicKeyBase58": "EsP4zycDtPDT2K6YDnu2LS1hWFsyZDyLXrH6xkGkaW5s",
     "privateKeyBase58": "3FJEu99xHKrx5gdReAWfrponxSY9Tst6cMYyrBXCS6eGueo8m7h3u2Y5hqJd2iWfHyeAayV8VXcxGGrYBUxAKrUd"
+  },
+  "did:v1:test:nym:z279wbVAtyvuhWzM8CyMScPvS2G7RmkvGrBX5jf3MDmzmow3#assertion-1": {
+    "id": "did:v1:test:nym:z279wbVAtyvuhWzM8CyMScPvS2G7RmkvGrBX5jf3MDmzmow3#assertion-1",
+    "type": "Ed25519VerificationKey2018",
+    "publicKeyBase58": "EsP4zycDtPDT2K6YDnu2LS1hWFsyZDyLXrH6xkGkaW5s",
+    "privateKeyBase58": "3FJEu99xHKrx5gdReAWfrponxSY9Tst6cMYyrBXCS6eGueo8m7h3u2Y5hqJd2iWfHyeAayV8VXcxGGrYBUxAKrUd"
   }
 }

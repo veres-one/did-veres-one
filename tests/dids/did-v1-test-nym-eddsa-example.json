@@ -24,5 +24,13 @@
       "controller": "did:v1:test:nym:z279wbVAtyvuhWzM8CyMScPvS2G7RmkvGrBX5jf3MDmzmow3",
       "publicKeyBase58": "EsP4zycDtPDT2K6YDnu2LS1hWFsyZDyLXrH6xkGkaW5s"
     }
+  ],
+  "assertionMethod": [
+    {
+      "id": "did:v1:test:nym:z279wbVAtyvuhWzM8CyMScPvS2G7RmkvGrBX5jf3MDmzmow3#assertion-1",
+      "type": "Ed25519VerificationKey2018",
+      "controller": "did:v1:test:nym:z279wbVAtyvuhWzM8CyMScPvS2G7RmkvGrBX5jf3MDmzmow3",
+      "publicKeyBase58": "EsP4zycDtPDT2K6YDnu2LS1hWFsyZDyLXrH6xkGkaW5s"
+    }
   ]
 }
