@@ -54,6 +54,7 @@ describe('VeresOneDidDoc', () => {
       expect(didDoc.doc.authentication.length).to.equal(1);
       expect(didDoc.doc.capabilityDelegation.length).to.equal(1);
       expect(didDoc.doc.capabilityInvocation.length).to.equal(1);
+      expect(didDoc.doc.assertionMethod.length).to.equal(1);
     });
 
     it('should generate an invoke key', async () => {
