@@ -222,7 +222,7 @@ describe('VeresOneDidDoc', () => {
       await didDoc.init({mode: 'test', passphrase: null});
 
       const keys = await didDoc.exportKeys();
-      expect(Object.keys(keys).length).to.equal(3);
+      expect(Object.keys(keys).length).to.equal(4);
       for(const k in keys) {
         expect(keys[k]).to.have.property('privateKeyBase58');
       }
