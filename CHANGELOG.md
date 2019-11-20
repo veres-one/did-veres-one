@@ -1,5 +1,14 @@
 # did-veres-one ChangeLog
 
+## 9.0.0 - 2019-11-20
+
+### Changed
+- **BREAKING**: Updated contexts (`veres-one-context@11`, 
+  `web-ledger-context@6`, `veres-one-context@10`)
+
+### Added
+- Add `assertionMethod` proof purpose to generated DID Document
+
 ## 8.0.0 - 2019-10-15
 
 ### Changed
