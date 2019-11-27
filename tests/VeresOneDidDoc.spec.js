@@ -211,74 +211,124 @@ describe('VeresOneDidDoc', () => {
     });
   });
 
-  describe('exportKeys', () => {
-    it('should return an empty object when no keys are present', async () => {
-      const didDoc = new VeresOneDidDoc();
-      expect(await didDoc.exportKeys()).to.eql({});
-    });
-
-    it('should return a hashmap of keys by key id', async () => {
-      const didDoc = new VeresOneDidDoc();
-      await didDoc.init({mode: 'test', passphrase: null});
-
-      const keys = await didDoc.exportKeys();
-      expect(Object.keys(keys).length).to.equal(4);
-      for(const k in keys) {
-        expect(keys[k]).to.have.property('privateKeyBase58');
-      }
-    });
-  });
-
-  describe('importKeys', () => {
-    const exampleDoc = require('./dids/did-v1-test-nym-eddsa-example.json');
-    const exampleKeys = require(
-      './dids/did-v1-test-nym-eddsa-example-keys.json');
-    const keyId = 'did:v1:test:nym:' +
-      'z279wbVAtyvuhWzM8CyMScPvS2G7RmkvGrBX5jf3MDmzmow3#authn-1';
-
-    it('should import keys', async () => {
-      const didDoc = new VeresOneDidDoc({doc: exampleDoc});
-
-      expect(didDoc.keys).to.eql({}); // no keys
-
-      await didDoc.importKeys(exampleKeys);
-
-      const authKey = didDoc.keys[keyId];
-      expect(authKey).to.exist;
-
-      expect(authKey.id).to.equal(keyId);
-    });
-  });
-
-  describe('addKey/removeKey', () => {
+  describe('key operations', () => {
     const exampleDoc = require('./dids/did-v1-test-nym-eddsa-example.json');
     const exampleKeys = require(
       './dids/did-v1-test-nym-eddsa-example-keys.json');
     const did = 'did:v1:test:nym:' +
       'z279wbVAtyvuhWzM8CyMScPvS2G7RmkvGrBX5jf3MDmzmow3';
-    const keyId = `${did}#authn-1`;
-    const didDoc = new VeresOneDidDoc({doc: exampleDoc});
+    const keyId = did + '#authn-1';
 
-    it('should add/remove a public key node from the DID Doc', async () => {
-      await didDoc.importKeys(exampleKeys);
+    let doc;
 
-      const authKeys = didDoc.doc[constants.PROOF_PURPOSES.authentication];
-      const authKey = authKeys[0];
+    beforeEach(() => {
+      doc = JSON.parse(JSON.stringify(exampleDoc));
+    });
 
-      didDoc.removeKey(authKey);
+    describe('exportKeys', () => {
+      it('should return an empty object when no keys are present', async () => {
+        const didDoc = new VeresOneDidDoc();
+        expect(await didDoc.exportKeys()).to.eql({});
+      });
 
-      // Check to make sure key is removed
-      expect(didDoc.doc[constants.PROOF_PURPOSES.authentication]).to.eql([]);
-      expect(didDoc.keys[keyId]).to.not.exist;
+      it('should return a hashmap of keys by key id', async () => {
+        const didDoc = new VeresOneDidDoc();
+        await didDoc.init({mode: 'test', passphrase: null});
 
-      // Now re-add the key
-      const proofPurpose = constants.PROOF_PURPOSES.authentication;
+        const keys = await didDoc.exportKeys();
+        expect(Object.keys(keys).length).to.equal(4);
+        for(const k in keys) {
+          expect(keys[k]).to.have.property('privateKeyBase58');
+        }
+      });
+    });
 
-      const key = await LDKeyPair.from(exampleKeys[keyId]);
-      await didDoc.addKey({proofPurpose, key});
+    describe('importKeys', () => {
+      it('should import keys', async () => {
+        const didDoc = new VeresOneDidDoc({doc});
 
-      expect(authKeys).to.eql([key.publicNode({controller: did})]);
-      expect(didDoc.keys[keyId]).to.eql(key);
+        expect(didDoc.keys).to.eql({}); // no keys
+
+        await didDoc.importKeys(exampleKeys);
+
+        const authKey = didDoc.keys[keyId];
+        expect(authKey).to.exist;
+
+        expect(authKey.id).to.equal(keyId);
+      });
+    });
+
+    describe('addKey/removeKey', () => {
+      it('should add/remove a public key node from the DID Doc', async () => {
+        const didDoc = new VeresOneDidDoc({doc});
+        await didDoc.importKeys(exampleKeys);
+
+        const authKeys = didDoc.doc[constants.PROOF_PURPOSES.authentication];
+        const authKey = authKeys[0];
+
+        didDoc.removeKey(authKey);
+
+        // Check to make sure key is removed
+        expect(didDoc.doc[constants.PROOF_PURPOSES.authentication]).to.eql([]);
+        expect(didDoc.keys[keyId]).to.not.exist;
+
+        // Now re-add the key
+        const proofPurpose = constants.PROOF_PURPOSES.authentication;
+
+        const key = await LDKeyPair.from(exampleKeys[keyId]);
+        await didDoc.addKey({proofPurpose, key});
+
+        expect(authKeys).to.eql([key.publicNode({controller: did})]);
+        expect(didDoc.keys[keyId]).to.eql(key);
+      });
+    });
+
+    describe('findKey/findVerificationMethod', () => {
+      it('should find key and proof purpose for a key id', () => {
+        const didDoc = new VeresOneDidDoc({doc});
+
+        const {proofPurpose, key} = didDoc.findKey({id: keyId});
+        expect(proofPurpose).to.equal('authentication');
+        expect(key.type).to.equal('Ed25519VerificationKey2018');
+      });
+
+      it('should return falsy values if that key id is not found', () => {
+        const didDoc = new VeresOneDidDoc({doc});
+        const {proofPurpose, key} = didDoc.findKey({id: 'invalid key id'});
+        expect(proofPurpose).to.be.undefined;
+        expect(key).to.be.undefined;
+      });
+    });
+
+    describe('rotateKey', () => {
+      it('should rotate a key - remove old one, add new', async () => {
+        const didDoc = new VeresOneDidDoc({doc});
+
+        const newKey = await didDoc.rotateKey({id: keyId});
+
+        expect(newKey).to.have.property('type', 'Ed25519VerificationKey2018');
+        expect(newKey).to.have.property('controller', did);
+        expect(newKey.id).to.not.equal(keyId);
+
+        const {proofPurpose, key: foundKey} = didDoc.findKey({id: newKey.id});
+        expect(proofPurpose).to.equal('authentication');
+        expect(foundKey).to.exist;
+        expect(foundKey.id).to.equal(newKey.id);
+      });
+
+      it('should throw an error if key to be rotated not present', async () => {
+        const didDoc = new VeresOneDidDoc({doc});
+        let thrownError;
+
+        try {
+          await didDoc.rotateKey({id: 'non existent key'});
+        } catch(error) {
+          thrownError = error;
+        }
+
+        expect(thrownError).to.exist;
+        expect(thrownError.message).to.match(/is not found in did document/);
+      });
     });
   });
 
