@@ -1,5 +1,10 @@
 # did-veres-one ChangeLog
 
+## 9.1.1 - 2019-12-06
+
+### Changed
+- Fixed - do not use exported/encrypted key for `attachInvocationProof()`.
+
 ## 9.1.0 - 2019-12-05
 
 ### Added
