@@ -1,5 +1,13 @@
 # did-veres-one ChangeLog
 
+## 9.1.0 - 2019-12-05
+
+### Added
+- Implemented `rotateKey()`
+
+### Changed
+- Fixed setting of controllers for newly generated did doc keys.
+
 ## 9.0.0 - 2019-11-20
 
 ### Changed
