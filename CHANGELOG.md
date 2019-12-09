@@ -1,5 +1,12 @@
 # did-veres-one ChangeLog
 
+## 10.0.0 - TBD
+
+### Changed
+- **BREAKING**: Updated contexts (
+  `web-ledger-context@7`, `json-ld-patch-context@4`)
+- Use jsonld@2.
+
 ## 9.1.1 - 2019-12-06
 
 ### Changed
@@ -16,7 +23,7 @@
 ## 9.0.0 - 2019-11-20
 
 ### Changed
-- **BREAKING**: Updated contexts (`veres-one-context@11`, 
+- **BREAKING**: Updated contexts (`veres-one-context@11`,
   `web-ledger-context@6`, `veres-one-context@10`)
 
 ### Added

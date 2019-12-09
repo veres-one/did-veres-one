@@ -34,7 +34,7 @@
     "fast-json-patch": "^2.1.0",
     "http-signature-header": "^1.2.0",
     "json-ld-patch-context": "^4.0.0",
-    "jsonld": "^1.6.2",
+    "jsonld": "^2.0.0",
     "jsonld-signatures": "^4.4.0",
     "ocapld": "^1.4.0",
     "uuid-random": "^1.0.9",
