@@ -40,7 +40,7 @@
     "uuid-random": "^1.0.9",
     "veres-one-context": "^11.0.0",
     "web-ledger-client": "^3.1.0",
-    "web-ledger-context": "^6.0.0"
+    "web-ledger-context": "^7.0.0"
   },
   "devDependencies": {
     "chai": "^4.2.0",
