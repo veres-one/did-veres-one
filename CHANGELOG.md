@@ -1,6 +1,6 @@
 # did-veres-one ChangeLog
 
-## 10.0.0 - TBD
+## 10.0.0 - 2019-12-10
 
 ### Changed
 - **BREAKING**: Updated contexts (
