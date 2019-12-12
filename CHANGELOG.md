@@ -1,5 +1,10 @@
 # did-veres-one ChangeLog
 
+## 10.0.1 - TBD
+
+### Changed
+- Fixed `didDocument.export()`.
+
 ## 10.0.0 - 2019-12-10
 
 ### Changed
