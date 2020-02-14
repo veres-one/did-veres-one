@@ -1,5 +1,10 @@
 # did-veres-one ChangeLog
 
+## 10.1.0 - 2020-02-14
+
+### Changed
+- Use jsonld-signatures@5.
+
 ## 10.0.1 - 2019-12-16
 
 ### Changed
@@ -40,7 +45,7 @@
 - **BREAKING**: Change `capabilityAction` values in invocation proofs.
   - `RegisterDid` is now `create`.
   - `UpdateDidDocument` is now `update`.
-- **BREAKING**: Removed all APIs and tests related to Equihash.  
+- **BREAKING**: Removed all APIs and tests related to Equihash.
 
 ## 7.1.0 - 2019-10-08
 
@@ -78,7 +83,7 @@ browser compatible release will be made soon.
 - **BREAKING**: `suiteForId` API has been renamed to
   `getAllVerificationMethods`.
 - **BREAKING**: `suiteKeyNode` API has been renamed to `getVerificationMethod`
-  with a new method signature.  
+  with a new method signature.
 
 ## 3.0.0 - 2019-01-17
 
