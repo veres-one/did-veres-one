@@ -1,5 +1,10 @@
 # did-veres-one ChangeLog
 
+## 11.0.1 - 2020-02-19
+
+### Changed
+- Fix tag version
+
 ## 11.0.0 - 2020-02-19
 
 ### Changed
