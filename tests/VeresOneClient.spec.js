@@ -14,9 +14,9 @@ tls.DEFAULT_ECDH_CURVE = 'auto';
 
 const {VeresOneClient} = require('../lib/index');
 
-const TEST_HOSTNAME = 'genesis.bee.veres.one';
+const TEST_HOSTNAME = 'ashburn.capybara.veres.one';
 const TEST_DID = 'did:v1:test:nym:2pfPix2tcwa7gNoMRxdcHbEyFGqaVBPNntCsDZexVeHX';
-const TEST_DID_RESULT = require('./dids/genesis.bee.did.json');
+const TEST_DID_RESULT = require('./dids/ashburn.capybara.did.json');
 const LEDGER_AGENTS_DOC = require('./dids/ledger-agents.json');
 const LEDGER_AGENT_STATUS = require('./dids/ledger-agent-status.json');
 const ACCELERATOR_RESPONSE = require('./dids/accelerator-response.json');
@@ -33,7 +33,7 @@ describe('web ledger client', () => {
   describe('veres one client', () => {
     describe('get', () => {
       it('should fetch a did doc from ledger via https', async () => {
-        nock('https://genesis.bee.veres.one')
+        nock('https://ashburn.capybara.veres.one')
           .get(`/ledger-agents`)
           .reply(200, LEDGER_AGENTS_DOC);
 
@@ -51,7 +51,7 @@ describe('web ledger client', () => {
       });
 
       it('should fetch just a key object from a did: with hash', async () => {
-        nock('https://genesis.bee.veres.one')
+        nock('https://ashburn.capybara.veres.one')
           .get(`/ledger-agents`)
           .reply(200, LEDGER_AGENTS_DOC);
 
@@ -87,7 +87,7 @@ describe('web ledger client', () => {
 
     describe.skip('sendToAccelerator', () => {
       it('should send an operation to an accelerator service', async () => {
-        nock('https://genesis.bee.veres.one')
+        nock('https://ashburn.capybara.veres.one')
           .post(`/accelerator/proofs`)
           .reply(200, ACCELERATOR_RESPONSE);
 
