@@ -1,5 +1,11 @@
 # did-veres-one ChangeLog
 
+## 11.0.0 - 2020-02-19
+
+### Changed
+- Fix dev-mode ledger endpoint.
+- Update to Veres One Capybara testnet.
+
 ## 10.1.0 - 2020-02-14
 
 ### Changed
