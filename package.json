@@ -22,8 +22,6 @@
   "scripts": {
     "mocha": "mocha ./tests/*.spec.js --opts ./tests/mocha.opts",
     "test": "npm run mocha",
-    "preversion": "npm test",
-    "postversion": "git push --follow-tags",
     "lint": "eslint lib tests"
   },
   "dependencies": {
