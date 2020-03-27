@@ -34,7 +34,7 @@
     "json-ld-patch-context": "^4.0.0",
     "jsonld": "^2.0.0",
     "jsonld-signatures": "^5.0.0",
-    "ocapld": "^1.4.0",
+    "ocapld": "^2.0.0",
     "uuid-random": "^1.0.9",
     "veres-one-context": "^11.0.0",
     "web-ledger-client": "^3.1.0",
