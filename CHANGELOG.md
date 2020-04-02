@@ -1,5 +1,10 @@
 # did-veres-one ChangeLog
 
+## 11.1.0 - 2020-04-02
+
+### Changed
+- Use ocapld@2.
+
 ## 11.0.1 - 2020-02-19
 
 ### Changed
