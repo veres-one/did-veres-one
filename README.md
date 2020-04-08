@@ -43,15 +43,9 @@ selected based on the `mode` parameter (either 'test', 'dev' or 'live').
 If you want to connect to a specific hostname (for testing a particular node,
 for example), you can specify the override directly:
 
-## API Documentation
+## Usage
 
-The API documentation provided below is for the Promises-based API. The
-callback API works the same way where the callback provides the value for the
-resolved Promise.
-
-### Generate a DID Document
-
-#### Generating a Veres One DID Document
+### Generate a Veres One DID Document
 
 ```js
 // Generate a new DID Document
@@ -59,12 +53,54 @@ const didDocument = await veresDriver.generate(
   {didType: 'nym', keyType: 'Ed25519VerificationKey2018'}); // default
 
 // Log the new didDocument to the console.
-console.log('Generated:', JSON.stringify(didDocument, null, 2));
+console.log(JSON.stringify(didDocument, null, 2));
 ```
 
-#### Registering a (newly generated) DID Document
+```json
+{
+  "@context": [
+    "https://w3id.org/did/v0.11",
+    "https://w3id.org/veres-one/v1"
+  ],
+  "id": "did:v1:nym:z6MksFxi8wnHkNq4zgEskSZF45SuWQ4HndWSAVYRRGe9qDks",
+  "authentication": [
+    {
+      "id": "did:v1:nym:z6MksFxi8wnHkNq4zgEskSZF45SuWQ4HndWSAVYRRGe9qDks#z6MkhVG8DoVv7C613wFJKeG3kz2Z6cR2EShQexgctTSjdmSg",
+      "type": "Ed25519VerificationKey2018",
+      "controller": "did:v1:nym:z6MksFxi8wnHkNq4zgEskSZF45SuWQ4HndWSAVYRRGe9qDks",
+      "publicKeyBase58": "4315dZFUmebXwSQbe5JCutUZH39ApZT3xwmh4BUiiYfJ"
+    }
+  ],
+  "capabilityInvocation": [
+    {
+      "id": "did:v1:nym:z6MksFxi8wnHkNq4zgEskSZF45SuWQ4HndWSAVYRRGe9qDks#z6MksFxi8wnHkNq4zgEskSZF45SuWQ4HndWSAVYRRGe9qDks",
+      "type": "Ed25519VerificationKey2018",
+      "controller": "did:v1:nym:z6MksFxi8wnHkNq4zgEskSZF45SuWQ4HndWSAVYRRGe9qDks",
+      "publicKeyBase58": "DohfYhXrQqLbtBQB4sbQCytugpnSNkG5UUdVazg8uzyV"
+    }
+  ],
+  "capabilityDelegation": [
+    {
+      "id": "did:v1:nym:z6MksFxi8wnHkNq4zgEskSZF45SuWQ4HndWSAVYRRGe9qDks#z6MkhiwG4o9Etzy9DSNgbLY8rp6k73gKXtxrLBA7YdMxCAUZ",
+      "type": "Ed25519VerificationKey2018",
+      "controller": "did:v1:nym:z6MksFxi8wnHkNq4zgEskSZF45SuWQ4HndWSAVYRRGe9qDks",
+      "publicKeyBase58": "4GgDUYtoZTUg6wXyumaJ1iYkHUQU81iVeAFBiMPwGwhB"
+    }
+  ],
+  "assertionMethod": [
+    {
+      "id": "did:v1:nym:z6MksFxi8wnHkNq4zgEskSZF45SuWQ4HndWSAVYRRGe9qDks#z6MkqCDK1yGQxTbwDF7TkJhYeycPW35rPjAkMQGp8weGQPhz",
+      "type": "Ed25519VerificationKey2018",
+      "controller": "did:v1:nym:z6MksFxi8wnHkNq4zgEskSZF45SuWQ4HndWSAVYRRGe9qDks",
+      "publicKeyBase58": "BjxGRj1ycv7U6kGm4jjhot4PgTozyqvPfPMtJfgFVAvc"
+    }
+  ]
+}
+```
 
-To register a DID Document:
+### Register a DID Document
+
+To register a DID Document (after it's generated):
 
 ```js
 const registrationResult = await veresDriver.register({didDocument});
@@ -73,12 +109,110 @@ const registrationResult = await veresDriver.register({didDocument});
 console.log('Registered!', JSON.stringify(registrationResult, null, 2));
 ```
 
-#### Retrieving a Veres One DID Document
+### Retrieve a Registered Veres One DID Document
+
+If a DID is registered on the ledger, a `get()` operation will retrieve it:
 
 ```js
-const did = 'did:v1:test:nym:ApvL3PKAzQvFnRVqyZKhSYD2i8XcsLG1Dy4FrSdEKAdR';
+const did = 'did:v1:test:nym:z6Mkmpe2DyE4NsDiAb58d75hpi1BjqbH6wYMschUkjWDEEuR';
 const didDoc = await veresDriver.get({did});
 console.log(JSON.stringify(didDoc, null, 2));
+```
+
+```json
+{
+  "@context": [
+    "https://w3id.org/did/v0.11",
+    "https://w3id.org/veres-one/v1"
+  ],
+  "id": "did:v1:test:nym:z6Mkmpe2DyE4NsDiAb58d75hpi1BjqbH6wYMschUkjWDEEuR",
+  "authentication": [
+    {
+      "id": "did:v1:test:nym:z6Mkmpe2DyE4NsDiAb58d75hpi1BjqbH6wYMschUkjWDEEuR#z6Mkf819vudPCgWPd1BX9objVMPz9XHDNwCwJb4R44vXbnd8",
+      "type": "Ed25519VerificationKey2018",
+      "controller": "did:v1:test:nym:z6Mkmpe2DyE4NsDiAb58d75hpi1BjqbH6wYMschUkjWDEEuR",
+      "publicKeyBase58": "fk7LfNws91vWWLpUEdteFqzKx1My3xaca9VDnxWgZqk"
+    }
+  ],
+  "capabilityInvocation": [
+    {
+      "id": "did:v1:test:nym:z6Mkmpe2DyE4NsDiAb58d75hpi1BjqbH6wYMschUkjWDEEuR#z6Mkmpe2DyE4NsDiAb58d75hpi1BjqbH6wYMschUkjWDEEuR",
+      "type": "Ed25519VerificationKey2018",
+      "controller": "did:v1:test:nym:z6Mkmpe2DyE4NsDiAb58d75hpi1BjqbH6wYMschUkjWDEEuR",
+      "publicKeyBase58": "8NNydiyd3KjF46ERwY7rycTBvGKRh4J1BbnYvTYCK283"
+    }
+  ],
+  "capabilityDelegation": [
+    {
+      "id": "did:v1:test:nym:z6Mkmpe2DyE4NsDiAb58d75hpi1BjqbH6wYMschUkjWDEEuR#z6Mkt5qQB4193KBYrHJjCUgS243LfCiHJLsrdRNPngGNngao",
+      "type": "Ed25519VerificationKey2018",
+      "controller": "did:v1:test:nym:z6Mkmpe2DyE4NsDiAb58d75hpi1BjqbH6wYMschUkjWDEEuR",
+      "publicKeyBase58": "EdaMaokhhmh5jnU2WuibAxVLqdSRtTdVwQTTxQJMsToR"
+    }
+  ],
+  "assertionMethod": [
+    {
+      "id": "did:v1:test:nym:z6Mkmpe2DyE4NsDiAb58d75hpi1BjqbH6wYMschUkjWDEEuR#z6MkkdPW8kjhZXRM73aTzyuw5fEd5CYAFmuAk8dJN91Y34XG",
+      "type": "Ed25519VerificationKey2018",
+      "controller": "did:v1:test:nym:z6Mkmpe2DyE4NsDiAb58d75hpi1BjqbH6wYMschUkjWDEEuR",
+      "publicKeyBase58": "7B8TYWVGDyvszYjmKQx6EZgdFdGJqtep47iNXs3X7qjt"
+    }
+  ]
+}
+```
+
+### Retrieve an Unregistered Veres One DID Document
+
+If a DID is _not_ registered on the ledger, and it's of a cryptonym type
+(that is, `did:v1:nym:` or `did:v1:test:nym:`), it will be deterministically
+constructed from the public key (which is encoded in the cryptonym DID itself).
+
+```js
+const did = 'did:v1:test:nym:z6MkesAjEQrikUeuh6K496DDVm6d1DUzMMGQtFHuRFM1fkgt';
+const didDoc = await veresDriver.get({did});
+console.log(JSON.stringify(didDoc, null, 2));
+```
+
+```json
+{
+  "@context": [
+    "https://w3id.org/did/v0.11",
+    "https://w3id.org/veres-one/v1"
+  ],
+  "id": "did:v1:test:nym:z6MkesAjEQrikUeuh6K496DDVm6d1DUzMMGQtFHuRFM1fkgt",
+  "authentication": [
+    {
+      "id": "did:v1:test:nym:z6MkesAjEQrikUeuh6K496DDVm6d1DUzMMGQtFHuRFM1fkgt#z6MkesAjEQrikUeuh6K496DDVm6d1DUzMMGQtFHuRFM1fkgt",
+      "type": "Ed25519VerificationKey2018",
+      "controller": "did:v1:test:nym:z6MkesAjEQrikUeuh6K496DDVm6d1DUzMMGQtFHuRFM1fkgt",
+      "publicKeyBase58": "QugeAcHQwASabUMTXFNefYdBeD8wU24CENyayNzkXuW"
+    }
+  ],
+  "capabilityInvocation": [
+    {
+      "id": "did:v1:test:nym:z6MkesAjEQrikUeuh6K496DDVm6d1DUzMMGQtFHuRFM1fkgt#z6MkesAjEQrikUeuh6K496DDVm6d1DUzMMGQtFHuRFM1fkgt",
+      "type": "Ed25519VerificationKey2018",
+      "controller": "did:v1:test:nym:z6MkesAjEQrikUeuh6K496DDVm6d1DUzMMGQtFHuRFM1fkgt",
+      "publicKeyBase58": "QugeAcHQwASabUMTXFNefYdBeD8wU24CENyayNzkXuW"
+    }
+  ],
+  "capabilityDelegation": [
+    {
+      "id": "did:v1:test:nym:z6MkesAjEQrikUeuh6K496DDVm6d1DUzMMGQtFHuRFM1fkgt#z6MkesAjEQrikUeuh6K496DDVm6d1DUzMMGQtFHuRFM1fkgt",
+      "type": "Ed25519VerificationKey2018",
+      "controller": "did:v1:test:nym:z6MkesAjEQrikUeuh6K496DDVm6d1DUzMMGQtFHuRFM1fkgt",
+      "publicKeyBase58": "QugeAcHQwASabUMTXFNefYdBeD8wU24CENyayNzkXuW"
+    }
+  ],
+  "assertionMethod": [
+    {
+      "id": "did:v1:test:nym:z6MkesAjEQrikUeuh6K496DDVm6d1DUzMMGQtFHuRFM1fkgt#z6MkesAjEQrikUeuh6K496DDVm6d1DUzMMGQtFHuRFM1fkgt",
+      "type": "Ed25519VerificationKey2018",
+      "controller": "did:v1:test:nym:z6MkesAjEQrikUeuh6K496DDVm6d1DUzMMGQtFHuRFM1fkgt",
+      "publicKeyBase58": "QugeAcHQwASabUMTXFNefYdBeD8wU24CENyayNzkXuW"
+    }
+  ]
+}
 ```
 
 ### Attach an OCAP-LD delegation proof to a capability DID Document
