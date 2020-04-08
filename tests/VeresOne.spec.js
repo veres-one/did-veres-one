@@ -12,6 +12,10 @@ const {expect} = chai;
 const {VeresOne} = require('..');
 
 const TEST_DID = 'did:v1:test:nym:2pfPix2tcwa7gNoMRxdcHbEyFGqaVBPNntCsDZexVeHX';
+const UNREGISTERED_NYM =
+  'did:v1:test:nym:z6MkesAjEQrikUeuh6K496DDVm6d1DUzMMGQtFHuRFM1fkgt';
+const UNREGISTERED_UUID = 'did:v1:test:2G7RmkvGrBX5jf3M';
+const UNREGISTERED_DOC = require('./dids/did-nym-unregistered.json');
 const TEST_DID_RESULT = require('./dids/ashburn.capybara.did.json');
 const LEDGER_AGENTS_DOC = require('./dids/ledger-agents.json');
 const LEDGER_AGENT_STATUS = require('./dids/ledger-agent-status.json');
@@ -22,7 +26,6 @@ describe('methods/veres-one', () => {
 
   beforeEach(() => {
     v1 = new VeresOne({mode: 'test'});
-    // v1 = new VeresOne({hostname: 'genesis.veres.one.localhost:42443'});
   });
 
   describe('get', () => {
@@ -42,7 +45,7 @@ describe('methods/veres-one', () => {
       expect(didDoc.id).to.equal(TEST_DID);
     });
 
-    it('should throw a 404 if DID not found on ledger', async () => {
+    it('should derive a DID Doc if it encounters a 404 for nym', async () => {
       nock('https://ashburn.capybara.veres.one')
         .get(`/ledger-agents`)
         .reply(200, LEDGER_AGENTS_DOC);
@@ -50,13 +53,33 @@ describe('methods/veres-one', () => {
       const {ledgerAgent: [{service: {ledgerQueryService}}]} =
         LEDGER_AGENTS_DOC;
       nock(ledgerQueryService)
-        .post('/?id=' + encodeURIComponent(TEST_DID))
+        .post('/?id=' + encodeURIComponent(UNREGISTERED_NYM))
         .reply(404);
+
+      _nockLedgerAgentStatus();
+
+      const result = await v1.get({did: UNREGISTERED_NYM});
+      expect(JSON.stringify(result.doc, null, 2))
+        .to.eql(JSON.stringify(UNREGISTERED_DOC, null, 2));
+    });
+
+    it('should throw a 404 if non-nym DID not found on ledger', async () => {
+      nock('https://ashburn.capybara.veres.one')
+        .get(`/ledger-agents`)
+        .reply(200, LEDGER_AGENTS_DOC);
+
+      const {ledgerAgent: [{service: {ledgerQueryService}}]} =
+        LEDGER_AGENTS_DOC;
+      nock(ledgerQueryService)
+        .post('/?id=' + encodeURIComponent(UNREGISTERED_UUID))
+        .reply(404);
+
+      _nockLedgerAgentStatus();
 
       let error;
       let result;
       try {
-        result = await v1.get({did: TEST_DID});
+        result = await v1.get({did: UNREGISTERED_UUID});
       } catch(e) {
         error = e;
       }
