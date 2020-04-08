@@ -1,5 +1,12 @@
 # did-veres-one ChangeLog
 
+## 12.0.0 - 2020-04-08
+
+### Changed
+- When retrieving an unregistered cryptonym-type DID via `get()` (and receiving
+  a 404 from the ledger), fall back to creating a DID Doc deterministically
+  from the cryptonym itself.
+
 ## 11.1.0 - 2020-04-02
 
 ### Changed
