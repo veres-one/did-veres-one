@@ -235,7 +235,7 @@ describe('methods/veres-one', () => {
     });
   });
 
-  describe('setKeyId', () => {
+  describe('computeKeyId', () => {
     let key;
 
     beforeEach(() => {
@@ -244,14 +244,14 @@ describe('methods/veres-one', () => {
       };
     });
 
-    it('should generate a key id based on a did', () => {
-      v1.setKeyId({did: 'did:v1:test:uuid:abcdef', key});
+    it('should generate a key id based on a did', async () => {
+      key.id = await v1.computeKeyId({did: 'did:v1:test:uuid:abcdef', key});
 
       expect(key.id).to.equal('did:v1:test:uuid:abcdef#12345');
     });
 
-    it('should generate a cryptonym key id based on fingerprint', () => {
-      v1.setKeyId({key, didType: 'nym', mode: 'live'});
+    it('should generate a cryptonym key id based on fingerprint', async () => {
+      key.id = await v1.computeKeyId({key, didType: 'nym', mode: 'live'});
 
       expect(key.id).to.equal('did:v1:nym:12345#12345');
     });
