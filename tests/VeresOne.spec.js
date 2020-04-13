@@ -29,9 +29,9 @@ describe('methods/veres-one', () => {
   });
 
   describe('constructor', () => {
-    it('should set mode and methodId', () => {
+    it('should set mode and method', () => {
       expect(v1.mode).to.equal('test');
-      expect(v1.methodId).to.equal('v1');
+      expect(v1.method).to.equal('v1');
     });
   });
 
