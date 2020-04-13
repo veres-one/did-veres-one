@@ -1,5 +1,10 @@
 # did-veres-one ChangeLog
 
+## 12.1.0 - 2020-04-13
+
+### Added
+- Added `computeKeyId()` and `method`, for use with `did-io` downstream.
+
 ## 12.0.0 - 2020-04-08
 
 ### Changed
