@@ -1,5 +1,5 @@
 /*!
- * Copyright (c) 2018-2019 Veres One Project. All rights reserved.
+ * Copyright (c) 2018-2020 Veres One Project. All rights reserved.
  */
 'use strict';
 
@@ -26,6 +26,13 @@ describe('methods/veres-one', () => {
 
   beforeEach(() => {
     v1 = new VeresOne({mode: 'test'});
+  });
+
+  describe('constructor', () => {
+    it('should set mode and methodId', () => {
+      expect(v1.mode).to.equal('test');
+      expect(v1.methodId).to.equal('v1');
+    });
   });
 
   describe('get', () => {
@@ -225,6 +232,28 @@ describe('methods/veres-one', () => {
       expect(result.valid).to.exist;
       result.valid.should.be.a('boolean');
       result.valid.should.be.true;
+    });
+  });
+
+  describe('setKeyId', () => {
+    let key;
+
+    beforeEach(() => {
+      key = {
+        fingerprint: () => '12345'
+      };
+    });
+
+    it('should generate a key id based on a did', () => {
+      v1.setKeyId({did: 'did:v1:test:uuid:abcdef', key});
+
+      expect(key.id).to.equal('did:v1:test:uuid:abcdef#12345');
+    });
+
+    it('should generate a cryptonym key id based on fingerprint', () => {
+      v1.setKeyId({key, didType: 'nym', mode: 'live'});
+
+      expect(key.id).to.equal('did:v1:nym:12345#12345');
     });
   });
 
