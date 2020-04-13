@@ -41,11 +41,9 @@ describe('VeresOneDidDoc', () => {
     });
 
     it('should init the did id', async () => {
-      sinon.spy(didDoc, 'generateId');
-
       await didDoc.init({mode});
 
-      expect(didDoc.generateId).to.have.been.called;
+      expect(didDoc.id.startsWith('did:v1'));
     });
 
     it('should init the authn/authz keys', async () => {
@@ -66,25 +64,24 @@ describe('VeresOneDidDoc', () => {
     });
   });
 
-  describe('generateId', () => {
+  describe('generateDid', () => {
     const keyType = 'Ed25519VerificationKey2018';
 
     it('should generate a uuid type did', async () => {
       const didType = 'uuid';
-      const didDoc = new VeresOneDidDoc({keyType, didType});
-      const did = didDoc.generateId({didType, mode: 'test'});
+      const did = VeresOneDidDoc.generateDid({didType, mode: 'test'});
 
       expect(did).to.match(/^did:v1:test:uuid:.*/);
     });
 
     it('should generate a nym type did', async () => {
-      const didDoc = new VeresOneDidDoc({keyType, didType: 'nym'});
+      const didType = 'nym';
       const keyOptions = {
         type: keyType, passphrase: null
       };
 
-      const keyPair = await LDKeyPair.generate(keyOptions);
-      const did = didDoc.generateId({keyPair, mode: 'test'});
+      const key = await LDKeyPair.generate(keyOptions);
+      const did = VeresOneDidDoc.generateDid({key, didType, mode: 'test'});
 
       expect(did).to.match(/^did:v1:test:nym:.*/);
     });
