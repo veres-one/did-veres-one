@@ -70,6 +70,65 @@ describe('methods/veres-one', () => {
         .to.eql(JSON.stringify(UNREGISTERED_DOC, null, 2));
     });
 
+    it('should return a key present in an un-registered DID', async () => {
+      nock('https://ashburn.capybara.veres.one')
+        .get(`/ledger-agents`)
+        .reply(200, LEDGER_AGENTS_DOC);
+
+      const {ledgerAgent: [{service: {ledgerQueryService}}]} =
+        LEDGER_AGENTS_DOC;
+      nock(ledgerQueryService)
+        .post('/?id=' + encodeURIComponent(UNREGISTERED_NYM))
+        .reply(404);
+
+      _nockLedgerAgentStatus();
+
+      // eslint-disable-next-line max-len
+      const unregisteredKey = 'did:v1:test:nym:z6MkesAjEQrikUeuh6K496DDVm6d1DUzMMGQtFHuRFM1fkgt#z6MkesAjEQrikUeuh6K496DDVm6d1DUzMMGQtFHuRFM1fkgt';
+      const result = await v1.get({did: unregisteredKey});
+
+      expect(result.doc).to.eql({
+        '@context': [
+          'https://w3id.org/did/v0.11',
+          'https://w3id.org/veres-one/v1'
+        ],
+        // eslint-disable-next-line max-len
+        id: 'did:v1:test:nym:z6MkesAjEQrikUeuh6K496DDVm6d1DUzMMGQtFHuRFM1fkgt#z6MkesAjEQrikUeuh6K496DDVm6d1DUzMMGQtFHuRFM1fkgt',
+        type: 'Ed25519VerificationKey2018',
+        // eslint-disable-next-line max-len
+        controller: 'did:v1:test:nym:z6MkesAjEQrikUeuh6K496DDVm6d1DUzMMGQtFHuRFM1fkgt',
+        publicKeyBase58: 'QugeAcHQwASabUMTXFNefYdBeD8wU24CENyayNzkXuW'
+      });
+    });
+
+    it('should throw a 404 getting a non-invoke unregistered key', async () => {
+      nock('https://ashburn.capybara.veres.one')
+        .get(`/ledger-agents`)
+        .reply(200, LEDGER_AGENTS_DOC);
+
+      const {ledgerAgent: [{service: {ledgerQueryService}}]} =
+        LEDGER_AGENTS_DOC;
+      nock(ledgerQueryService)
+        .post('/?id=' + encodeURIComponent(UNREGISTERED_NYM))
+        .reply(404);
+
+      _nockLedgerAgentStatus();
+
+      let error;
+      let result;
+      // eslint-disable-next-line max-len
+      const nonInvokeKey = 'did:v1:test:nym:z6MkesAjEQrikUeuh6K496DDVm6d1DUzMMGQtFHuRFM1fkgt#z6MkrhVjBzL7pjojt3nYxSbNkTkZuCyRh6izYEUJL4pyPbB6';
+
+      try {
+        result = await v1.get({did: nonInvokeKey});
+      } catch(e) {
+        error = e;
+      }
+      expect(result).not.to.exist;
+      expect(error).to.exist;
+      error.name.should.equal('NotFoundError');
+    });
+
     it('should throw a 404 if non-nym DID not found on ledger', async () => {
       nock('https://ashburn.capybara.veres.one')
         .get(`/ledger-agents`)
