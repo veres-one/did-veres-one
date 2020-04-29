@@ -1,6 +1,6 @@
 # did-veres-one ChangeLog
 
-## 12.2.0 - TBD
+## 12.1.1 - 2020-04-29
 
 ### Added
 - Implement fetching of keys from un-registered cryptonym DIDs.
