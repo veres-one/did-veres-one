@@ -1,5 +1,11 @@
 # did-veres-one ChangeLog
 
+## 12.2.0 -2021-03-11
+
+### Changed
+- Use `apisauce@2` to address security vulnerabilities in the older `axios`
+  sub-dependency.
+
 ## 12.1.1 - 2020-04-29
 
 ### Added
