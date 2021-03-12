@@ -1,6 +1,6 @@
 # did-veres-one ChangeLog
 
-## 13.0.0 - TBD
+## 13.0.0 - 2021-03-12
 
 ### Changed
 - **BREAKING**: Use `http-signature-header@2`. Includes breaking changes
