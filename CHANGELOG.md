@@ -1,6 +1,13 @@
 # did-veres-one ChangeLog
 
-## 12.2.0 -2021-03-11
+## 13.0.0 - TBD
+
+### Changed
+- **BREAKING**: Use `http-signature-header@2`. Includes breaking changes
+  related to headers that contain timestamps.
+- **BREAKING**: Drop support for Node.js 8.
+
+## 12.2.0 - 2021-03-11
 
 ### Changed
 - Use `apisauce@2` to address security vulnerabilities in the older `axios`
