@@ -30,7 +30,7 @@
     "crypto-ld": "^3.7.0",
     "did-context": "^2.0.0",
     "fast-json-patch": "^2.2.1",
-    "http-signature-header": "github:digitalbazaar/http-signature-header",
+    "http-signature-header": "^2.0.1",
     "json-ld-patch-context": "^4.0.0",
     "jsonld": "^3.1.0",
     "jsonld-signatures": "^5.0.1",
