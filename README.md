@@ -26,16 +26,14 @@ const veresDriver = v1.driver(options);
 
 * `options` - a set of options used when generating the DID Document
   * `didType` - the type of DID to generate.
-      Options: 'nym' (default) or 'uuid'
+      Options: `'nym'` (default) or `'uuid'`
   * `invokeKey` - optionally pass in a Capability Invocation key, otherwise
     it will be generated.
   * `keyType` - the type of keys to generate.
-      Options: 'Ed25519VerificationKey2018' (default)
+      Options: `'Ed25519VerificationKey2020'` (default)
   * `hostname` - ledger node hostname override
-  * `passphrase` - the passphrase to use to encrypt the private keys for
-      nym-based DIDs. Set to `null` if the private keys should not be encrypted.
   * `mode` - the mode/environment to generate the DID in.
-      Options: 'dev' (default), 'test', 'live'
+      Options: `'dev'` (default), `'test'`, `'live'`
 
 If you do not specify a particular ledger hostname, one will be automatically
 selected based on the `mode` parameter (either 'test', 'dev' or 'live').
