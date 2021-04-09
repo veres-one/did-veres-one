@@ -1,5 +1,13 @@
 # did-veres-one ChangeLog
 
+## 14.0.0 -
+
+### Changed
+- **BREAKING**: Update to newest contexts, crypto suites, `did-io` version.
+- **BREAKING**: Change `.generate()` return signature, now returns
+  `{didDocument, keyPairs, methodFor}`.
+- **BREAKING**: Remove unused/obsolete `passphrase` parameter.
+
 ## 13.0.1 - 2021-04-21
 
 ### Fixed
