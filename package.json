@@ -22,6 +22,8 @@
   "dependencies": {
     "@digitalbazaar/did-io": "^1.0.0",
     "@digitalbazaar/ed25519-signature-2020": "^2.1.0",
+    "@digitalbazaar/ed25519-verification-key-2020": "^2.1.1",
+    "@digitalbazaar/x25519-key-agreement-key-2020": "^1.2.0",
     "@digitalbazaar/zcapld": "^3.1.0",
     "apisauce": "^1.1.2",
     "base64url-universal": "^2.0.1",
