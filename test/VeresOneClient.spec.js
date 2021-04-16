@@ -1,5 +1,5 @@
 /*!
- * Copyright (c) 2018-2019 Veres One Project. All rights reserved.
+ * Copyright (c) 2018-2021 Veres One Project. All rights reserved.
  */
 'use strict';
 
@@ -21,7 +21,7 @@ const LEDGER_AGENTS_DOC = require('./dids/ledger-agents.json');
 const LEDGER_AGENT_STATUS = require('./dids/ledger-agent-status.json');
 const ACCELERATOR_RESPONSE = require('./dids/accelerator-response.json');
 
-describe('web ledger client', () => {
+describe.only('web ledger client', () => {
   let client;
 
   beforeEach(() => {
