@@ -23,7 +23,7 @@ const LEDGER_AGENTS_DOC = require('./dids/ledger-agents.json');
 const LEDGER_AGENT_STATUS = require('./dids/ledger-agent-status.json');
 const TICKET_SERVICE_PROOF = require('./dids/ticket-service-proof.json');
 
-describe.only('methods/veres-one', () => {
+describe('methods/veres-one', () => {
   let driver;
 
   beforeEach(() => {
