@@ -1,26 +1,42 @@
-{
-  "did:v1:test:nym:z279wbVAtyvuhWzM8CyMScPvS2G7RmkvGrBX5jf3MDmzmow3#authn-1": {
-    "id": "did:v1:test:nym:z279wbVAtyvuhWzM8CyMScPvS2G7RmkvGrBX5jf3MDmzmow3#authn-1",
-    "type": "Ed25519VerificationKey2018",
-    "publicKeyBase58": "4PKSV6Q4ags8ceqNBuP9xhgJht6rzSXaCJnA1Uxsv54M",
-    "privateKeyBase58": "4iCPAUMpKBXaRcPKJeoNSvg5gzBsgBJhZuBSpbov3LMYL43dhxXmfvZXZpPewgu5vpyxhDvUn2Y2X3yhDkgg3v7j"
+[
+  {
+    "@context": "https://w3id.org/security/suites/ed25519-2020/v1",
+    "id": "did:v1:test:nym:z6MkpuEWNixE7JwBfbiZu4feAgtGL8zB1RCAJtKoZNLyJYTJ#z6MknJSpLvSbWTnkUnyW58SELzZFULNBMZ5Q2Wsnyw9wEFHe",
+    "type": "Ed25519VerificationKey2020",
+    "controller": "did:v1:test:nym:z6MkpuEWNixE7JwBfbiZu4feAgtGL8zB1RCAJtKoZNLyJYTJ",
+    "publicKeyMultibase": "z8rBmkgCAAvJHNJ8oPZUPVu1Fem6Kwfq3LVxs9fBvK2WG",
+    "privateKeyMultibase": "z51RNgn8ioePfyAT79JY1RJEgB9EhRrgF6TDWPSbqb1iFT32zZiKy589GJt5XTCC18sqrh8KnbJqmXjVumGYybgQ4"
   },
-  "did:v1:test:nym:z279wbVAtyvuhWzM8CyMScPvS2G7RmkvGrBX5jf3MDmzmow3#ocap-delegate-1": {
-    "id": "did:v1:test:nym:z279wbVAtyvuhWzM8CyMScPvS2G7RmkvGrBX5jf3MDmzmow3#delegate-1",
-    "type": "Ed25519VerificationKey2018",
-    "publicKeyBase58": "9hW8DYWJZzAdBDTTFFpo2zfXBC3fY4oDizQ46RZkTJkc",
-    "privateKeyBase58": "3Eh6xSvWWdDKJT2Sk3AK4RSSWQMfnaw8fweoB9pQABot4HhWHjr1J25G414zeDFSNMF5VQVm6cuszk3udk32ZG6x"
+  {
+    "@context": "https://w3id.org/security/suites/ed25519-2020/v1",
+    "id": "did:v1:test:nym:z6MkpuEWNixE7JwBfbiZu4feAgtGL8zB1RCAJtKoZNLyJYTJ#z6MkmBK6axXWW8B4CT3EDAMT14rVWttneifHASQEGfVg97Gm",
+    "type": "Ed25519VerificationKey2020",
+    "controller": "did:v1:test:nym:z6MkpuEWNixE7JwBfbiZu4feAgtGL8zB1RCAJtKoZNLyJYTJ",
+    "publicKeyMultibase": "z7j43ziH5Aagb5xCXXbPc9yJVhKcwEqQvURVJSPXfDtVP",
+    "privateKeyMultibase": "z4AbE7LbmXUobtmuUDtesau7ibPfeU9L9oAPdjyqMriNZ4CGDFp7PhGXCCiHmk2xos95154yK3hXeQcdSgcGaHd2Z"
   },
-  "did:v1:test:nym:z279wbVAtyvuhWzM8CyMScPvS2G7RmkvGrBX5jf3MDmzmow3#ocap-invoke-1": {
-    "id": "did:v1:test:nym:z279wbVAtyvuhWzM8CyMScPvS2G7RmkvGrBX5jf3MDmzmow3#invoke-1",
-    "type": "Ed25519VerificationKey2018",
-    "publicKeyBase58": "EsP4zycDtPDT2K6YDnu2LS1hWFsyZDyLXrH6xkGkaW5s",
-    "privateKeyBase58": "3FJEu99xHKrx5gdReAWfrponxSY9Tst6cMYyrBXCS6eGueo8m7h3u2Y5hqJd2iWfHyeAayV8VXcxGGrYBUxAKrUd"
+  {
+    "@context": "https://w3id.org/security/suites/ed25519-2020/v1",
+    "id": "did:v1:test:nym:z6MkpuEWNixE7JwBfbiZu4feAgtGL8zB1RCAJtKoZNLyJYTJ#z6MkoQRBN8RMjpLweStgyGBaX1NqTCkT8nHazyftTp9mHYR2",
+    "type": "Ed25519VerificationKey2020",
+    "controller": "did:v1:test:nym:z6MkpuEWNixE7JwBfbiZu4feAgtGL8zB1RCAJtKoZNLyJYTJ",
+    "publicKeyMultibase": "z9xA8mtAvQGrUXx3zHhDjfupqddUbiu3EJxkxdYBkNKde",
+    "privateKeyMultibase": "z2JR1wj4ojL8sGCfSFgy4mGCmB1cianKY4vpbu9oW4UPMHRaNYEgskfoqnimcEjXGpSXn89rCuosDthsXHHAusMUp"
   },
-  "did:v1:test:nym:z279wbVAtyvuhWzM8CyMScPvS2G7RmkvGrBX5jf3MDmzmow3#assertion-1": {
-    "id": "did:v1:test:nym:z279wbVAtyvuhWzM8CyMScPvS2G7RmkvGrBX5jf3MDmzmow3#assertion-1",
-    "type": "Ed25519VerificationKey2018",
-    "publicKeyBase58": "EsP4zycDtPDT2K6YDnu2LS1hWFsyZDyLXrH6xkGkaW5s",
-    "privateKeyBase58": "3FJEu99xHKrx5gdReAWfrponxSY9Tst6cMYyrBXCS6eGueo8m7h3u2Y5hqJd2iWfHyeAayV8VXcxGGrYBUxAKrUd"
+  {
+    "@context": "https://w3id.org/security/suites/ed25519-2020/v1",
+    "id": "did:v1:test:nym:z6MkpuEWNixE7JwBfbiZu4feAgtGL8zB1RCAJtKoZNLyJYTJ#z6MkpuEWNixE7JwBfbiZu4feAgtGL8zB1RCAJtKoZNLyJYTJ",
+    "type": "Ed25519VerificationKey2020",
+    "controller": "did:v1:test:nym:z6MkpuEWNixE7JwBfbiZu4feAgtGL8zB1RCAJtKoZNLyJYTJ",
+    "publicKeyMultibase": "zBSyTnUhnmmSiZ6ssDVhoKbLGWZiKbXwocsQsj6NxPKfv",
+    "privateKeyMultibase": "z5cmEmKUL4bU5xCebqjD85AtW9ZZSNhCKRwLvg2sVxZtELSxfDqGAHfUVuTVmsaY9eSQVipzdmArsaR8sGSdyCCjJ"
+  },
+  {
+    "@context": "https://w3id.org/security/suites/x25519-2020/v1",
+    "id": "did:v1:test:nym:z6MkpuEWNixE7JwBfbiZu4feAgtGL8zB1RCAJtKoZNLyJYTJ#z6LSkxNd7aJkvKy6n1CcuJhEkd4FB5hqS9aCPdrPMypxKjTF",
+    "type": "X25519KeyAgreementKey2020",
+    "controller": "did:v1:test:nym:z6MkpuEWNixE7JwBfbiZu4feAgtGL8zB1RCAJtKoZNLyJYTJ",
+    "publicKeyMultibase": "zAHCTbGVtpsFMgcprNfBHS2qmKwAijYQ3Wf8hsXBRcMgV",
+    "privateKeyMultibase": "z3hSbx8J9qpQo1PDHdt7VVuoShDkxz692pL8VpfWqDp4U"
   }
-}
+]
