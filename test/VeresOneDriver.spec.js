@@ -13,9 +13,9 @@ const {
   VeresOneDriver, constants: {VERIFICATION_RELATIONSHIPS}
 } = require('..');
 
-const TEST_DID = 'did:v1:test:nym:2pfPix2tcwa7gNoMRxdcHbEyFGqaVBPNntCsDZexVeHX';
+const TEST_DID = 'did:v1:test:nym:z6MkpuEWNixE7JwBfbiZu4feAgtGL8zB1RCAJtKoZNLyJYTJ';
 const UNREGISTERED_NYM =
-  'did:v1:test:nym:z6MkesAjEQrikUeuh6K496DDVm6d1DUzMMGQtFHuRFM1fkgt';
+  'did:v1:test:nym:z6MkiCqJ7vhBXRau9BT9yXA9LxSGarmL4W8gFD8qajBZz4gQ';
 const UNREGISTERED_UUID = 'did:v1:test:2G7RmkvGrBX5jf3M';
 const UNREGISTERED_DOC = require('./dids/did-nym-unregistered.json');
 const TEST_DID_RESULT = require('./dids/ashburn.capybara.did.json');
@@ -38,7 +38,7 @@ describe('methods/veres-one', () => {
     });
   });
 
-  describe.skip('get', () => {
+  describe('get', () => {
     it('should fetch a DID Doc from a ledger', async () => {
       nock('https://ashburn.capybara.veres.one')
         .get(`/ledger-agents`)
@@ -69,8 +69,7 @@ describe('methods/veres-one', () => {
       _nockLedgerAgentStatus();
 
       const result = await driver.get({did: UNREGISTERED_NYM});
-      expect(JSON.stringify(result.doc, null, 2))
-        .to.eql(JSON.stringify(UNREGISTERED_DOC, null, 2));
+      expect(result).to.eql(UNREGISTERED_DOC);
     });
 
     it('should return a key present in an un-registered DID', async () => {
@@ -87,10 +86,10 @@ describe('methods/veres-one', () => {
       _nockLedgerAgentStatus();
 
       // eslint-disable-next-line max-len
-      const unregisteredKey = 'did:v1:test:nym:z6MkesAjEQrikUeuh6K496DDVm6d1DUzMMGQtFHuRFM1fkgt#z6MkesAjEQrikUeuh6K496DDVm6d1DUzMMGQtFHuRFM1fkgt';
+      const unregisteredKey = 'did:v1:nym:z6MkiCqJ7vhBXRau9BT9yXA9LxSGarmL4W8gFD8qajBZz4gQ#z6MkiCqJ7vhBXRau9BT9yXA9LxSGarmL4W8gFD8qajBZz4gQ';
       const result = await driver.get({did: unregisteredKey});
 
-      expect(result.doc).to.eql({
+      expect(result).to.eql({
         '@context': [
           'https://w3id.org/did/v0.11',
           'https://w3id.org/veres-one/v1'
@@ -172,7 +171,7 @@ describe('methods/veres-one', () => {
     });
 
     it('should generate a cryptonym based DID Document', async () => {
-      const {didDocument, methodFor} = await driver.generate();
+      const {didDocument, methodFor, keyPairs} = await driver.generate();
 
       expect(didDocument).to.have.keys([
         '@context', 'id', 'authentication', 'assertionMethod',
@@ -197,6 +196,8 @@ describe('methods/veres-one', () => {
         expect(publicKey.id).to.equal(keyPair.id);
         expect(keyPair).to.have.property('privateKeyMultibase');
       }
+
+      expect(keyPairs).to.exist;
     });
 
     it('should generate uuid-based DID Document in test mode', async () => {
@@ -233,26 +234,60 @@ describe('methods/veres-one', () => {
     });
   });
 
-  describe.skip('register', () => {
+  describe('register', () => {
     it('should send a doc to ledger for registration', async () => {
-      nock('https://ashburn.capybara.veres.one')
-        .get(`/ledger-agents`)
-        .reply(200, LEDGER_AGENTS_DOC);
+      // nock('https://ashburn.capybara.veres.one')
+      //   .get(`/ledger-agents`)
+      //   .reply(200, LEDGER_AGENTS_DOC);
+      //
+      // _nockLedgerAgentStatus();
+      // _nockTicketService();
+      // _nockOperationService();
 
-      _nockLedgerAgentStatus();
-      _nockTicketService();
-      _nockOperationService();
-
-      const didDocument = await driver.generate();
+      const {didDocument} = await driver.generate();
       let error;
       let result;
       try {
         result = await driver.register({didDocument});
       } catch(e) {
+        console.error(e);
+        console.log(e.details.error.data);
         error = e;
       }
       expect(error).not.to.exist;
       expect(result).to.exist;
+    });
+  });
+
+  describe('validateDid', () => {
+    const exampleDoc = require('./dids/did-v1-test-nym-eddsa-example.json');
+    let didDocument;
+
+    beforeEach(() => {
+      didDocument = {};
+    });
+
+    it('should throw on invalid/malformed DID', async () => {
+      didDocument.id = '1234';
+      let result = await VeresOneDriver
+        .validateDid({didDocument, mode: 'test'});
+      result.should.be.an('object');
+      expect(result.valid).to.exist;
+      result.valid.should.be.a('boolean');
+      result.valid.should.be.false;
+      expect(result.error).to.exist;
+      result.error.message.should.match(/^Invalid DID format/);
+
+      didDocument.id = 'did:v1:uuid:'; // empty specific id
+      result = await VeresOneDriver.validateDid({didDocument});
+      result.valid.should.be.false;
+      result.error.message.should.match(/^Invalid DID format/);
+
+      didDocument.id = 'did:v1:uuid:123%abc'; // invalid character
+      result = await VeresOneDriver.validateDid({didDocument});
+      result.valid.should.be.false;
+      result.error.message.should.match(
+        /^Specific id contains invalid characters/);
     });
   });
 });
@@ -269,6 +304,9 @@ function _nockLedgerAgentStatus() {
 function _nockTicketService() {
   const {service: {'urn:veresone:ticket-service': {id: ticketService}}} =
     LEDGER_AGENT_STATUS;
+
+  console.log('SETTING UP ticketService:', ticketService)
+
   nock(ticketService)
     .post('/')
     .reply(200, (uri, requestBody) => {
