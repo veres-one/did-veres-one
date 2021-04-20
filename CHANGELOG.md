@@ -3,10 +3,12 @@
 ## 14.0.0 -
 
 ### Changed
-- **BREAKING**: Update to newest contexts, crypto suites, `did-io` version.
+- **BREAKING**: Update to the newest contexts, crypto suites, `did-io` version.
 - **BREAKING**: Change `.generate()` return signature, now returns
   `{didDocument, keyPairs, methodFor}`.
 - **BREAKING**: Remove unused/obsolete `passphrase` parameter.
+- **BREAKING**: Removes the `forceConstruct` parameter from `.get()` --
+  use the CachedResolver from https://github.com/digitalbazaar/did-io instead.
 
 ### Upgrading from <=12.x
 
@@ -22,13 +24,19 @@ and stored its own generated key pairs in `didDocument.keys`.
 In v13, the generated `didDocument` is a plain Javascript object, with no
 methods. Generated keys are returned in the `keyPairs` property (a js `Map`
 instance, with key pairs stored by key id).
-In addition a helper method `methodFor` is provided, to help retrieve keys
+In addition, a helper method `methodFor` is provided, to help retrieve keys
 for a particular purpose. For example:
 `methodFor({purpose: 'capabilityInvocation'})` returns the first available
 public/private key pair instance that is referenced in the DID Document's
 `capabilityInvocation` verification relationship.
 
-**X)** Validation methods have changed (used by the `did-veres-one` validator
+**2)** Driver `.get()` method has changed -- no longer uses the `forceConstruct`
+parameter. Developers are encouraged to use the CachedResolver from 
+https://github.com/digitalbazaar/did-io instead.
+`driver.get()` can still be used to fetch either the full DID Document (via
+`await driver.get({did})`) or a key document (via `await driver.get({url: keyId})`).
+
+**X)** Validation methods have changed (used by the `did-veres-one` validator 
 node):
 
 - `didDocument.validateDid({mode})` becomes:

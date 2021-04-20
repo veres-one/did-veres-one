@@ -21,7 +21,7 @@ const LEDGER_AGENTS_DOC = require('./dids/ledger-agents.json');
 const LEDGER_AGENT_STATUS = require('./dids/ledger-agent-status.json');
 const ACCELERATOR_RESPONSE = require('./dids/accelerator-response.json');
 
-describe.only('web ledger client', () => {
+describe.skip('web ledger client', () => {
   let client;
 
   beforeEach(() => {
