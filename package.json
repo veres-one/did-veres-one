@@ -27,7 +27,7 @@
     "@digitalbazaar/zcapld": "^3.1.0",
     "apisauce": "^1.1.2",
     "base64url-universal": "^2.0.1",
-    "crypto-ld": "^5.1.0",
+    "crypto-ld": "^6.0.0",
     "did-context": "^3.0.0",
     "esm": "^3.2.25",
     "fast-json-patch": "^2.2.1",
