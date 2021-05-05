@@ -212,7 +212,7 @@ describe('methods/veres-one', () => {
     });
   });
 
-  describe.skip('computeKeyId', () => {
+  describe('computeId', () => {
     let key;
 
     beforeEach(() => {
@@ -222,13 +222,13 @@ describe('methods/veres-one', () => {
     });
 
     it('should generate a key id based on a did', async () => {
-      key.id = await driver.computeKeyId({did: 'did:v1:test:uuid:abcdef', key});
+      key.id = await driver.computeId({did: 'did:v1:test:uuid:abcdef', key});
 
       expect(key.id).to.equal('did:v1:test:uuid:abcdef#12345');
     });
 
     it('should generate a cryptonym key id based on fingerprint', async () => {
-      key.id = await driver.computeKeyId({key, didType: 'nym', mode: 'live'});
+      key.id = await driver.computeId({key, didType: 'nym', mode: 'live'});
 
       expect(key.id).to.equal('did:v1:nym:12345#12345');
     });
@@ -304,8 +304,6 @@ function _nockLedgerAgentStatus() {
 function _nockTicketService() {
   const {service: {'urn:veresone:ticket-service': {id: ticketService}}} =
     LEDGER_AGENT_STATUS;
-
-  console.log('SETTING UP ticketService:', ticketService)
 
   nock(ticketService)
     .post('/')
