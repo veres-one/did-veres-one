@@ -7,8 +7,9 @@
 - **BREAKING**: Change `.generate()` return signature, now returns
   `{didDocument, keyPairs, methodFor}`.
 - **BREAKING**: Remove unused/obsolete `passphrase` parameter.
-- **BREAKING**: Removes the `forceConstruct` parameter from `.get()` --
+- **BREAKING**: Remove the `forceConstruct` parameter from `.get()` --
   use the CachedResolver from https://github.com/digitalbazaar/did-io instead.
+- **BREAKING**: Rename `.computeKeyId()` to `.computeId()`.
 
 ### Upgrading from <=12.x
 
@@ -36,7 +37,9 @@ https://github.com/digitalbazaar/did-io instead.
 `driver.get()` can still be used to fetch either the full DID Document (via
 `await driver.get({did})`) or a key document (via `await driver.get({url: keyId})`).
 
-**X)** Validation methods have changed (used by the `did-veres-one` validator 
+**3)** Check for `.computeKeyId()` usage. It's been renamed to `.computeId()`.
+
+**4)** Validation methods have changed (used by the `did-veres-one` validator 
 node):
 
 - `didDocument.validateDid({mode})` becomes:
