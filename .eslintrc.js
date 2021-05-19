@@ -1,8 +1,7 @@
 module.exports = {
   root: true,
   extends: [
-    'eslint-config-digitalbazaar',
-    // 'eslint-config-digitalbazaar/jsdoc'
+    'eslint-config-digitalbazaar'
   ],
   env: {
     node: true,
@@ -10,6 +9,5 @@ module.exports = {
   },
   ignorePatterns: ['dist/'],
   rules: {
-    'jsdoc/check-examples': 'off'
   }
 };
