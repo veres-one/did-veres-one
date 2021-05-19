@@ -77,7 +77,7 @@ describe.skip('web ledger client', () => {
             "nym:2pfPix2tcwa7gNoMRxdcHbEyFGqaVBPNntCsDZexVeHX",
           "publicKeyBase58": "2pfPix2tcwa7gNoMRxdcHbEyFGqaVBPNntCsDZexVeHX"
         };
-        /* eslint-enable quote, quote-props */
+        /* eslint-enable quotes, quote-props */
 
         const result = await client.get({did: testKeyId});
 
@@ -100,7 +100,7 @@ describe.skip('web ledger client', () => {
             "id": "did:v1:test:uuid:ad33d59b630f44d49bdfb8266d4a243e"
           }
         };
-        /* eslint-enable quote, quote-props */
+        /* eslint-enable quotes, quote-props */
 
         const result = await client.sendToAccelerator({
           operation,
