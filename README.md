@@ -14,7 +14,7 @@ enables a developer to:
 
 ### Compatibility
 
-* **`^v12.0.0`** - Compatible with the current Capybara testnet.
+* **`^v13.0.0`** - Compatible with the current Capybara testnet.
 * `^v14.0.0` - bleeding edge, not compatible with testnet.
 
 ## Configuration
