@@ -1,5 +1,10 @@
 # did-veres-one ChangeLog
 
+## 13.0.1 - 2021-04-21
+
+### Fixed
+- Add compatibility with newer ld-keypair `export()` api.
+
 ## 13.0.0 - 2021-03-12
 
 ### Changed
