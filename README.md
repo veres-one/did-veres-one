@@ -14,8 +14,10 @@ enables a developer to:
 
 ### Compatibility
 
-* **`^v13.0.0`** - Compatible with the current Capybara testnet.
-* `^v14.0.0` - bleeding edge, not compatible with testnet.
+| Network | Client library version |
+| :--- | :--- |
+| Capybara Testnet | ^v13.0.0 |
+| Local ledger dev/testing | ^v14.0.0 |
 
 ## Configuration
 
