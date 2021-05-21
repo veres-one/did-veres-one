@@ -1,0 +1,18 @@
+{
+  "ledgerAgent": [
+    {
+      "id": "urn:uuid:d7e8cbdf-1091-40ec-9d48-4eed1b3c0dd6",
+      "service": {
+        "ledgerAgentStatusService": "https://ashburn.capybara.veres.one/ledger-agents/d7e8cbdf-1091-40ec-9d48-4eed1b3c0dd6",
+        "ledgerBlockService": "https://ashburn.capybara.veres.one/ledger-agents/d7e8cbdf-1091-40ec-9d48-4eed1b3c0dd6/blocks",
+        "ledgerConfigService": "https://ashburn.capybara.veres.one/ledger-agents/d7e8cbdf-1091-40ec-9d48-4eed1b3c0dd6/config",
+        "ledgerEventService": "https://ashburn.capybara.veres.one/ledger-agents/d7e8cbdf-1091-40ec-9d48-4eed1b3c0dd6/events",
+        "ledgerOperationService": "https://ashburn.capybara.veres.one/ledger-agents/d7e8cbdf-1091-40ec-9d48-4eed1b3c0dd6/operations",
+        "ledgerQueryService": "https://ashburn.capybara.veres.one/ledger-agents/d7e8cbdf-1091-40ec-9d48-4eed1b3c0dd6/query",
+        "urn:veresone:ticket-service": {
+          "id": "https://ashburn.capybara.veres.one/ledger-agents/d7e8cbdf-1091-40ec-9d48-4eed1b3c0dd6/plugins/veres-one-ticket-service-agent"
+        }
+      }
+    }
+  ]
+}

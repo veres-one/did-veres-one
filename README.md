@@ -3,12 +3,44 @@
 [![Build Status](https://travis-ci.org/veres-one/did-veres-one.svg?branch=master&style=flat-square)](https://travis-ci.org/veres-one/did-veres-one)
 [![NPM Version](https://img.shields.io/npm/v/did-veres-one.svg?style=flat-square)](https://npm.im/did-veres-one)
 
+## Background
+
 This library provides support classes for creating and processing
 Decentralized Identifiers for [Veres One](https://veres.one/). This library
 enables a developer to:
 
 * Create a Veres One DID
 * Generate Veres One cryptographic proofs
+
+### Compatibility
+
+| Network | Client library version |
+| :--- | :--- |
+| Capybara Testnet | ^v13.0.0 |
+| Local ledger dev/testing | ^v14.0.0 |
+
+## Configuration
+
+* `options` - a set of options used when generating the DID Document
+  * `didType` - the type of DID to generate.
+      Options: `'nym'` (default) or `'uuid'`
+  * `invokeKey` - optionally pass in a Capability Invocation key, otherwise
+    it will be generated.
+  * `keyType` - the type of keys to generate.
+      Options: `'Ed25519VerificationKey2020'` (default)
+  * `hostname` - ledger node hostname override
+  * `mode` - the mode/environment to generate the DID in.
+      Options: `'dev'` (default), `'test'`, `'live'`
+
+If you do not specify a particular ledger hostname, one will be automatically
+selected based on the `mode` parameter (either 'test', 'dev' or 'live').
+
+If you want to connect to a specific hostname (for testing a particular node,
+for example), you can specify the override directly:
+
+## Usage
+
+### Installation
 
 ```
 npm install did-veres-one
@@ -21,29 +53,6 @@ const v1 = require('did-veres-one');
 const options = {mode: 'dev', httpsAgent, hostname: 'localhost:12345'};
 const veresDriver = v1.driver(options);
 ```
-
-## Configuration
-
-* `options` - a set of options used when generating the DID Document
-  * `didType` - the type of DID to generate.
-      Options: 'nym' (default) or 'uuid'
-  * `invokeKey` - optionally pass in a Capability Invocation key, otherwise
-    it will be generated.
-  * `keyType` - the type of keys to generate.
-      Options: 'Ed25519VerificationKey2018' (default)
-  * `hostname` - ledger node hostname override
-  * `passphrase` - the passphrase to use to encrypt the private keys for
-      nym-based DIDs. Set to `null` if the private keys should not be encrypted.
-  * `mode` - the mode/environment to generate the DID in.
-      Options: 'dev' (default), 'test', 'live'
-
-If you do not specify a particular ledger hostname, one will be automatically
-selected based on the `mode` parameter (either 'test', 'dev' or 'live').
-
-If you want to connect to a specific hostname (for testing a particular node,
-for example), you can specify the override directly:
-
-## Usage
 
 ### Generate a Veres One DID Document
 
@@ -59,40 +68,50 @@ console.log(JSON.stringify(didDocument, null, 2));
 ```json
 {
   "@context": [
-    "https://w3id.org/did/v0.11",
-    "https://w3id.org/veres-one/v1"
+    "https://www.w3.org/ns/did/v1",
+    "https://w3id.org/veres-one/v1",
+    "https://w3id.org/security/suites/ed25519-2020/v1",
+    "https://w3id.org/security/suites/x25519-2020/v1"
   ],
-  "id": "did:v1:nym:z6MksFxi8wnHkNq4zgEskSZF45SuWQ4HndWSAVYRRGe9qDks",
+  "id": "did:v1:test:nym:z6Mkkqz5hWq2vT3un8UWLhXEDBHLbUpaWM2yvZRpAPkU25qg",
   "authentication": [
     {
-      "id": "did:v1:nym:z6MksFxi8wnHkNq4zgEskSZF45SuWQ4HndWSAVYRRGe9qDks#z6MkhVG8DoVv7C613wFJKeG3kz2Z6cR2EShQexgctTSjdmSg",
-      "type": "Ed25519VerificationKey2018",
-      "controller": "did:v1:nym:z6MksFxi8wnHkNq4zgEskSZF45SuWQ4HndWSAVYRRGe9qDks",
-      "publicKeyBase58": "4315dZFUmebXwSQbe5JCutUZH39ApZT3xwmh4BUiiYfJ"
-    }
-  ],
-  "capabilityInvocation": [
-    {
-      "id": "did:v1:nym:z6MksFxi8wnHkNq4zgEskSZF45SuWQ4HndWSAVYRRGe9qDks#z6MksFxi8wnHkNq4zgEskSZF45SuWQ4HndWSAVYRRGe9qDks",
-      "type": "Ed25519VerificationKey2018",
-      "controller": "did:v1:nym:z6MksFxi8wnHkNq4zgEskSZF45SuWQ4HndWSAVYRRGe9qDks",
-      "publicKeyBase58": "DohfYhXrQqLbtBQB4sbQCytugpnSNkG5UUdVazg8uzyV"
-    }
-  ],
-  "capabilityDelegation": [
-    {
-      "id": "did:v1:nym:z6MksFxi8wnHkNq4zgEskSZF45SuWQ4HndWSAVYRRGe9qDks#z6MkhiwG4o9Etzy9DSNgbLY8rp6k73gKXtxrLBA7YdMxCAUZ",
-      "type": "Ed25519VerificationKey2018",
-      "controller": "did:v1:nym:z6MksFxi8wnHkNq4zgEskSZF45SuWQ4HndWSAVYRRGe9qDks",
-      "publicKeyBase58": "4GgDUYtoZTUg6wXyumaJ1iYkHUQU81iVeAFBiMPwGwhB"
+      "id": "did:v1:test:nym:z6Mkkqz5hWq2vT3un8UWLhXEDBHLbUpaWM2yvZRpAPkU25qg#z6MknK4SCXDjgBh5gnduDraF7TtTpxqzR4yL3VvF6V9TnRs8",
+      "type": "Ed25519VerificationKey2020",
+      "controller": "did:v1:test:nym:z6Mkkqz5hWq2vT3un8UWLhXEDBHLbUpaWM2yvZRpAPkU25qg",
+      "publicKeyMultibase": "z8roPcGyJLeCcaHoCYHcQGNLU1Pa91BiyMV1KGDBSsD5k"
     }
   ],
   "assertionMethod": [
     {
-      "id": "did:v1:nym:z6MksFxi8wnHkNq4zgEskSZF45SuWQ4HndWSAVYRRGe9qDks#z6MkqCDK1yGQxTbwDF7TkJhYeycPW35rPjAkMQGp8weGQPhz",
-      "type": "Ed25519VerificationKey2018",
-      "controller": "did:v1:nym:z6MksFxi8wnHkNq4zgEskSZF45SuWQ4HndWSAVYRRGe9qDks",
-      "publicKeyBase58": "BjxGRj1ycv7U6kGm4jjhot4PgTozyqvPfPMtJfgFVAvc"
+      "id": "did:v1:test:nym:z6Mkkqz5hWq2vT3un8UWLhXEDBHLbUpaWM2yvZRpAPkU25qg#z6MknM5XL4EFGQ2WXypE1hb1SusqikD352UhKL8YANYhNDnQ",
+      "type": "Ed25519VerificationKey2020",
+      "controller": "did:v1:test:nym:z6Mkkqz5hWq2vT3un8UWLhXEDBHLbUpaWM2yvZRpAPkU25qg",
+      "publicKeyMultibase": "z8tpUjoyovrY3RUyXL8dAbpKquAwBf9ELdKDcL6agT112"
+    }
+  ],
+  "capabilityDelegation": [
+    {
+      "id": "did:v1:test:nym:z6Mkkqz5hWq2vT3un8UWLhXEDBHLbUpaWM2yvZRpAPkU25qg#z6Mknt9TWRoN86Kq2pcPoWa6PaqfUMrVDcNRgTn9y1R984V3",
+      "type": "Ed25519VerificationKey2020",
+      "controller": "did:v1:test:nym:z6Mkkqz5hWq2vT3un8UWLhXEDBHLbUpaWM2yvZRpAPkU25qg",
+      "publicKeyMultibase": "z9RtQvBYvnYqMvKmh7wcFYVHfenadoj84zSsE8jT8Cqhf"
+    }
+  ],
+  "capabilityInvocation": [
+    {
+      "id": "did:v1:test:nym:z6Mkkqz5hWq2vT3un8UWLhXEDBHLbUpaWM2yvZRpAPkU25qg#z6Mkkqz5hWq2vT3un8UWLhXEDBHLbUpaWM2yvZRpAPkU25qg",
+      "type": "Ed25519VerificationKey2020",
+      "controller": "did:v1:test:nym:z6Mkkqz5hWq2vT3un8UWLhXEDBHLbUpaWM2yvZRpAPkU25qg",
+      "publicKeyMultibase": "z7Pj37GabauZSfddof8ZPN5jLmuYj6TndEYWtL7nT6s4J"
+    }
+  ],
+  "keyAgreement": [
+    {
+      "id": "did:v1:test:nym:z6Mkkqz5hWq2vT3un8UWLhXEDBHLbUpaWM2yvZRpAPkU25qg#z6LSedETAHzL3UAvsenNoFxvjhyzM4jmppN5SWNMWFNFJtdY",
+      "type": "X25519KeyAgreementKey2020",
+      "controller": "did:v1:test:nym:z6Mkkqz5hWq2vT3un8UWLhXEDBHLbUpaWM2yvZRpAPkU25qg",
+      "publicKeyMultibase": "z3x4HdzBTx1TBnGQcGcSyR7mWVvCf8DBvZXeg1niibWrn"
     }
   ]
 }
@@ -114,50 +133,21 @@ console.log('Registered!', JSON.stringify(registrationResult, null, 2));
 If a DID is registered on the ledger, a `get()` operation will retrieve it:
 
 ```js
-const did = 'did:v1:test:nym:z6Mkmpe2DyE4NsDiAb58d75hpi1BjqbH6wYMschUkjWDEEuR';
+const did = 'did:v1:test:nym:z6Mkkqz5hWq2vT3un8UWLhXEDBHLbUpaWM2yvZRpAPkU25qg';
 const didDoc = await veresDriver.get({did});
 console.log(JSON.stringify(didDoc, null, 2));
 ```
 
-```json
+```js
 {
   "@context": [
-    "https://w3id.org/did/v0.11",
-    "https://w3id.org/veres-one/v1"
+    "https://www.w3.org/ns/did/v1",
+    "https://w3id.org/veres-one/v1",
+    "https://w3id.org/security/suites/ed25519-2020/v1",
+    "https://w3id.org/security/suites/x25519-2020/v1"
   ],
-  "id": "did:v1:test:nym:z6Mkmpe2DyE4NsDiAb58d75hpi1BjqbH6wYMschUkjWDEEuR",
-  "authentication": [
-    {
-      "id": "did:v1:test:nym:z6Mkmpe2DyE4NsDiAb58d75hpi1BjqbH6wYMschUkjWDEEuR#z6Mkf819vudPCgWPd1BX9objVMPz9XHDNwCwJb4R44vXbnd8",
-      "type": "Ed25519VerificationKey2018",
-      "controller": "did:v1:test:nym:z6Mkmpe2DyE4NsDiAb58d75hpi1BjqbH6wYMschUkjWDEEuR",
-      "publicKeyBase58": "fk7LfNws91vWWLpUEdteFqzKx1My3xaca9VDnxWgZqk"
-    }
-  ],
-  "capabilityInvocation": [
-    {
-      "id": "did:v1:test:nym:z6Mkmpe2DyE4NsDiAb58d75hpi1BjqbH6wYMschUkjWDEEuR#z6Mkmpe2DyE4NsDiAb58d75hpi1BjqbH6wYMschUkjWDEEuR",
-      "type": "Ed25519VerificationKey2018",
-      "controller": "did:v1:test:nym:z6Mkmpe2DyE4NsDiAb58d75hpi1BjqbH6wYMschUkjWDEEuR",
-      "publicKeyBase58": "8NNydiyd3KjF46ERwY7rycTBvGKRh4J1BbnYvTYCK283"
-    }
-  ],
-  "capabilityDelegation": [
-    {
-      "id": "did:v1:test:nym:z6Mkmpe2DyE4NsDiAb58d75hpi1BjqbH6wYMschUkjWDEEuR#z6Mkt5qQB4193KBYrHJjCUgS243LfCiHJLsrdRNPngGNngao",
-      "type": "Ed25519VerificationKey2018",
-      "controller": "did:v1:test:nym:z6Mkmpe2DyE4NsDiAb58d75hpi1BjqbH6wYMschUkjWDEEuR",
-      "publicKeyBase58": "EdaMaokhhmh5jnU2WuibAxVLqdSRtTdVwQTTxQJMsToR"
-    }
-  ],
-  "assertionMethod": [
-    {
-      "id": "did:v1:test:nym:z6Mkmpe2DyE4NsDiAb58d75hpi1BjqbH6wYMschUkjWDEEuR#z6MkkdPW8kjhZXRM73aTzyuw5fEd5CYAFmuAk8dJN91Y34XG",
-      "type": "Ed25519VerificationKey2018",
-      "controller": "did:v1:test:nym:z6Mkmpe2DyE4NsDiAb58d75hpi1BjqbH6wYMschUkjWDEEuR",
-      "publicKeyBase58": "7B8TYWVGDyvszYjmKQx6EZgdFdGJqtep47iNXs3X7qjt"
-    }
-  ]
+  "id": "did:v1:test:nym:z6Mkkqz5hWq2vT3un8UWLhXEDBHLbUpaWM2yvZRpAPkU25qg",
+  // ... etc
 }
 ```
 
@@ -171,48 +161,6 @@ constructed from the public key (which is encoded in the cryptonym DID itself).
 const did = 'did:v1:test:nym:z6MkesAjEQrikUeuh6K496DDVm6d1DUzMMGQtFHuRFM1fkgt';
 const didDoc = await veresDriver.get({did});
 console.log(JSON.stringify(didDoc, null, 2));
-```
-
-```json
-{
-  "@context": [
-    "https://w3id.org/did/v0.11",
-    "https://w3id.org/veres-one/v1"
-  ],
-  "id": "did:v1:test:nym:z6MkesAjEQrikUeuh6K496DDVm6d1DUzMMGQtFHuRFM1fkgt",
-  "authentication": [
-    {
-      "id": "did:v1:test:nym:z6MkesAjEQrikUeuh6K496DDVm6d1DUzMMGQtFHuRFM1fkgt#z6MkesAjEQrikUeuh6K496DDVm6d1DUzMMGQtFHuRFM1fkgt",
-      "type": "Ed25519VerificationKey2018",
-      "controller": "did:v1:test:nym:z6MkesAjEQrikUeuh6K496DDVm6d1DUzMMGQtFHuRFM1fkgt",
-      "publicKeyBase58": "QugeAcHQwASabUMTXFNefYdBeD8wU24CENyayNzkXuW"
-    }
-  ],
-  "capabilityInvocation": [
-    {
-      "id": "did:v1:test:nym:z6MkesAjEQrikUeuh6K496DDVm6d1DUzMMGQtFHuRFM1fkgt#z6MkesAjEQrikUeuh6K496DDVm6d1DUzMMGQtFHuRFM1fkgt",
-      "type": "Ed25519VerificationKey2018",
-      "controller": "did:v1:test:nym:z6MkesAjEQrikUeuh6K496DDVm6d1DUzMMGQtFHuRFM1fkgt",
-      "publicKeyBase58": "QugeAcHQwASabUMTXFNefYdBeD8wU24CENyayNzkXuW"
-    }
-  ],
-  "capabilityDelegation": [
-    {
-      "id": "did:v1:test:nym:z6MkesAjEQrikUeuh6K496DDVm6d1DUzMMGQtFHuRFM1fkgt#z6MkesAjEQrikUeuh6K496DDVm6d1DUzMMGQtFHuRFM1fkgt",
-      "type": "Ed25519VerificationKey2018",
-      "controller": "did:v1:test:nym:z6MkesAjEQrikUeuh6K496DDVm6d1DUzMMGQtFHuRFM1fkgt",
-      "publicKeyBase58": "QugeAcHQwASabUMTXFNefYdBeD8wU24CENyayNzkXuW"
-    }
-  ],
-  "assertionMethod": [
-    {
-      "id": "did:v1:test:nym:z6MkesAjEQrikUeuh6K496DDVm6d1DUzMMGQtFHuRFM1fkgt#z6MkesAjEQrikUeuh6K496DDVm6d1DUzMMGQtFHuRFM1fkgt",
-      "type": "Ed25519VerificationKey2018",
-      "controller": "did:v1:test:nym:z6MkesAjEQrikUeuh6K496DDVm6d1DUzMMGQtFHuRFM1fkgt",
-      "publicKeyBase58": "QugeAcHQwASabUMTXFNefYdBeD8wU24CENyayNzkXuW"
-    }
-  ]
-}
 ```
 
 ### Attach an OCAP-LD delegation proof to a capability DID Document

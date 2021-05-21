@@ -1,5 +1,52 @@
 # did-veres-one ChangeLog
 
+## 14.0.0 -
+
+### Changed
+- **BREAKING**: Update to the newest contexts, crypto suites, `did-io` version.
+- **BREAKING**: Change `.generate()` return signature, now returns
+  `{didDocument, keyPairs, methodFor}`.
+- **BREAKING**: Remove unused/obsolete `passphrase` parameter.
+- **BREAKING**: Remove the `forceConstruct` parameter from `.get()` --
+  use the CachedResolver from https://github.com/digitalbazaar/did-io instead.
+- **BREAKING**: Rename `.computeKeyId()` to `.computeId()`.
+
+### Upgrading from <=12.x
+
+**1)** DID Document `generate()` method return signature has changed.
+
+**Before:** `const didDocument = await veresOneDriver.generate();`
+
+The generated `didDocument` was an instance of the `VeresOneDidDoc` class,
+and stored its own generated key pairs in `didDocument.keys`.
+
+**Now:** `const {didDocument, keyPairs, methodFor} = await veresOneDriver.generate();`
+
+In v13, the generated `didDocument` is a plain Javascript object, with no
+methods. Generated keys are returned in the `keyPairs` property (a js `Map`
+instance, with key pairs stored by key id).
+In addition, a helper method `methodFor` is provided, to help retrieve keys
+for a particular purpose. For example:
+`methodFor({purpose: 'capabilityInvocation'})` returns the first available
+public/private key pair instance that is referenced in the DID Document's
+`capabilityInvocation` verification relationship.
+
+**2)** Driver `.get()` method has changed -- no longer uses the `forceConstruct`
+parameter. Developers are encouraged to use the CachedResolver from 
+https://github.com/digitalbazaar/did-io instead.
+`driver.get()` can still be used to fetch either the full DID Document (via
+`await driver.get({did})`) or a key document (via `await driver.get({url: keyId})`).
+
+**3)** Check for `.computeKeyId()` usage. It's been renamed to `.computeId()`.
+
+**4)** Validation methods have changed (used by the `did-veres-one` validator 
+node):
+
+- `didDocument.validateDid({mode})` becomes:
+  `VeresOneDriver.validateDid({didDocument, mode})`
+- `didDocument.validateMethodIds()` becomes:
+  `VeresOneDriver.validateMethodIds({didDocument})`
+
 ## 13.0.1 - 2021-04-21
 
 ### Fixed
