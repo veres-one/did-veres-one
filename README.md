@@ -138,9 +138,7 @@ console.log(JSON.stringify(didDoc, null, 2));
 
 ```js
 {
-  "@context"
-:
-  [
+  "@context": [
     "https://www.w3.org/ns/did/v1",
     "https://w3id.org/veres-one/v1",
     "https://w3id.org/security/suites/ed25519-2020/v1",
