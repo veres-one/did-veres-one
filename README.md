@@ -144,7 +144,7 @@ console.log(JSON.stringify(didDoc, null, 2));
     "https://w3id.org/security/suites/ed25519-2020/v1",
     "https://w3id.org/security/suites/x25519-2020/v1"
   ],
-    "id": "did:v1:test:nym:z6Mkkqz5hWq2vT3un8UWLhXEDBHLbUpaWM2yvZRpAPkU25qg",
+  "id": "did:v1:test:nym:z6Mkkqz5hWq2vT3un8UWLhXEDBHLbUpaWM2yvZRpAPkU25qg",
   // ... etc
 }
 ```
