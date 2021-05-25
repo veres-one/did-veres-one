@@ -1,5 +1,10 @@
 # did-veres-one ChangeLog
 
+## 13.0.2 - 2021-05-25
+
+### Fixed
+- Add more backwards compat for key pairs.
+
 ## 13.0.1 - 2021-04-21
 
 ### Fixed
