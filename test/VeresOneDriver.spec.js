@@ -9,9 +9,11 @@ chai.should();
 
 const {expect} = chai;
 
-const {
-  VeresOneDriver, constants: {VERIFICATION_RELATIONSHIPS}
-} = require('..');
+const {Ed25519VerificationKey2018} =
+  require('@digitalbazaar/ed25519-verification-key-2018');
+
+const {CryptoLD} = require('crypto-ld');
+const {VeresOneDriver} = require('..');
 
 // eslint-disable-next-line max-len
 const TEST_DID = 'did:v1:test:nym:z6MkpuEWNixE7JwBfbiZu4feAgtGL8zB1RCAJtKoZNLyJYTJ';
@@ -187,7 +189,7 @@ describe('methods/veres-one', () => {
         'https://w3id.org/security/suites/x25519-2020/v1'
       ]);
 
-      for(const purpose of VERIFICATION_RELATIONSHIPS) {
+      for(const purpose of ['capabilityInvocation', 'keyAgreement']) {
         const [publicKey] = didDocument[purpose];
         expect(publicKey).to.have
           .keys('id', 'type', 'controller', 'publicKeyMultibase');
@@ -197,6 +199,50 @@ describe('methods/veres-one', () => {
         expect(publicKey.id).to.equal(keyPair.id);
         expect(keyPair).to.have.property('privateKeyMultibase');
       }
+      const invokeKeyId = didDocument.capabilityInvocation[0].id;
+      expect(didDocument.authentication[0]).to.equal(invokeKeyId);
+      expect(didDocument.assertionMethod[0]).to.equal(invokeKeyId);
+      expect(didDocument.capabilityDelegation[0]).to.equal(invokeKeyId);
+
+      expect(keyPairs).to.exist;
+    });
+
+    it('should generate a cryptonym based DID Document (2018)', async () => {
+      const cryptoLd = new CryptoLD();
+      cryptoLd.use(Ed25519VerificationKey2018);
+
+      driver = new VeresOneDriver({
+        mode: 'test', cryptoLd, verificationSuite: Ed25519VerificationKey2018
+      });
+      const {didDocument, methodFor, keyPairs} = await driver.generate();
+
+      expect(didDocument).to.have.keys([
+        '@context', 'id', 'authentication', 'assertionMethod',
+        'capabilityDelegation', 'capabilityInvocation', 'keyAgreement'
+      ]);
+      expect(didDocument.id).to.match(/^did:v1:test:nym:z.*/);
+
+      expect(didDocument['@context']).to.eql([
+        'https://www.w3.org/ns/did/v1',
+        'https://w3id.org/veres-one/v1',
+        'https://w3id.org/security/suites/ed25519-2018/v1',
+        'https://w3id.org/security/suites/x25519-2019/v1'
+      ]);
+
+      for(const purpose of ['capabilityInvocation', 'keyAgreement']) {
+        const [publicKey] = didDocument[purpose];
+        expect(publicKey).to.have
+          .keys('id', 'type', 'controller', 'publicKeyBase58');
+        expect(publicKey.id.startsWith(publicKey.controller)).to.be.true;
+
+        const keyPair = methodFor({didDocument, purpose});
+        expect(publicKey.id).to.equal(keyPair.id);
+        expect(keyPair).to.have.property('publicKeyBase58');
+      }
+      const invokeKeyId = didDocument.capabilityInvocation[0].id;
+      expect(didDocument.authentication[0]).to.equal(invokeKeyId);
+      expect(didDocument.assertionMethod[0]).to.equal(invokeKeyId);
+      expect(didDocument.capabilityDelegation[0]).to.equal(invokeKeyId);
 
       expect(keyPairs).to.exist;
     });

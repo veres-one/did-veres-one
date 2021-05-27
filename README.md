@@ -47,10 +47,12 @@ npm install did-veres-one
 ```
 
 ```js
+import * as v1 from 'did-veres-one';
+// or
 const v1 = require('did-veres-one');
 
 // See Configuration below for list of options
-const options = {mode: 'dev', httpsAgent, hostname: 'localhost:12345'};
+
 const veresDriver = v1.driver(options);
 ```
 
@@ -58,8 +60,7 @@ const veresDriver = v1.driver(options);
 
 ```js
 // Generate a new DID Document
-const didDocument = await veresDriver.generate(
-  {didType: 'nym', keyType: 'Ed25519VerificationKey2018'}); // default
+const didDocument = await veresDriver.generate(); // default
 
 // Log the new didDocument to the console.
 console.log(JSON.stringify(didDocument, null, 2));
@@ -73,47 +74,83 @@ console.log(JSON.stringify(didDocument, null, 2));
     "https://w3id.org/security/suites/ed25519-2020/v1",
     "https://w3id.org/security/suites/x25519-2020/v1"
   ],
-  "id": "did:v1:test:nym:z6Mkkqz5hWq2vT3un8UWLhXEDBHLbUpaWM2yvZRpAPkU25qg",
+  "id": "did:v1:nym:z6MkqgytJzVovDLiinRZRm3UcxX5z7XETCQLVMgcugWaNuPe",
+  "capabilityInvocation": [{
+    "id": "did:v1:nym:z6MkqgytJzVovDLiinRZRm3UcxX5z7XETCQLVMgcugWaNuPe#z6MkqgytJzVovDLiinRZRm3UcxX5z7XETCQLVMgcugWaNuPe",
+    "type": "Ed25519VerificationKey2020",
+    "controller": "did:v1:nym:z6MkqgytJzVovDLiinRZRm3UcxX5z7XETCQLVMgcugWaNuPe",
+    "publicKeyMultibase": "zCEiqikFNafrFcHarkC5dmry6AYFP3K9yoLmh5QYZTgcG"
+  }],
   "authentication": [
-    {
-      "id": "did:v1:test:nym:z6Mkkqz5hWq2vT3un8UWLhXEDBHLbUpaWM2yvZRpAPkU25qg#z6MknK4SCXDjgBh5gnduDraF7TtTpxqzR4yL3VvF6V9TnRs8",
-      "type": "Ed25519VerificationKey2020",
-      "controller": "did:v1:test:nym:z6Mkkqz5hWq2vT3un8UWLhXEDBHLbUpaWM2yvZRpAPkU25qg",
-      "publicKeyMultibase": "z8roPcGyJLeCcaHoCYHcQGNLU1Pa91BiyMV1KGDBSsD5k"
-    }
+    "did:v1:nym:z6MkqgytJzVovDLiinRZRm3UcxX5z7XETCQLVMgcugWaNuPe#z6MkqgytJzVovDLiinRZRm3UcxX5z7XETCQLVMgcugWaNuPe"
   ],
   "assertionMethod": [
-    {
-      "id": "did:v1:test:nym:z6Mkkqz5hWq2vT3un8UWLhXEDBHLbUpaWM2yvZRpAPkU25qg#z6MknM5XL4EFGQ2WXypE1hb1SusqikD352UhKL8YANYhNDnQ",
-      "type": "Ed25519VerificationKey2020",
-      "controller": "did:v1:test:nym:z6Mkkqz5hWq2vT3un8UWLhXEDBHLbUpaWM2yvZRpAPkU25qg",
-      "publicKeyMultibase": "z8tpUjoyovrY3RUyXL8dAbpKquAwBf9ELdKDcL6agT112"
-    }
+    "did:v1:nym:z6MkqgytJzVovDLiinRZRm3UcxX5z7XETCQLVMgcugWaNuPe#z6MkqgytJzVovDLiinRZRm3UcxX5z7XETCQLVMgcugWaNuPe"
   ],
   "capabilityDelegation": [
-    {
-      "id": "did:v1:test:nym:z6Mkkqz5hWq2vT3un8UWLhXEDBHLbUpaWM2yvZRpAPkU25qg#z6Mknt9TWRoN86Kq2pcPoWa6PaqfUMrVDcNRgTn9y1R984V3",
-      "type": "Ed25519VerificationKey2020",
-      "controller": "did:v1:test:nym:z6Mkkqz5hWq2vT3un8UWLhXEDBHLbUpaWM2yvZRpAPkU25qg",
-      "publicKeyMultibase": "z9RtQvBYvnYqMvKmh7wcFYVHfenadoj84zSsE8jT8Cqhf"
-    }
+    "did:v1:nym:z6MkqgytJzVovDLiinRZRm3UcxX5z7XETCQLVMgcugWaNuPe#z6MkqgytJzVovDLiinRZRm3UcxX5z7XETCQLVMgcugWaNuPe"
   ],
-  "capabilityInvocation": [
-    {
-      "id": "did:v1:test:nym:z6Mkkqz5hWq2vT3un8UWLhXEDBHLbUpaWM2yvZRpAPkU25qg#z6Mkkqz5hWq2vT3un8UWLhXEDBHLbUpaWM2yvZRpAPkU25qg",
-      "type": "Ed25519VerificationKey2020",
-      "controller": "did:v1:test:nym:z6Mkkqz5hWq2vT3un8UWLhXEDBHLbUpaWM2yvZRpAPkU25qg",
-      "publicKeyMultibase": "z7Pj37GabauZSfddof8ZPN5jLmuYj6TndEYWtL7nT6s4J"
-    }
+  "keyAgreement": [{
+    "id": "did:v1:nym:z6MkqgytJzVovDLiinRZRm3UcxX5z7XETCQLVMgcugWaNuPe#z6LSjgGK5fg5wxns7d16g1QJHweYEVrDgNoVPncf2Wg85V2S",
+    "type": "X25519KeyAgreementKey2020",
+    "controller": "did:v1:nym:z6MkqgytJzVovDLiinRZRm3UcxX5z7XETCQLVMgcugWaNuPe",
+    "publicKeyMultibase": "z9169ZMsDrW582EdL9MtLyMS4PMK6ymdLWotyY42bN7Fg"
+  }]
+}
+```
+
+#### Backwards Compatibility with the 2018/2019 Crypto Suites
+
+By default, this `did:v1` driver returns DID Documents that have the 2020
+crypto suites for verification and key agreement.
+If you need DID Documents that are using the 2018/2019 crypto suites,
+you can customize the driver as follows.
+
+```js
+import {
+  Ed25519VerificationKey2018
+} from '@digitalbazaar/ed25519-verification-key-2018';
+import * as v1 from 'did-veres-one';
+import {CryptoLD} from 'crypto-ld';
+
+const cryptoLd = new CryptoLD();
+cryptoLd.use(Ed25519VerificationKey2018);
+
+const veresOneDriver2018 = v1.driver({
+ cryptoLd, verificationSuite: Ed25519VerificationKey2018
+});
+
+await veresOneDriver2018.generate();
+// -> 
+{
+  "@context": [
+    "https://www.w3.org/ns/did/v1",
+    "https://w3id.org/veres-one/v1",
+    "https://w3id.org/security/suites/ed25519-2018/v1",
+    "https://w3id.org/security/suites/x25519-2019/v1"
   ],
-  "keyAgreement": [
-    {
-      "id": "did:v1:test:nym:z6Mkkqz5hWq2vT3un8UWLhXEDBHLbUpaWM2yvZRpAPkU25qg#z6LSedETAHzL3UAvsenNoFxvjhyzM4jmppN5SWNMWFNFJtdY",
-      "type": "X25519KeyAgreementKey2020",
-      "controller": "did:v1:test:nym:z6Mkkqz5hWq2vT3un8UWLhXEDBHLbUpaWM2yvZRpAPkU25qg",
-      "publicKeyMultibase": "z3x4HdzBTx1TBnGQcGcSyR7mWVvCf8DBvZXeg1niibWrn"
-    }
-  ]
+    "id": "did:v1:nym:z6MkwTeb9YkCk8axegydVDTQj271wxEMRjAkfF6pFexrFbJz",
+    "capabilityInvocation": [{
+      "id": "did:v1:nym:z6MkwTeb9YkCk8axegydVDTQj271wxEMRjAkfF6pFexrFbJz#z6MkwTeb9YkCk8axegydVDTQj271wxEMRjAkfF6pFexrFbJz",
+      "type": "Ed25519VerificationKey2018",
+      "controller": "did:v1:nym:z6MkwTeb9YkCk8axegydVDTQj271wxEMRjAkfF6pFexrFbJz",
+      "publicKeyBase58": "J1PYZJVmQb6VYC8voeVZsvZ28NxW1qvPyEBtRNzqLNXc"
+    }],
+    "authentication": [
+      "did:v1:nym:z6MkwTeb9YkCk8axegydVDTQj271wxEMRjAkfF6pFexrFbJz#z6MkwTeb9YkCk8axegydVDTQj271wxEMRjAkfF6pFexrFbJz"
+    ],
+    "assertionMethod": [
+      "did:v1:nym:z6MkwTeb9YkCk8axegydVDTQj271wxEMRjAkfF6pFexrFbJz#z6MkwTeb9YkCk8axegydVDTQj271wxEMRjAkfF6pFexrFbJz"
+    ],
+    "capabilityDelegation": [
+      "did:v1:nym:z6MkwTeb9YkCk8axegydVDTQj271wxEMRjAkfF6pFexrFbJz#z6MkwTeb9YkCk8axegydVDTQj271wxEMRjAkfF6pFexrFbJz"
+    ],
+    "keyAgreement": [{
+      "id": "did:v1:nym:z6MkwTeb9YkCk8axegydVDTQj271wxEMRjAkfF6pFexrFbJz#z6LSjVA39Bmi8hNYt8ySM36fhurdpFTsCudVZTvUWAa8XKvt",
+      "type": "X25519KeyAgreementKey2019",
+      "controller": "did:v1:nym:z6MkwTeb9YkCk8axegydVDTQj271wxEMRjAkfF6pFexrFbJz",
+      "publicKeyBase58": "8oyscsxr3EeonkbfpPaiPKe9y6vkWJTLgVCo1hvboxA8"
+  }]
 }
 ```
 
