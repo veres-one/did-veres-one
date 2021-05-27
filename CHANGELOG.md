@@ -2,6 +2,18 @@
 
 ## 14.0.0 -
 
+### `14.0.0-beta.1`
+
+### Changed
+- **BREAKING**: Change in `generate()` semantics to support the common un-registered
+  DID use case. (See the "Upgrading from `<=12.x` section" below, item 1.)
+  Now, `generate()` now only generates one key, for `capabilityInvocation` but 
+  also all the other purposes (much like generating a new `did:key` DID).
+  (Helper libraries are expected to generate other keys before registering the
+  DID Document on the ledger.)
+
+### `14.0.0-beta.0`
+
 ### Changed
 - **BREAKING**: Update to the newest contexts, crypto suites, `did-io` version.
 - **BREAKING**: Change `.generate()` return signature, now returns
@@ -14,11 +26,24 @@
 ### Upgrading from <=12.x
 
 **1)** DID Document `generate()` method return signature has changed.
+Change in `generate()` semantics (as of `v14.0.0-beta.1`). Since we expect using 
+an un-registered Veres One DID to be a common use case, the previous `generate()`
+behavior introduced complications, since different keys for each proof purpose
+were created by default. Except that, for the case of un-registered DIDs, the
+next time it was resolved, the `capabilityInvocation` key was used (derived from
+the cryptonym) as the signing key for all purposes (same behavior as `did:key`
+DIDs). To simplify this, `generate()` now only generates one key, for
+`capabilityInvocation` but also all the other purposes (much like generating
+a new `did:key` DID). To support a proper diversity of keys for registered
+DIDs, helper libraries are expected to generate and add additional keys for
+other proof purposes, before registering a DID Document on the ledger.
 
 **Before:** `const didDocument = await veresOneDriver.generate();`
 
 The generated `didDocument` was an instance of the `VeresOneDidDoc` class,
 and stored its own generated key pairs in `didDocument.keys`.
+It also contained different keys for each proof purpose (they were generated,
+if not explicitly provided).
 
 **Now:** `const {didDocument, keyPairs, methodFor} = await veresOneDriver.generate();`
 
