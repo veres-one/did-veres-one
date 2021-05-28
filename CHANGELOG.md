@@ -2,7 +2,7 @@
 
 ## 14.0.0 -
 
-### `14.0.0-beta.1`
+### `14.0.0-beta.1` - 2021-05-28
 
 ### Changed
 - **BREAKING**: Change in `generate()` semantics to support the common un-registered
