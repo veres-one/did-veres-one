@@ -25,7 +25,7 @@
     "lint": "eslint lib tests"
   },
   "dependencies": {
-    "apisauce": "^2.0.1",
+    "@digitalbazaar/http-client": "^1.1.0",
     "base64url-universal": "^1.1.0",
     "crypto-ld": "^3.7.0",
     "did-context": "^2.0.0",
