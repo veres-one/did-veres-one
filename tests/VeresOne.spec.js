@@ -332,6 +332,7 @@ describe('methods/veres-one', () => {
       try {
         result = await v1.register({didDocument});
       } catch(e) {
+        console.error(e);
         error = e;
       }
       expect(error).not.to.exist;
