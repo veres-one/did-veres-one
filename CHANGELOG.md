@@ -78,7 +78,7 @@ node):
 - Removed `apisauce` in favor of `@digitalbazaar/http-client` as part of an upgrade to remove axios.
 
 ### Changed
-- Changed API `ticketService` to use `@digitalbazaar/http-client`.
+- Changed API `getTicketServiceProof` to use `@digitalbazaar/http-client`.
 - Changed API `sendToAccelerator` to use `@digitalbazaar/http-client`.
 
 ## 13.0.2 - 2021-05-25
