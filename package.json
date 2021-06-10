@@ -45,7 +45,7 @@
     "eslint": "^7.19.0",
     "eslint-config-digitalbazaar": "^2.3.0",
     "mocha": "^7.1.1",
-    "nock": "^12.0.3",
+    "nock": "^13.1.0",
     "sinon": "^9.0.2",
     "sinon-chai": "^3.5.0"
   },
