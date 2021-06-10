@@ -2,6 +2,11 @@
 
 ## 14.0.0 -
 
+### Changed
+- BREAKING: Replaced axios with @digitalbazaar/http-client. Errors returned directly from http-client do not match the axios API.
+- Changed API `getTicketServiceProof` to use `@digitalbazaar/http-client`.
+- Changed API `sendToAccelerator` to use `@digitalbazaar/http-client`.
+
 ### `14.0.0-beta.1` - 2021-05-28
 
 ### Changed
@@ -71,15 +76,6 @@ node):
   `VeresOneDriver.validateDid({didDocument, mode})`
 - `didDocument.validateMethodIds()` becomes:
   `VeresOneDriver.validateMethodIds({didDocument})`
-
-## 13.0.3 - TBD
-
-### Removed
-- Removed `apisauce` in favor of `@digitalbazaar/http-client` as part of an upgrade to remove axios.
-
-### Changed
-- Changed API `getTicketServiceProof` to use `@digitalbazaar/http-client`.
-- Changed API `sendToAccelerator` to use `@digitalbazaar/http-client`.
 
 ## 13.0.2 - 2021-05-25
 
