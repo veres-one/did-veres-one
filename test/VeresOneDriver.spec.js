@@ -9,8 +9,8 @@ chai.should();
 
 const {expect} = chai;
 
-const {Ed25519VerificationKey2018} =
-  require('@digitalbazaar/ed25519-verification-key-2018');
+const {Ed25519VerificationKey2020} =
+  require('@digitalbazaar/ed25519-verification-key-2020');
 
 const {CryptoLD} = require('crypto-ld');
 const {VeresOneDriver} = require('..');
@@ -99,7 +99,7 @@ describe('methods/veres-one', () => {
         ],
         // eslint-disable-next-line max-len
         id: 'did:v1:test:nym:z6MkesAjEQrikUeuh6K496DDVm6d1DUzMMGQtFHuRFM1fkgt#z6MkesAjEQrikUeuh6K496DDVm6d1DUzMMGQtFHuRFM1fkgt',
-        type: 'Ed25519VerificationKey2018',
+        type: 'Ed25519VerificationKey2020',
         // eslint-disable-next-line max-len
         controller: 'did:v1:test:nym:z6MkesAjEQrikUeuh6K496DDVm6d1DUzMMGQtFHuRFM1fkgt',
         publicKeyBase58: 'QugeAcHQwASabUMTXFNefYdBeD8wU24CENyayNzkXuW'
@@ -207,12 +207,12 @@ describe('methods/veres-one', () => {
       expect(keyPairs).to.exist;
     });
 
-    it('should generate a cryptonym based DID Document (2018)', async () => {
+    it('should generate a cryptonym based DID Document (2020)', async () => {
       const cryptoLd = new CryptoLD();
-      cryptoLd.use(Ed25519VerificationKey2018);
+      cryptoLd.use(Ed25519VerificationKey2020);
 
       driver = new VeresOneDriver({
-        mode: 'test', cryptoLd, verificationSuite: Ed25519VerificationKey2018
+        mode: 'test', cryptoLd, verificationSuite: Ed25519VerificationKey2020
       });
       const {didDocument, methodFor, keyPairs} = await driver.generate();
 
@@ -225,8 +225,8 @@ describe('methods/veres-one', () => {
       expect(didDocument['@context']).to.eql([
         'https://www.w3.org/ns/did/v1',
         'https://w3id.org/veres-one/v1',
-        'https://w3id.org/security/suites/ed25519-2018/v1',
-        'https://w3id.org/security/suites/x25519-2019/v1'
+        'https://w3id.org/security/suites/ed25519-2020/v1',
+        'https://w3id.org/security/suites/x25519-2020/v1'
       ]);
 
       for(const purpose of ['capabilityInvocation', 'keyAgreement']) {
