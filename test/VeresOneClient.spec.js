@@ -72,7 +72,7 @@ describe.skip('web ledger client', () => {
           ],
           "id": "did:v1:test:nym:" +
             "2pfPix2tcwa7gNoMRxdcHbEyFGqaVBPNntCsDZexVeHX#authn-1",
-          "type": "Ed25519VerificationKey2018",
+          "type": "Ed25519VerificationKey2020",
           "controller": "did:v1:test:" +
             "nym:2pfPix2tcwa7gNoMRxdcHbEyFGqaVBPNntCsDZexVeHX",
           "publicKeyBase58": "2pfPix2tcwa7gNoMRxdcHbEyFGqaVBPNntCsDZexVeHX"

@@ -24,7 +24,6 @@
     "@digitalbazaar/ed25519-signature-2020": "^3.0.0",
     "@digitalbazaar/ed25519-verification-key-2020": "^3.1.0",
     "@digitalbazaar/http-client": "^1.1.0",
-    "@digitalbazaar/x25519-key-agreement-key-2019": "^5.1.1",
     "@digitalbazaar/x25519-key-agreement-key-2020": "^2.0.0",
     "@digitalbazaar/zcapld": "^4.0.0",
     "apisauce": "^2.1.1",
