@@ -232,12 +232,12 @@ describe('methods/veres-one', () => {
       for(const purpose of ['capabilityInvocation', 'keyAgreement']) {
         const [publicKey] = didDocument[purpose];
         expect(publicKey).to.have
-          .keys('id', 'type', 'controller', 'publicKeyBase58');
+          .keys('id', 'type', 'controller', 'publicKeyMultibase');
         expect(publicKey.id.startsWith(publicKey.controller)).to.be.true;
 
         const keyPair = methodFor({didDocument, purpose});
         expect(publicKey.id).to.equal(keyPair.id);
-        expect(keyPair).to.have.property('publicKeyBase58');
+        expect(keyPair).to.have.property('publicKeyMultibase');
       }
       const invokeKeyId = didDocument.capabilityInvocation[0].id;
       expect(didDocument.authentication[0]).to.equal(invokeKeyId);
