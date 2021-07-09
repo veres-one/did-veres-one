@@ -3,9 +3,12 @@
 ## 14.0.0 -
 
 ### Changed
-- BREAKING: Replaced axios with @digitalbazaar/http-client. Errors returned directly from http-client do not match the axios API.
+- **BREAKING**: Replaced axios with @digitalbazaar/http-client. Errors returned directly from http-client do not match the axios API.
 - Changed API `getTicketServiceProof` to use `@digitalbazaar/http-client`.
 - Changed API `sendToAccelerator` to use `@digitalbazaar/http-client`.
+- **BREAKING**: API attachInvocationProof now requires the parameter `invocationTarget`.
+- **BREAKING**: API attachInvocationProof now accepts a single object as parameters.
+
 
 ### `14.0.0-beta.1` - 2021-05-28
 
