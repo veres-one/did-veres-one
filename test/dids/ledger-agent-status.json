@@ -34,7 +34,7 @@
         }
       ],
       "proof": {
-        "type": "Ed25519Signature2018",
+        "type": "Ed25519Signature2020",
         "created": "2020-02-21T17:55:00Z",
         "verificationMethod": "did:v1:test:nym:z6MkiZds3NEir8NFSu8q76XwUMdQFCP1RH5V5UbEWA52dJxr#z6MkqNJ9K5GoRadSeRpBexmJWfUoHh8W7ak3cZbHxkvFNmeN",
         "proofPurpose": "assertionMethod",
