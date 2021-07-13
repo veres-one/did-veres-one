@@ -9,7 +9,6 @@
 - **BREAKING**: API attachInvocationProof now requires the parameter `invocationTarget`.
 - **BREAKING**: API attachInvocationProof now accepts a single object as parameters.
 
-
 ### `14.0.0-beta.1` - 2021-05-28
 
 ### Changed
