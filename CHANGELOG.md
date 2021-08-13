@@ -2,6 +2,9 @@
 
 ## 14.0.0 -
 
+### Added
+- Add `driver.getInitial()` method, to explicitly construct a DID Document deterministically, from a cryptonym DID. 
+
 ### Changed
 - **BREAKING**: Replaced axios with @digitalbazaar/http-client. Errors returned directly from http-client do not match the axios API.
 - Changed API `getTicketServiceProof` to use `@digitalbazaar/http-client`.
