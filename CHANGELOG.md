@@ -2,6 +2,8 @@
 
 ## 14.0.0 -
 
+### `14.0.0-beta.2` - 2021-08-19
+
 ### Added
 - Add `driver.getInitial()` method, to explicitly construct a DID Document deterministically, from a cryptonym DID. 
 
