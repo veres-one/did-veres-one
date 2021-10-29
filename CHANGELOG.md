@@ -5,10 +5,15 @@
 ### `14.0.0-beta.2` - 2021-08-19
 
 ### Added
-- Add `driver.getInitial()` method, to explicitly construct a DID Document deterministically, from a cryptonym DID. 
+- Add `driver.getInitial()` method, to explicitly construct a DID Document
+  deterministically, from a cryptonym DID.
+- Add an optional `seed` param to `generate()` to generate DID documment from
+  a 32-byte array seed.
+
 
 ### Changed
-- **BREAKING**: Replaced axios with @digitalbazaar/http-client. Errors returned directly from http-client do not match the axios API.
+- **BREAKING**: Replaced axios with @digitalbazaar/http-client. Errors returned
+  directly from http-client do not match the axios API.
 - Changed API `getTicketServiceProof` to use `@digitalbazaar/http-client`.
 - Changed API `sendToAccelerator` to use `@digitalbazaar/http-client`.
 - **BREAKING**: API attachInvocationProof now requires the parameter `invocationTarget`.
@@ -19,7 +24,7 @@
 ### Changed
 - **BREAKING**: Change in `generate()` semantics to support the common un-registered
   DID use case. (See the "Upgrading from `<=12.x` section" below, item 1.)
-  Now, `generate()` now only generates one key, for `capabilityInvocation` but 
+  Now, `generate()` now only generates one key, for `capabilityInvocation` but
   also all the other purposes (much like generating a new `did:key` DID).
   (Helper libraries are expected to generate other keys before registering the
   DID Document on the ledger.)
@@ -38,7 +43,7 @@
 ### Upgrading from <=12.x
 
 **1)** DID Document `generate()` method return signature has changed.
-Change in `generate()` semantics (as of `v14.0.0-beta.1`). Since we expect using 
+Change in `generate()` semantics (as of `v14.0.0-beta.1`). Since we expect using
 an un-registered Veres One DID to be a common use case, the previous `generate()`
 behavior introduced complications, since different keys for each proof purpose
 were created by default. Except that, for the case of un-registered DIDs, the
@@ -69,14 +74,14 @@ public/private key pair instance that is referenced in the DID Document's
 `capabilityInvocation` verification relationship.
 
 **2)** Driver `.get()` method has changed -- no longer uses the `forceConstruct`
-parameter. Developers are encouraged to use the CachedResolver from 
+parameter. Developers are encouraged to use the CachedResolver from
 https://github.com/digitalbazaar/did-io instead.
 `driver.get()` can still be used to fetch either the full DID Document (via
 `await driver.get({did})`) or a key document (via `await driver.get({url: keyId})`).
 
 **3)** Check for `.computeKeyId()` usage. It's been renamed to `.computeId()`.
 
-**4)** Validation methods have changed (used by the `did-veres-one` validator 
+**4)** Validation methods have changed (used by the `did-veres-one` validator
 node):
 
 - `didDocument.validateDid({mode})` becomes:
