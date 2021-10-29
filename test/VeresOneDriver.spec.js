@@ -11,6 +11,7 @@ const {expect} = chai;
 
 const {Ed25519VerificationKey2020} =
   require('@digitalbazaar/ed25519-verification-key-2020');
+const {randomBytes} = require('crypto');
 
 const {CryptoLD} = require('crypto-ld');
 const {VeresOneDriver} = require('..');
@@ -171,6 +172,23 @@ describe('methods/veres-one', () => {
       driver.mode = 'live';
       const {didDocument} = await driver.generate();
       expect(didDocument.id).to.match(/^did:v1:nym:z.*/);
+    });
+
+    it('should create a DID document from seed', async () => {
+      const seed = randomBytes(32);
+      const {didDocument} = await driver.generate({seed});
+      console.log(JSON.stringify(didDocument, null, 2), 'didDocument');
+      expect(didDocument).to.have.keys([
+        '@context', 'id', 'authentication', 'assertionMethod',
+        'capabilityDelegation', 'capabilityInvocation', 'keyAgreement'
+      ]);
+      expect(didDocument.id).to.match(/^did:v1:test:nym:z.*/);
+      expect(didDocument['@context']).to.eql([
+        'https://www.w3.org/ns/did/v1',
+        'https://w3id.org/veres-one/v1',
+        'https://w3id.org/security/suites/ed25519-2020/v1',
+        'https://w3id.org/security/suites/x25519-2020/v1'
+      ]);
     });
 
     it('should generate a cryptonym based DID Document', async () => {
