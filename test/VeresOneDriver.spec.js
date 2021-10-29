@@ -27,6 +27,7 @@ const TEST_DID_RESULT = require('./dids/ashburn.capybara.did.json');
 const LEDGER_AGENTS_DOC = require('./dids/ledger-agents.json');
 const LEDGER_AGENT_STATUS = require('./dids/ledger-agent-status.json');
 const TICKET_SERVICE_PROOF = require('./dids/ticket-service-proof.json');
+const expectedDidDoc = require('./dids/expected-did-doc.json');
 
 describe('methods/veres-one', () => {
   let driver;
@@ -189,6 +190,7 @@ describe('methods/veres-one', () => {
         'https://w3id.org/security/suites/ed25519-2020/v1',
         'https://w3id.org/security/suites/x25519-2020/v1'
       ]);
+      expect(didDocument).eql(expectedDidDoc);
     });
 
     it('should generate a cryptonym based DID Document', async () => {
