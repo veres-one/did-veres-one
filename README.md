@@ -62,6 +62,9 @@ const veresDriver = v1.driver(options);
 // Generate a new DID Document
 const didDocument = await veresDriver.generate(); // default
 
+// A DID Document can also be generated from a 32-byte array seed
+const didDocument = await veresDriver.generate({seed});
+
 // Log the new didDocument to the console.
 console.log(JSON.stringify(didDocument, null, 2));
 ```
@@ -121,7 +124,7 @@ const veresOneDriver2018 = v1.driver({
 });
 
 await veresOneDriver2018.generate();
-// -> 
+// ->
 {
   "@context": [
     "https://www.w3.org/ns/did/v1",
