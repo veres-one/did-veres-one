@@ -176,7 +176,7 @@ describe('methods/veres-one', () => {
       expect(didDocument.id).to.match(/^did:v1:nym:z.*/);
     });
 
-    it('should create a DID document from seed', async () => {
+    it('should generate a DID document from seed', async () => {
       const seedBytes = (new TextEncoder()).encode(TEST_SEED).slice(0, 32);
       const {didDocument} = await driver.generate({seed: seedBytes});
       expect(didDocument).to.have.keys([
