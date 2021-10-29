@@ -7,7 +7,7 @@
 ### Added
 - Add `driver.getInitial()` method, to explicitly construct a DID Document
   deterministically, from a cryptonym DID.
-- Add an optional `seed` param to `generate()` to generate DID documment from
+- Add an optional `seed` param to `generate()` to generate DID document from
   a 32-byte array seed.
 
 
