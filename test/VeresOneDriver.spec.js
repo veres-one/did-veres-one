@@ -11,13 +11,14 @@ const {expect} = chai;
 
 const {Ed25519VerificationKey2020} =
   require('@digitalbazaar/ed25519-verification-key-2020');
-const {randomBytes} = require('crypto');
 
 const {CryptoLD} = require('crypto-ld');
 const {VeresOneDriver} = require('..');
 
 // eslint-disable-next-line max-len
 const TEST_DID = 'did:v1:test:nym:z6MkpuEWNixE7JwBfbiZu4feAgtGL8zB1RCAJtKoZNLyJYTJ';
+// eslint-disable-next-line max-len
+const TEST_SEED = '8c2114a150a16209c653817acc7f3e7e9c6c6290ae93d6689cbd61bb038cd31b';
 const UNREGISTERED_NYM =
   'did:v1:test:nym:z6MkiCqJ7vhBXRau9BT9yXA9LxSGarmL4W8gFD8qajBZz4gQ';
 const UNREGISTERED_UUID = 'did:v1:test:2G7RmkvGrBX5jf3M';
@@ -175,9 +176,8 @@ describe('methods/veres-one', () => {
     });
 
     it('should create a DID document from seed', async () => {
-      const seed = randomBytes(32);
-      const {didDocument} = await driver.generate({seed});
-      console.log(JSON.stringify(didDocument, null, 2), 'didDocument');
+      const seedBytes = (new TextEncoder()).encode(TEST_SEED).slice(0, 32);
+      const {didDocument} = await driver.generate({seed: seedBytes});
       expect(didDocument).to.have.keys([
         '@context', 'id', 'authentication', 'assertionMethod',
         'capabilityDelegation', 'capabilityInvocation', 'keyAgreement'
