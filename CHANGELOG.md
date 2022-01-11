@@ -2,7 +2,13 @@
 
 ## 14.0.0 -
 
+### `14.0.0-beta.3` -
+
 ### `14.0.0-beta.2` - 2021-08-19
+### Changed
+- **BREAKING**: Capability ids now use root zcap prefixes.
+- **BREAKING**: Attenuated invocationTargets are now used.
+- API `attachProofs` & `attachInvocationProof` accept an optional `documentLoader` parameter. 
 
 ### Added
 - Add `driver.getInitial()` method, to explicitly construct a DID Document
