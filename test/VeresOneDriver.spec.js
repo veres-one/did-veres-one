@@ -11,6 +11,8 @@ const {expect} = chai;
 
 const {Ed25519VerificationKey2020} =
   require('@digitalbazaar/ed25519-verification-key-2020');
+const {Ed25519VerificationKey2018} =
+  require('@digitalbazaar/ed25519-verification-key-2018');
 
 const {CryptoLD} = require('crypto-ld');
 const {VeresOneDriver} = require('..');
@@ -266,7 +268,45 @@ describe('methods/veres-one', () => {
 
       expect(keyPairs).to.exist;
     });
+    it('should generate a cryptonym based DID Document (2018)', async () => {
+      const cryptoLd = new CryptoLD();
+      cryptoLd.use(Ed25519VerificationKey2018);
 
+      driver = new VeresOneDriver({
+        mode: 'test', cryptoLd, verificationSuite: Ed25519VerificationKey2018
+      });
+      const {didDocument, methodFor, keyPairs} = await driver.generate();
+
+      expect(didDocument).to.have.keys([
+        '@context', 'id', 'authentication', 'assertionMethod',
+        'capabilityDelegation', 'capabilityInvocation', 'keyAgreement'
+      ]);
+      expect(didDocument.id).to.match(/^did:v1:test:nym:z.*/);
+
+      expect(didDocument['@context']).to.eql([
+        'https://www.w3.org/ns/did/v1',
+        'https://w3id.org/veres-one/v1',
+        'https://w3id.org/security/suites/ed25519-2018/v1',
+        'https://w3id.org/security/suites/x25519-2019/v1'
+      ]);
+
+      for(const purpose of ['capabilityInvocation', 'keyAgreement']) {
+        const [publicKey] = didDocument[purpose];
+        expect(publicKey).to.have
+          .keys('id', 'type', 'controller', 'publicKeyBase58');
+        expect(publicKey.id.startsWith(publicKey.controller)).to.be.true;
+
+        const keyPair = methodFor({didDocument, purpose});
+        expect(publicKey.id).to.equal(keyPair.id);
+        expect(keyPair).to.have.property('publicKeyBase58');
+      }
+      const invokeKeyId = didDocument.capabilityInvocation[0].id;
+      expect(didDocument.authentication[0]).to.equal(invokeKeyId);
+      expect(didDocument.assertionMethod[0]).to.equal(invokeKeyId);
+      expect(didDocument.capabilityDelegation[0]).to.equal(invokeKeyId);
+
+      expect(keyPairs).to.exist;
+    });
     it('should generate uuid-based DID Document in test mode', async () => {
       const {didDocument} = await driver.generate({didType: 'uuid'});
       expect(didDocument.id).to.match(/^did:v1:test:uuid:.*/);
