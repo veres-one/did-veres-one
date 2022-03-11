@@ -2,6 +2,20 @@
 
 ## 14.0.0 -
 
+### `14.0.0-beta.5` - XXXX-XX-XX
+
+### Changed
+- Update to `fast-json-patch@3`.
+- Update to `@digitalbazaar/http-client@2`.
+
+### `14.0.0-beta.4` - 2022-01-11
+
+FIXME
+
+### `14.0.0-beta.3` - 2021-08-23
+
+FIXME
+
 ### `14.0.0-beta.2` - 2021-08-19
 
 ### Added
