@@ -51,7 +51,8 @@ jobs:
 #      - name: Run karma tests
 #        run: npm run test-karma
   coverage:
-    needs: [test-node, test-karma]
+    #needs: [test-node, test-karma]
+    needs: [test-node]
     timeout-minutes: 10
     runs-on: ubuntu-latest
     strategy:
