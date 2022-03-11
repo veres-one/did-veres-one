@@ -94,7 +94,7 @@
     "test-node": "cross-env NODE_ENV=test mocha -r esm --preserve-symlinks -t 10000 test/*.spec.js",
     "test-karma": "karma start karma.conf.js",
     "coverage": "cross-env NODE_ENV=test nyc --reporter=lcov --reporter=text-summary npm run test-node",
-    "coverage-ci": "cross-env NODE_ENV=test nyc --reporter=lcovonly npm run test-node",
+    "coverage-ci": "cross-env NODE_ENV=test nyc --reporter=lcovonly --reporter=text npm run test-node",
     "coverage-report": "nyc report",
     "lint": "eslint ."
   }
