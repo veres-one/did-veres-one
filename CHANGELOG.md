@@ -7,6 +7,8 @@
 ### Changed
 - Update to `fast-json-patch@3`.
 - Update to `@digitalbazaar/http-client@2`.
+- Update other minor version changes.
+- Update dev dependencies.
 
 ### `14.0.0-beta.4` - 2022-01-11
 
