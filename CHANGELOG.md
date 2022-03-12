@@ -12,11 +12,18 @@
 
 ### `14.0.0-beta.4` - 2022-01-11
 
-FIXME
+### Added
+- Add `capabilityAction` param to `attachProofs` and default to `write`.
+- Add feature to generate DID from seed.
+
+### Changed
+- Make `invocationTarget` configurable for `attachProofs`.
+- Update dependencies.
 
 ### `14.0.0-beta.3` - 2021-08-23
 
-FIXME
+### Changed
+- Add error logging to `get()`/`fromNum()` operation.
 
 ### `14.0.0-beta.2` - 2021-08-19
 
@@ -25,7 +32,6 @@ FIXME
   deterministically, from a cryptonym DID.
 - Add an optional `seed` param to `generate()` to generate DID document from
   a 32-byte array seed.
-
 
 ### Changed
 - **BREAKING**: Replaced axios with @digitalbazaar/http-client. Errors returned
