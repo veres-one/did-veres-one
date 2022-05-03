@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021 Digital Bazaar, Inc. All rights reserved.
+ * Copyright (c) 2021-2022 Digital Bazaar, Inc. All rights reserved.
  */
 module.exports = function(config) {
 
@@ -26,19 +26,8 @@ module.exports = function(config) {
     },
 
     webpack: {
-      //mode: 'production',
       mode: 'development',
-      devtool: 'inline-source-map',
-      node: {
-        // Needed to address jsonld.js's usage of 'global', until that's fixed
-        global: true
-      },
-      resolve: {
-        fallback: {
-          url: false,
-          crypto: false
-        }
-      }
+      devtool: 'inline-source-map'
     },
 
     // test results reporter to use

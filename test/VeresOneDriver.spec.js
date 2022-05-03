@@ -1,19 +1,21 @@
 /*!
- * Copyright (c) 2018-2020 Veres One Project. All rights reserved.
+ * Copyright (c) 2018-2022 Veres One Project. All rights reserved.
  */
-'use strict';
-
-const nock = require('nock');
-const chai = require('chai');
+import nock from 'nock';
+import chai from 'chai';
 chai.should();
 
 const {expect} = chai;
 
-const {Ed25519VerificationKey2020} =
-  require('@digitalbazaar/ed25519-verification-key-2020');
+import {
+  Ed25519VerificationKey2020
+} from '@digitalbazaar/ed25519-verification-key-2020';
 
-const {CryptoLD} = require('crypto-ld');
-const {VeresOneDriver} = require('..');
+import {CryptoLD} from 'crypto-ld';
+import {VeresOneDriver} from '../lib/index.js';
+
+import {createRequire} from 'module';
+const requireJson = createRequire(import.meta.url);
 
 // eslint-disable-next-line max-len
 const TEST_DID = 'did:v1:test:nym:z6MkpuEWNixE7JwBfbiZu4feAgtGL8zB1RCAJtKoZNLyJYTJ';
@@ -22,12 +24,12 @@ const TEST_SEED = '8c2114a150a16209c653817acc7f3e7e9c6c6290ae93d6689cbd61bb038cd
 const UNREGISTERED_NYM =
   'did:v1:test:nym:z6MkiCqJ7vhBXRau9BT9yXA9LxSGarmL4W8gFD8qajBZz4gQ';
 const UNREGISTERED_UUID = 'did:v1:test:2G7RmkvGrBX5jf3M';
-const UNREGISTERED_DOC = require('./dids/did-nym-unregistered.json');
-const TEST_DID_RESULT = require('./dids/ashburn.capybara.did.json');
-const LEDGER_AGENTS_DOC = require('./dids/ledger-agents.json');
-const LEDGER_AGENT_STATUS = require('./dids/ledger-agent-status.json');
-const TICKET_SERVICE_PROOF = require('./dids/ticket-service-proof.json');
-const expectedDidDoc = require('./dids/expected-did-doc.json');
+const UNREGISTERED_DOC = requireJson('./dids/did-nym-unregistered.json');
+const TEST_DID_RESULT = requireJson('./dids/ashburn.capybara.did.json');
+const LEDGER_AGENTS_DOC = requireJson('./dids/ledger-agents.json');
+const LEDGER_AGENT_STATUS = requireJson('./dids/ledger-agent-status.json');
+const TICKET_SERVICE_PROOF = requireJson('./dids/ticket-service-proof.json');
+const expectedDidDoc = requireJson('./dids/expected-did-doc.json');
 
 describe('methods/veres-one', () => {
   let driver;

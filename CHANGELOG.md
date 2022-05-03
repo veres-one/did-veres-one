@@ -1,16 +1,20 @@
 # did-veres-one ChangeLog
 
-## 14.0.0 -
-
-### `14.0.0-beta.5` - XXXX-XX-XX
+### 15.0.0 - 2022-XX-XX
 
 ### Changed
-- Update to `fast-json-patch@3`.
-- Update to `@digitalbazaar/http-client@2`.
-- Update other minor version changes.
-- Update dev dependencies.
+- **BREAKING**: Convert to module (ESM).
+- **BREAKING**: Require Node.js >=14.
+- Update dependencies.
+  - Update to ESM dependenices.
+  - Update to `fast-json-patch@3`.
+  - Update other minor version changes.
+  - Update dev dependencies.
+- Lint module.
 
-### `14.0.0-beta.4` - 2022-01-11
+## 14.0.0 - TBD
+
+## 14.0.0-beta.4 - 2022-01-11
 
 ### Added
 - Add `capabilityAction` param to `attachProofs` and default to `write`.
@@ -20,12 +24,12 @@
 - Make `invocationTarget` configurable for `attachProofs`.
 - Update dependencies.
 
-### `14.0.0-beta.3` - 2021-08-23
+## 14.0.0-beta.3 - 2021-08-23
 
 ### Changed
 - Add error logging to `get()`/`fromNum()` operation.
 
-### `14.0.0-beta.2` - 2021-08-19
+## 14.0.0-beta.2 - 2021-08-19
 
 ### Added
 - Add `driver.getInitial()` method, to explicitly construct a DID Document
@@ -41,7 +45,7 @@
 - **BREAKING**: API attachInvocationProof now requires the parameter `invocationTarget`.
 - **BREAKING**: API attachInvocationProof now accepts a single object as parameters.
 
-### `14.0.0-beta.1` - 2021-05-28
+## 14.0.0-beta.1 - 2021-05-28
 
 ### Changed
 - **BREAKING**: Change in `generate()` semantics to support the common un-registered
@@ -51,7 +55,7 @@
   (Helper libraries are expected to generate other keys before registering the
   DID Document on the ledger.)
 
-### `14.0.0-beta.0`
+## 14.0.0-beta.0 - 2021-05-20
 
 ### Changed
 - **BREAKING**: Revert addition of backwards compatibility for key pairs. If
