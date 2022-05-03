@@ -1,25 +1,26 @@
 /*!
- * Copyright (c) 2018-2021 Veres One Project. All rights reserved.
+ * Copyright (c) 2018-2022 Veres One Project. All rights reserved.
  */
-'use strict';
-
-const nock = require('nock');
-const chai = require('chai');
+import nock from 'nock';
+import chai from 'chai';
 chai.should();
 
 const {expect} = chai;
 
-const tls = require('tls');
+import tls from 'tls';
 tls.DEFAULT_ECDH_CURVE = 'auto';
 
-const {VeresOneClient} = require('../lib/index');
+import {VeresOneClient} from '../lib/index.js';
+
+import {createRequire} from 'module';
+const requireJson = createRequire(import.meta.url);
 
 const TEST_HOSTNAME = 'ashburn.capybara.veres.one';
 const TEST_DID = 'did:v1:test:nym:2pfPix2tcwa7gNoMRxdcHbEyFGqaVBPNntCsDZexVeHX';
-const TEST_DID_RESULT = require('./dids/ashburn.capybara.did.json');
-const LEDGER_AGENTS_DOC = require('./dids/ledger-agents.json');
-const LEDGER_AGENT_STATUS = require('./dids/ledger-agent-status.json');
-const ACCELERATOR_RESPONSE = require('./dids/accelerator-response.json');
+const TEST_DID_RESULT = requireJson('./dids/ashburn.capybara.did.json');
+const LEDGER_AGENTS_DOC = requireJson('./dids/ledger-agents.json');
+const LEDGER_AGENT_STATUS = requireJson('./dids/ledger-agent-status.json');
+const ACCELERATOR_RESPONSE = requireJson('./dids/accelerator-response.json');
 
 describe.skip('web ledger client', () => {
   let client;
