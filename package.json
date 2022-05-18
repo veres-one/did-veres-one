@@ -24,7 +24,7 @@
     "@digitalbazaar/did-io": "^2.0.0",
     "@digitalbazaar/ed25519-signature-2020": "^4.0.1",
     "@digitalbazaar/ed25519-verification-key-2020": "^4.0.0",
-    "@digitalbazaar/http-client": "^3.0.1",
+    "@digitalbazaar/http-client": "^3.1.0",
     "@digitalbazaar/http-signature-header": "^5.0.0",
     "@digitalbazaar/x25519-key-agreement-key-2020": "^3.0.0",
     "@digitalbazaar/zcap": "^8.0.0",
@@ -43,14 +43,14 @@
     "x25519-key-agreement-2020-context": "^1.0.0"
   },
   "devDependencies": {
-    "c8": "^7.11.2",
+    "c8": "^7.11.3",
     "chai": "^4.3.6",
     "cross-env": "^7.0.3",
-    "eslint": "^8.14.0",
+    "eslint": "^8.15.0",
     "eslint-config-digitalbazaar": "^3.0.0",
     "eslint-plugin-jsdoc": "^39.2.9",
     "eslint-plugin-unicorn": "^42.0.0",
-    "karma": "^6.3.19",
+    "karma": "^6.3.20",
     "karma-chai": "^0.1.0",
     "karma-chrome-launcher": "^3.1.1",
     "karma-mocha": "^2.0.1",
@@ -60,7 +60,7 @@
     "mocha": "^10.0.0",
     "mocha-lcov-reporter": "^1.3.0",
     "nock": "^13.2.4",
-    "webpack": "^5.72.0"
+    "webpack": "^5.72.1"
   },
   "c8": {
     "exclude": [
