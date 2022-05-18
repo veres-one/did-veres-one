@@ -10,6 +10,9 @@
 - Add an optional `seed` param to `generate()` to generate DID document from
   a 32-byte array seed.
 
+### Removed
+- Remove unused deps `apisauce@2.1.1`, `jsonld@5.2.0` and
+  devDeps `@digitalbazaar/ed25519-verification-key-2018@3.1.1`.
 
 ### Changed
 - **BREAKING**: Replaced axios with @digitalbazaar/http-client. Errors returned
