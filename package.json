@@ -32,7 +32,6 @@
     "crypto-ld": "^6.0.0",
     "did-context": "^3.0.1",
     "ed25519-signature-2020-context": "^1.1.0",
-    "esm": "^3.2.25",
     "fast-json-patch": "^2.2.1",
     "json-ld-patch-context": "^4.0.0",
     "jsonld-signatures": "^9.3.0",

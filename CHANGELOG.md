@@ -5,7 +5,7 @@
 ### `14.0.0-` - TBD
 
 ### Removed
-- Remove unused deps `apisauce@2.1.1`, `jsonld@5.2.0` and
+- Remove unused deps `apisauce@2.1.1`, `jsonld@5.2.0`, `esm@3.2.25` and
   devDeps `@digitalbazaar/ed25519-verification-key-2018@3.1.1`.
 
 ### `14.0.0-beta.2` - 2021-08-19
