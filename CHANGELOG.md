@@ -1,9 +1,13 @@
 # did-veres-one ChangeLog
 
+### Changed
+- **BREAKING**: Revert addition of backwards compatibility for key pairs. If
+  older key pairs must be used, please see the conversion code in 13.0.2.
+
 ## 13.0.2 - 2021-05-25
 
 ### Fixed
-- Add more backwards compat for key pairs.
+- Add more backwards compatibility for key pairs.
 
 ## 13.0.1 - 2021-04-21
 
