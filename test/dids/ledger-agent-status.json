@@ -1,0 +1,59 @@
+{
+  "@context": "https://w3id.org/webledger/v1",
+  "id": "https://ashburn.capybara.veres.one/ledger-agents/d7e8cbdf-1091-40ec-9d48-4eed1b3c0dd6",
+  "latestConfigEvent": {
+    "@context": "https://w3id.org/webledger/v1",
+    "type": "WebLedgerConfigurationEvent",
+    "ledgerConfiguration": {
+      "@context": "https://w3id.org/webledger/v1",
+      "type": "WebLedgerConfiguration",
+      "ledger": "did:v1:test:nym:z6MkiZds3NEir8NFSu8q76XwUMdQFCP1RH5V5UbEWA52dJxr",
+      "consensusMethod": "Continuity2017",
+      "electorSelectionMethod": {
+        "type": "ElectorPoolElectorSelection",
+        "electorPool": "did:v1:test:uuid:a3dd75aa-bb78-431d-b767-630831882545"
+      },
+      "sequence": 0,
+      "ledgerConfigurationValidator": [
+        {
+          "type": "VeresOneValidator2017"
+        }
+      ],
+      "operationValidator": [
+        {
+          "type": "VeresOneValidator2017",
+          "validatorFilter": [
+            {
+              "type": "ValidatorFilterByType",
+              "validatorFilterByType": [
+                "CreateWebLedgerRecord",
+                "UpdateWebLedgerRecord"
+              ]
+            }
+          ]
+        }
+      ],
+      "proof": {
+        "type": "Ed25519Signature2020",
+        "created": "2020-02-21T17:55:00Z",
+        "verificationMethod": "did:v1:test:nym:z6MkiZds3NEir8NFSu8q76XwUMdQFCP1RH5V5UbEWA52dJxr#z6MkqNJ9K5GoRadSeRpBexmJWfUoHh8W7ak3cZbHxkvFNmeN",
+        "proofPurpose": "assertionMethod",
+        "jws": "eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..x6shr7MiwK7NL55AacsRb-mb5lsfXX_i36Y87lYMTbNyiZbE6NnOd51E198POW6yPnD15qLwjz2Zh5ta7Z86AA"
+      }
+    }
+  },
+  "owner": "admin",
+  "public": true,
+  "service": {
+    "ledgerAgentStatusService": "https://ashburn.capybara.veres.one/ledger-agents/d7e8cbdf-1091-40ec-9d48-4eed1b3c0dd6",
+    "ledgerConfigService": "https://ashburn.capybara.veres.one/ledger-agents/d7e8cbdf-1091-40ec-9d48-4eed1b3c0dd6/config",
+    "ledgerOperationService": "https://ashburn.capybara.veres.one/ledger-agents/d7e8cbdf-1091-40ec-9d48-4eed1b3c0dd6/operations",
+    "ledgerEventService": "https://ashburn.capybara.veres.one/ledger-agents/d7e8cbdf-1091-40ec-9d48-4eed1b3c0dd6/events",
+    "ledgerBlockService": "https://ashburn.capybara.veres.one/ledger-agents/d7e8cbdf-1091-40ec-9d48-4eed1b3c0dd6/blocks",
+    "ledgerQueryService": "https://ashburn.capybara.veres.one/ledger-agents/d7e8cbdf-1091-40ec-9d48-4eed1b3c0dd6/query",
+    "urn:veresone:ticket-service": {
+      "id": "https://ashburn.capybara.veres.one/ledger-agents/d7e8cbdf-1091-40ec-9d48-4eed1b3c0dd6/plugins/veres-one-ticket-service-agent"
+    }
+  },
+  "targetNode": "https://ashburn.capybara.veres.one/consensus/continuity2017/voters/z6MkgTBtCodgNvf1SaQLRbCppkVMo7BggAP4NohtPY8ZNqic"
+}

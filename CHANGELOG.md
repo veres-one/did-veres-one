@@ -1,8 +1,95 @@
 # did-veres-one ChangeLog
 
+## 14.0.0 -
+
+### `14.0.0-beta.2` - 2021-08-19
+
+### Added
+- Add `driver.getInitial()` method, to explicitly construct a DID Document
+  deterministically, from a cryptonym DID.
+- Add an optional `seed` param to `generate()` to generate DID document from
+  a 32-byte array seed.
+
+
+### Changed
+- **BREAKING**: Replaced axios with @digitalbazaar/http-client. Errors returned
+  directly from http-client do not match the axios API.
+- Changed API `getTicketServiceProof` to use `@digitalbazaar/http-client`.
+- Changed API `sendToAccelerator` to use `@digitalbazaar/http-client`.
+- **BREAKING**: API attachInvocationProof now requires the parameter `invocationTarget`.
+- **BREAKING**: API attachInvocationProof now accepts a single object as parameters.
+
+### `14.0.0-beta.1` - 2021-05-28
+
+### Changed
+- **BREAKING**: Change in `generate()` semantics to support the common un-registered
+  DID use case. (See the "Upgrading from `<=12.x` section" below, item 1.)
+  Now, `generate()` now only generates one key, for `capabilityInvocation` but
+  also all the other purposes (much like generating a new `did:key` DID).
+  (Helper libraries are expected to generate other keys before registering the
+  DID Document on the ledger.)
+
+### `14.0.0-beta.0`
+
 ### Changed
 - **BREAKING**: Revert addition of backwards compatibility for key pairs. If
   older key pairs must be used, please see the conversion code in 13.0.2.
+- **BREAKING**: Update to the newest contexts, crypto suites, `did-io` version.
+- **BREAKING**: Change `.generate()` return signature, now returns
+  `{didDocument, keyPairs, methodFor}`.
+- **BREAKING**: Remove unused/obsolete `passphrase` parameter.
+- **BREAKING**: Remove the `forceConstruct` parameter from `.get()` --
+  use the CachedResolver from https://github.com/digitalbazaar/did-io instead.
+- **BREAKING**: Rename `.computeKeyId()` to `.computeId()`.
+
+### Upgrading from <=12.x
+
+**1)** DID Document `generate()` method return signature has changed.
+Change in `generate()` semantics (as of `v14.0.0-beta.1`). Since we expect using
+an un-registered Veres One DID to be a common use case, the previous `generate()`
+behavior introduced complications, since different keys for each proof purpose
+were created by default. Except that, for the case of un-registered DIDs, the
+next time it was resolved, the `capabilityInvocation` key was used (derived from
+the cryptonym) as the signing key for all purposes (same behavior as `did:key`
+DIDs). To simplify this, `generate()` now only generates one key, for
+`capabilityInvocation` but also all the other purposes (much like generating
+a new `did:key` DID). To support a proper diversity of keys for registered
+DIDs, helper libraries are expected to generate and add additional keys for
+other proof purposes, before registering a DID Document on the ledger.
+
+**Before:** `const didDocument = await veresOneDriver.generate();`
+
+The generated `didDocument` was an instance of the `VeresOneDidDoc` class,
+and stored its own generated key pairs in `didDocument.keys`.
+It also contained different keys for each proof purpose (they were generated,
+if not explicitly provided).
+
+**Now:** `const {didDocument, keyPairs, methodFor} = await veresOneDriver.generate();`
+
+In v13, the generated `didDocument` is a plain Javascript object, with no
+methods. Generated keys are returned in the `keyPairs` property (a js `Map`
+instance, with key pairs stored by key id).
+In addition, a helper method `methodFor` is provided, to help retrieve keys
+for a particular purpose. For example:
+`methodFor({purpose: 'capabilityInvocation'})` returns the first available
+public/private key pair instance that is referenced in the DID Document's
+`capabilityInvocation` verification relationship.
+
+**2)** Driver `.get()` method has changed -- no longer uses the `forceConstruct`
+parameter. Developers are encouraged to use the CachedResolver from
+https://github.com/digitalbazaar/did-io instead.
+`driver.get()` can still be used to fetch either the full DID Document (via
+`await driver.get({did})`) or a key document (via `await driver.get({url: keyId})`).
+
+**3)** Check for `.computeKeyId()` usage. It's been renamed to `.computeId()`.
+
+**4)** Validation methods have changed (used by the `did-veres-one` validator
+node):
+
+- `didDocument.validateDid({mode})` becomes:
+  `VeresOneDriver.validateDid({didDocument, mode})`
+- `didDocument.validateMethodIds()` becomes:
+  `VeresOneDriver.validateMethodIds({didDocument})`
 
 ## 13.0.2 - 2021-05-25
 
