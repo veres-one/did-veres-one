@@ -14,7 +14,7 @@ import {
 import {CryptoLD} from 'crypto-ld';
 import {VeresOneDriver} from '../lib/index.js';
 
-import {createRequire} from 'module';
+import {createRequire} from 'node:module';
 const requireJson = createRequire(import.meta.url);
 
 // eslint-disable-next-line max-len
