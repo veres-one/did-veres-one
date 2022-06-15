@@ -5,7 +5,7 @@
   "type": "module",
   "exports": "./lib/index.js",
   "files": [
-    "lib/"
+    "lib/**/*.js"
   ],
   "repository": {
     "type": "git",
