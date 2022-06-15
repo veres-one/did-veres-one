@@ -7,12 +7,12 @@ chai.should();
 
 const {expect} = chai;
 
-import tls from 'tls';
+import tls from 'node:tls';
 tls.DEFAULT_ECDH_CURVE = 'auto';
 
 import {VeresOneClient} from '../lib/index.js';
 
-import {createRequire} from 'module';
+import {createRequire} from 'node:module';
 const requireJson = createRequire(import.meta.url);
 
 const TEST_HOSTNAME = 'ashburn.capybara.veres.one';

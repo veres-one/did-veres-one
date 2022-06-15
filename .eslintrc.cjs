@@ -1,12 +1,15 @@
 module.exports = {
   root: true,
+  env: {
+    node: true,
+    browser: true
+  },
   extends: [
     'digitalbazaar',
     'digitalbazaar/jsdoc',
     'digitalbazaar/module'
   ],
-  env: {
-    node: true,
-    browser: true
+  rules: {
+    'unicorn/prefer-node-protocol': 'error'
   }
 };
