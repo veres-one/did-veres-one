@@ -16,8 +16,8 @@ enables a developer to:
 
 | Network | Client library version |
 | :--- | :--- |
-| Capybara Testnet | ^v13.0.0 |
-| Local ledger dev/testing | ^v14.0.0 |
+| Capybara Testnet | ^13.0.0 |
+| Local ledger dev/testing | ^14.0.0, ^15.0.0 |
 
 ## Configuration
 
@@ -41,6 +41,10 @@ for example), you can specify the override directly:
 ## Usage
 
 ### Installation
+
+- Browsers and Node.js 14+ are supported.
+
+To install from NPM:
 
 ```
 npm install did-veres-one
