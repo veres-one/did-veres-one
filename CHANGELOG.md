@@ -1,6 +1,6 @@
 # did-veres-one ChangeLog
 
-### 15.0.0 - 2022-06-15
+## 15.0.0 - 2022-06-15
 
 ### Changed
 - **BREAKING**: Convert to module (ESM).
