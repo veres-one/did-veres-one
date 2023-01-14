@@ -4,6 +4,7 @@
 
 ### Changed
 - Update dependencies.
+- **BREAKING**: Updated dependencies use the newer default safe mode of jsonld.
 
 ## 15.0.0 - 2022-06-15
 
