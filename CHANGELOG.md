@@ -1,5 +1,10 @@
 # did-veres-one ChangeLog
 
+## 16.0.0 - 2023-xx-xx
+
+### Changed
+- Update dependencies.
+
 ## 15.0.0 - 2022-06-15
 
 ### Changed
