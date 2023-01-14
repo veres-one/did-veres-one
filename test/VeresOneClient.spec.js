@@ -1,8 +1,8 @@
 /*!
  * Copyright (c) 2018-2022 Veres One Project. All rights reserved.
  */
-import nock from 'nock';
 import chai from 'chai';
+import nock from 'nock';
 chai.should();
 
 const {expect} = chai;
