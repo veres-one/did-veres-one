@@ -1,5 +1,11 @@
 # did-veres-one ChangeLog
 
+## 16.0.1 - 2024-04-dd
+
+### Fixed
+- Improve compliance with DID core v1 by including `verificationMethod` in
+  generated DID documents.
+
 ## 16.0.0 - 2023-01-17
 
 ### Changed
