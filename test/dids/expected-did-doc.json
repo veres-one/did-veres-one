@@ -6,13 +6,16 @@
     "https://w3id.org/security/suites/x25519-2020/v1"
   ],
   "id": "did:v1:test:nym:z6Mkpw72M9suPCBv48X2Xj4YKZJH9W7wzEK1aS6JioKSo89C",
-  "capabilityInvocation": [
+  "verificationMethod": [
     {
       "id": "did:v1:test:nym:z6Mkpw72M9suPCBv48X2Xj4YKZJH9W7wzEK1aS6JioKSo89C#z6Mkpw72M9suPCBv48X2Xj4YKZJH9W7wzEK1aS6JioKSo89C",
       "type": "Ed25519VerificationKey2020",
       "controller": "did:v1:test:nym:z6Mkpw72M9suPCBv48X2Xj4YKZJH9W7wzEK1aS6JioKSo89C",
       "publicKeyMultibase": "z6Mkpw72M9suPCBv48X2Xj4YKZJH9W7wzEK1aS6JioKSo89C"
     }
+  ],
+  "capabilityInvocation": [
+    "did:v1:test:nym:z6Mkpw72M9suPCBv48X2Xj4YKZJH9W7wzEK1aS6JioKSo89C#z6Mkpw72M9suPCBv48X2Xj4YKZJH9W7wzEK1aS6JioKSo89C"
   ],
   "authentication": [
     "did:v1:test:nym:z6Mkpw72M9suPCBv48X2Xj4YKZJH9W7wzEK1aS6JioKSo89C#z6Mkpw72M9suPCBv48X2Xj4YKZJH9W7wzEK1aS6JioKSo89C"

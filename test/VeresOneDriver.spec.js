@@ -1,5 +1,5 @@
 /*!
- * Copyright (c) 2018-2023 Veres One Project. All rights reserved.
+ * Copyright (c) 2018-2024 Veres One Project. All rights reserved.
  */
 import chai from 'chai';
 import nock from 'nock';
@@ -183,7 +183,8 @@ describe('methods/veres-one', () => {
       const {didDocument} = await driver.generate({seed: seedBytes});
       expect(didDocument).to.have.keys([
         '@context', 'id', 'authentication', 'assertionMethod',
-        'capabilityDelegation', 'capabilityInvocation', 'keyAgreement'
+        'capabilityDelegation', 'capabilityInvocation', 'keyAgreement',
+        'verificationMethod'
       ]);
       expect(didDocument.id).to.match(/^did:v1:test:nym:z.*/);
       expect(didDocument['@context']).to.eql([
@@ -200,7 +201,8 @@ describe('methods/veres-one', () => {
 
       expect(didDocument).to.have.keys([
         '@context', 'id', 'authentication', 'assertionMethod',
-        'capabilityDelegation', 'capabilityInvocation', 'keyAgreement'
+        'capabilityDelegation', 'capabilityInvocation', 'keyAgreement',
+        'verificationMethod'
       ]);
       expect(didDocument.id).to.match(/^did:v1:test:nym:z.*/);
 
@@ -211,7 +213,7 @@ describe('methods/veres-one', () => {
         'https://w3id.org/security/suites/x25519-2020/v1'
       ]);
 
-      for(const purpose of ['capabilityInvocation', 'keyAgreement']) {
+      for(const purpose of ['verificationMethod', 'keyAgreement']) {
         const [publicKey] = didDocument[purpose];
         expect(publicKey).to.have
           .keys('id', 'type', 'controller', 'publicKeyMultibase');
@@ -221,7 +223,8 @@ describe('methods/veres-one', () => {
         expect(publicKey.id).to.equal(keyPair.id);
         expect(keyPair).to.have.property('privateKeyMultibase');
       }
-      const invokeKeyId = didDocument.capabilityInvocation[0].id;
+      const invokeKeyId = didDocument.verificationMethod[0].id;
+      expect(didDocument.capabilityInvocation[0]).to.equal(invokeKeyId);
       expect(didDocument.authentication[0]).to.equal(invokeKeyId);
       expect(didDocument.assertionMethod[0]).to.equal(invokeKeyId);
       expect(didDocument.capabilityDelegation[0]).to.equal(invokeKeyId);
@@ -240,7 +243,8 @@ describe('methods/veres-one', () => {
 
       expect(didDocument).to.have.keys([
         '@context', 'id', 'authentication', 'assertionMethod',
-        'capabilityDelegation', 'capabilityInvocation', 'keyAgreement'
+        'capabilityDelegation', 'capabilityInvocation', 'keyAgreement',
+        'verificationMethod'
       ]);
       expect(didDocument.id).to.match(/^did:v1:test:nym:z.*/);
 
@@ -251,7 +255,7 @@ describe('methods/veres-one', () => {
         'https://w3id.org/security/suites/x25519-2020/v1'
       ]);
 
-      for(const purpose of ['capabilityInvocation', 'keyAgreement']) {
+      for(const purpose of ['verificationMethod', 'keyAgreement']) {
         const [publicKey] = didDocument[purpose];
         expect(publicKey).to.have
           .keys('id', 'type', 'controller', 'publicKeyMultibase');
@@ -261,7 +265,8 @@ describe('methods/veres-one', () => {
         expect(publicKey.id).to.equal(keyPair.id);
         expect(keyPair).to.have.property('publicKeyMultibase');
       }
-      const invokeKeyId = didDocument.capabilityInvocation[0].id;
+      const invokeKeyId = didDocument.verificationMethod[0].id;
+      expect(didDocument.capabilityInvocation[0]).to.equal(invokeKeyId);
       expect(didDocument.authentication[0]).to.equal(invokeKeyId);
       expect(didDocument.assertionMethod[0]).to.equal(invokeKeyId);
       expect(didDocument.capabilityDelegation[0]).to.equal(invokeKeyId);
