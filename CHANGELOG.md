@@ -1,6 +1,6 @@
 # did-veres-one ChangeLog
 
-## 16.0.1 - 2024-04-dd
+## 16.0.1 - 2024-08-26
 
 ### Fixed
 - Improve compliance with DID core v1 by including `verificationMethod` in
