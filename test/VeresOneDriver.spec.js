@@ -1,5 +1,5 @@
 /*!
- * Copyright (c) 2018-2024 Veres One Project. All rights reserved.
+ * Copyright (c) 2018-2026 Veres One Project.
  */
 import chai from 'chai';
 import nock from 'nock';
@@ -17,9 +17,9 @@ import {VeresOneDriver} from '../lib/index.js';
 import {createRequire} from 'node:module';
 const requireJson = createRequire(import.meta.url);
 
-// eslint-disable-next-line max-len
+// eslint-disable-next-line @stylistic/max-len
 const TEST_DID = 'did:v1:test:nym:z6MkpuEWNixE7JwBfbiZu4feAgtGL8zB1RCAJtKoZNLyJYTJ';
-// eslint-disable-next-line max-len
+// eslint-disable-next-line @stylistic/max-len
 const TEST_SEED = '8c2114a150a16209c653817acc7f3e7e9c6c6290ae93d6689cbd61bb038cd31b';
 const UNREGISTERED_NYM =
   'did:v1:test:nym:z6MkiCqJ7vhBXRau9BT9yXA9LxSGarmL4W8gFD8qajBZz4gQ';
@@ -93,7 +93,7 @@ describe('methods/veres-one', () => {
 
       _nockLedgerAgentStatus();
 
-      // eslint-disable-next-line max-len
+      // eslint-disable-next-line @stylistic/max-len
       const unregisteredKey = 'did:v1:nym:z6MkiCqJ7vhBXRau9BT9yXA9LxSGarmL4W8gFD8qajBZz4gQ#z6MkiCqJ7vhBXRau9BT9yXA9LxSGarmL4W8gFD8qajBZz4gQ';
       const result = await driver.get({did: unregisteredKey});
 
@@ -102,10 +102,10 @@ describe('methods/veres-one', () => {
           'https://w3id.org/did/v0.11',
           'https://w3id.org/veres-one/v1'
         ],
-        // eslint-disable-next-line max-len
+        // eslint-disable-next-line @stylistic/max-len
         id: 'did:v1:test:nym:z6MkesAjEQrikUeuh6K496DDVm6d1DUzMMGQtFHuRFM1fkgt#z6MkesAjEQrikUeuh6K496DDVm6d1DUzMMGQtFHuRFM1fkgt',
         type: 'Ed25519VerificationKey2020',
-        // eslint-disable-next-line max-len
+        // eslint-disable-next-line @stylistic/max-len
         controller: 'did:v1:test:nym:z6MkesAjEQrikUeuh6K496DDVm6d1DUzMMGQtFHuRFM1fkgt',
         publicKeyBase58: 'QugeAcHQwASabUMTXFNefYdBeD8wU24CENyayNzkXuW'
       });
@@ -126,7 +126,7 @@ describe('methods/veres-one', () => {
 
       let error;
       let result;
-      // eslint-disable-next-line max-len
+      // eslint-disable-next-line @stylistic/max-len
       const nonInvokeKey = 'did:v1:test:nym:z6MkesAjEQrikUeuh6K496DDVm6d1DUzMMGQtFHuRFM1fkgt#z6MkrhVjBzL7pjojt3nYxSbNkTkZuCyRh6izYEUJL4pyPbB6';
 
       try {

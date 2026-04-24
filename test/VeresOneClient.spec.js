@@ -1,5 +1,5 @@
 /*!
- * Copyright (c) 2018-2022 Veres One Project. All rights reserved.
+ * Copyright (c) 2018-2026 Veres One Project.
  */
 import chai from 'chai';
 import nock from 'nock';
@@ -66,7 +66,7 @@ describe.skip('web ledger client', () => {
 
         const testKeyId = TEST_DID + '#authn-1';
 
-        /* eslint-disable quotes, quote-props */
+        /* eslint-disable @stylistic/quotes, @stylistic/quote-props */
         const expectedDoc = {
           "@context": [
             "https://w3id.org/did/v0.11", "https://w3id.org/veres-one/v1"
@@ -78,7 +78,7 @@ describe.skip('web ledger client', () => {
             "nym:2pfPix2tcwa7gNoMRxdcHbEyFGqaVBPNntCsDZexVeHX",
           "publicKeyBase58": "2pfPix2tcwa7gNoMRxdcHbEyFGqaVBPNntCsDZexVeHX"
         };
-        /* eslint-enable quotes, quote-props */
+        /* eslint-enable @stylistic/quotes, @stylistic/quote-props */
 
         const result = await client.get({did: testKeyId});
 
@@ -92,7 +92,7 @@ describe.skip('web ledger client', () => {
           .post(`/accelerator/proofs`)
           .reply(200, ACCELERATOR_RESPONSE);
 
-        /* eslint-disable quotes, quote-props */
+        /* eslint-disable @stylistic/quotes, @stylistic/quote-props */
         const operation = {
           "@context": "https://w3id.org/veres-one/v1",
           "type": "CreateWebLedgerRecord",
@@ -101,7 +101,7 @@ describe.skip('web ledger client', () => {
             "id": "did:v1:test:uuid:ad33d59b630f44d49bdfb8266d4a243e"
           }
         };
-        /* eslint-enable quotes, quote-props */
+        /* eslint-enable @stylistic/quotes, @stylistic/quote-props */
 
         const result = await client.sendToAccelerator({
           operation,
