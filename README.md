@@ -1,8 +1,5 @@
 # Veres One DID Driver (_did-veres-one_)
 
-[![Build Status](https://travis-ci.org/veres-one/did-veres-one.svg?branch=master&style=flat-square)](https://travis-ci.org/veres-one/did-veres-one)
-[![NPM Version](https://img.shields.io/npm/v/did-veres-one.svg?style=flat-square)](https://npm.im/did-veres-one)
-
 ## Background
 
 This library provides support classes for creating and processing
