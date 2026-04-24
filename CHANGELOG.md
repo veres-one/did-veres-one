@@ -1,5 +1,13 @@
 # did-veres-one ChangeLog
 
+## 16.2.0 - 2026-04-xx
+
+### Changed
+- **NOTE**: Update supported platforms.
+  - Test on Node.js >=20.
+  - Update `engines.node` to `>=20`.
+  - Update README requirements section.
+
 ## 16.1.1 - 2024-10-15
 
 ### Fixed
