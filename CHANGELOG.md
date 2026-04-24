@@ -3,6 +3,7 @@
 ## 16.2.0 - 2026-04-xx
 
 ### Changed
+- Use `crypto.randomUUID()` instead of `uuid` package.
 - **NOTE**: Update supported platforms.
   - Test on Node.js >=20.
   - Update `engines.node` to `>=20`.

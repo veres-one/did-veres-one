@@ -36,7 +36,6 @@
     "fast-json-patch": "^3.1.1",
     "json-ld-patch-context": "^4.0.0",
     "jsonld-signatures": "^11.3.1",
-    "uuid": "^10.0.0",
     "veres-one-context": "^12.0.0",
     "web-ledger-client": "^7.0.0",
     "web-ledger-context": "^12.0.0",
